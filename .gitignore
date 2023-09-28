@@ -363,4 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignore Lib
-./Lib
+Lib
+
+# Ignore glew32.dll
+glew32.dll
