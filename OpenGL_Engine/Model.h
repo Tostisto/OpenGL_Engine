@@ -14,9 +14,10 @@ class Model
 	GLuint VAO = 0;
 
 	float* points;
+	int numPoints;
 
 	public:
-		Model(float* points, int numPoints);
+		Model(float* points, int numPoints, int pointSize);
 		~Model();
 
 		void Draw();

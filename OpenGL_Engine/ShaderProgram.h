@@ -7,6 +7,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
 #include "VertexShader.h"
 #include "FragmentShader.h"
 
@@ -14,18 +15,20 @@ class ShaderProgram
 {
 	GLuint programID;
 
-	VertexShader *vertexShader;
-	FragmentShader *fragmentShader;
+	VertexShader* vertexShader;
+	FragmentShader* fragmentShader;
 
 	void AttachShaders();
 	void LinkProgram();
 
 	void CheckProgram();
 
-	public:
-		ShaderProgram(VertexShader *vertexShader, FragmentShader *fragmentShader);
+public:
+	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader);
 
-		GLuint GetProgramID();
-		void UseProgram();
+	GLuint GetProgramID();
+	void UseProgram();
+
+	void setUniform(const char* name, glm::mat4 matrix);
 };
 
