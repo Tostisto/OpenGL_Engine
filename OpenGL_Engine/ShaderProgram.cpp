@@ -53,3 +53,10 @@ void ShaderProgram::UseProgram()
 {
 	glUseProgram(this->programID);
 }
+
+void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
+{
+	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), name);
+
+	glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &matrix[0][0]);
+}

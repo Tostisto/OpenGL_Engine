@@ -136,10 +136,15 @@
     <ClCompile Include="FragmentShader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Rotation.cpp" />
+    <ClCompile Include="Scale.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Transformation.cpp" />
+    <ClCompile Include="TransformCollection.cpp" />
+    <ClCompile Include="Translation.cpp" />
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -148,16 +153,22 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="FragmentShader.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Rotation.h" />
+    <ClInclude Include="Scale.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Transformation.h" />
+    <ClInclude Include="TransformCollection.h" />
+    <ClInclude Include="Translation.h" />
     <ClInclude Include="VertexShader.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.frag" />
     <None Include="Shaders\shader.vert" />
+    <None Include="Shaders\shader2.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
