@@ -6,7 +6,8 @@ Application::Application()
 
 	this->InitVersions(3, 3);
 
-	this->window = new Window(640, 480);
+	this->window = new Window(1080, 720);
+	this->window->BindCallbacks();
 
 	this->InitGLEW();
 
@@ -14,7 +15,7 @@ Application::Application()
 
 	this->window->UpdateViewportSize();
 
-	this->scene = new Scene();
+	this->scene = new Scene(this->window);
 }
 
 void Application::InitGLFW()
@@ -53,6 +54,11 @@ void Application::InitVersions(int major_version, int minor_version)
 
 void Application::Run()
 {
+	Callback* callback = Callback::GetInstance();
+	callback->RegisterCallbacks();
+
+	glEnable(GL_DEPTH_TEST);
+
 	while (!glfwWindowShouldClose(this->window->window)) {
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

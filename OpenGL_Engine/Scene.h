@@ -21,6 +21,11 @@
 #include "Translation.h"
 #include "Scale.h"
 
+#include "Window.h"
+
+#include "Camera.h"
+
+
 class Scene
 {
 private:
@@ -29,8 +34,12 @@ private:
 
 	double angle = 0.0f;
 
+	Window* window;
+
+	Camera* camera;
+
 public:
-	Scene();
+	Scene(Window* window);
 
 	void AddDrawable(Drawable* drawable);
 	void RemoveDrawable(Drawable* drawable);

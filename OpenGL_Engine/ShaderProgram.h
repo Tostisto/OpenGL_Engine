@@ -11,7 +11,11 @@
 #include "VertexShader.h"
 #include "FragmentShader.h"
 
-class ShaderProgram
+#include "Observer.h"
+
+#include "Camera.h"
+
+class ShaderProgram : public Observer
 {
 	GLuint programID;
 
@@ -30,5 +34,7 @@ public:
 	void UseProgram();
 
 	void setUniform(const char* name, glm::mat4 matrix);
+
+	void Update(Subject* subject);
 };
 

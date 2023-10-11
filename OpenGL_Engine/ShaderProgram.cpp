@@ -58,5 +58,27 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 {
 	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), name);
 
+	if (idModelTransform == -1)
+	{
+		fprintf(stderr, "Could not bind uniform %s\n", name);
+		exit(EXIT_FAILURE);
+	}
+
 	glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &matrix[0][0]);
+}
+
+void ShaderProgram::Update(Subject* subject)
+{
+	// TOOD: Update shader program
+
+	//fprintf(stdout, "ShaderProgram::Update()\n");
+
+	Camera* camera = (Camera*)subject;
+
+	glm::mat4 viewMatrix = camera->GetViewMatrix();
+
+	// now i need to send to shader using uniform
+	this->setUniform("viewMatrix", viewMatrix);
+
+	fprintf(stdout, "ShaderProgram::Update() - viewMatrix\n");
 }

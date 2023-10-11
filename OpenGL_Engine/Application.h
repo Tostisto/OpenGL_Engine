@@ -27,8 +27,9 @@
 
 #include "ShaderProgram.h"
 
-
 #include "Scene.h"
+
+#include "Callback.h"
 
 class Application
 {
