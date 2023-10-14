@@ -10,7 +10,7 @@
 
 #include "Callback.h"
 
-class Window
+class Window : public Observer
 {
 public:
 
@@ -28,5 +28,7 @@ public:
 	glm::mat4 GetProjectionMatrix();
 
 	bool GetKey(int key);
+
+	void Update(Subject* subject, const char* type, void* data);
 };
 

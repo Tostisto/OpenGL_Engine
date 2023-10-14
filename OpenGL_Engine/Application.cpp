@@ -56,6 +56,7 @@ void Application::Run()
 {
 	Callback* callback = Callback::GetInstance();
 	callback->RegisterCallbacks();
+	callback->Attach(this->window);
 
 	glEnable(GL_DEPTH_TEST);
 

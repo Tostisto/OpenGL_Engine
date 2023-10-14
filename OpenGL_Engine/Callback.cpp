@@ -42,7 +42,10 @@ void Callback::WindowIconifyCallback(GLFWwindow* window, int iconified)
 void Callback::WindowSizeCallback(GLFWwindow* window, int width, int height)
 {
 	printf("resize %d, %d \n", width, height);
-	glViewport(0, 0, width, height);
+
+	glm::vec2 window_size = glm::vec2(width, height);
+
+	Notify("window_resize", &window_size);
 }
 
 void Callback::CursorCallback(GLFWwindow* window, double xpos, double ypos)

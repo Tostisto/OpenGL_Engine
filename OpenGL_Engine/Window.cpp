@@ -62,3 +62,15 @@ bool Window::GetKey(int key)
 {
 	return glfwGetKey(this->window, key);
 }
+
+void Window::Update(Subject* subject, const char* type, void* data)
+{
+	if (strcmp(type, "window_resize") == 0) {
+		glm::vec2 window_size = *static_cast<glm::vec2*>(data);
+
+		this->width = window_size.x;
+		this->height = window_size.y;
+
+		this->UpdateViewportSize();
+	}
+}
