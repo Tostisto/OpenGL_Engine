@@ -12,11 +12,10 @@ private:
 	Model* model;
 	ShaderProgram* shader_program = nullptr;
 
-	public:
-		Drawable(Model* model);
+public:
+	Drawable(Model* model);
 
-		void LinkShaderProgram(ShaderProgram* shader_program);
-
-		void Render();
+	void LinkShaderProgram(ShaderProgram* shader_program);
+	void Render();
 };
 

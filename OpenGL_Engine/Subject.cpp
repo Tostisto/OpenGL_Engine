@@ -10,10 +10,10 @@ void Subject::Detach(Observer* observer)
 	this->observers->erase(std::remove(this->observers->begin(), this->observers->end(), observer), this->observers->end());
 }
 
-void Subject::Notify()
+void Subject::Notify(const char* type, void* data)
 {
 	for (auto observer : *observers)
 	{
-		observer->Update(this);
+		observer->Update(this, type, data);
 	}
 }

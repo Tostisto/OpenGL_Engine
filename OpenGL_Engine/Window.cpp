@@ -16,7 +16,6 @@ Window::Window(int width, int height)
 	glfwMakeContextCurrent(this->window);
 
 	glfwSwapInterval(1);
-
 }
 
 Window::~Window()
@@ -57,10 +56,6 @@ glm::mat4 Window::GetProjectionMatrix()
 {
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), this->width / (float)this->height, 0.1f, 100.0f);
 	return projectionMatrix;
-}
-
-void Window::Update(Subject* subject)
-{
 }
 
 bool Window::GetKey(int key)

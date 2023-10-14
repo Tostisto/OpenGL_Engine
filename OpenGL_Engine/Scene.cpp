@@ -23,29 +23,27 @@ Scene::Scene(Window* window)
 	this->shaderPrograms.push_back(shaderProgram);
 
 
-	// Model 2
-	Model* model2 = new Model(suziSmooth, 2904, 6);
-	Drawable* drawable2 = new Drawable(model2);
 
-	this->AddDrawable(drawable2);
+	//// Model 2
+	//Model* model2 = new Model(suziSmooth, 2904, 6);
+	//Drawable* drawable2 = new Drawable(model2);
 
-	// Model 2 Shaders
-	VertexShader* vertexShaderTest2 = new VertexShader("Shaders\\shader.vert");
-	FragmentShader* fragmentShaderTest2 = new FragmentShader("Shaders\\shader.frag");
-	ShaderProgram* shaderProgram2 = new ShaderProgram(vertexShaderTest2, fragmentShaderTest2);
+	//this->AddDrawable(drawable2);
 
-	this->shaderPrograms.push_back(shaderProgram2);
+	//// Model 2 Shaders
+	//VertexShader* vertexShaderTest2 = new VertexShader("Shaders\\shader.vert");
+	//FragmentShader* fragmentShaderTest2 = new FragmentShader("Shaders\\shader.frag");
+	//ShaderProgram* shaderProgram2 = new ShaderProgram(vertexShaderTest2, fragmentShaderTest2);
+
+	//this->shaderPrograms.push_back(shaderProgram2);
 
 
 
-
-	// Test just for the observer between camera and shader program
 	this->camera = new Camera();
-
 	this->camera->Attach(shaderProgram);
 
-	Callback::GetInstance()->Attach(this->camera);
-
+	this->cameraControll = new CameraControll(this->camera, this->window);
+	Callback::GetInstance()->Attach(this->cameraControll);
 }
 
 void Scene::AddDrawable(Drawable* drawable)
@@ -55,8 +53,6 @@ void Scene::AddDrawable(Drawable* drawable)
 
 void Scene::RemoveDrawable(Drawable* drawable)
 {
-	double angle = 20.0;
-
 	for (int i = 0; i < this->drawables.size(); i++) {
 		if (this->drawables[i] == drawable) {
 			this->drawables.erase(this->drawables.begin() + i);
@@ -67,10 +63,7 @@ void Scene::RemoveDrawable(Drawable* drawable)
 
 void Scene::Render()
 {
-	// Test came movement
-
-	this->camera->CameraMovement(this->window);
-
+	this->cameraControll->KeyboardMovement();
 
 	glm::mat4 projectionMatrix = this->window->GetProjectionMatrix();
 
@@ -87,32 +80,34 @@ void Scene::Render()
 	transformationCollection1->addTransformation(translation1);
 	transformationCollection1->addTransformation(scale1);
 
+
 	this->shaderPrograms[0]->setUniform("modelMatrix", transformationCollection1->getMatrix());
 
-	// test projection and view matrix
 	this->shaderPrograms[0]->setUniform("projectionMatrix", projectionMatrix);
-
 
 	this->drawables[0]->Render();
 
-	this->drawables[1]->LinkShaderProgram(this->shaderPrograms[1]);
-
-	// Second object transformations
-	float angleInRadians2 = static_cast<float>(glm::radians(50.0));
-	Rotation* rotation2 = new Rotation(angleInRadians2, glm::vec3(1.0f, 1.0f, 1.0f));
-	Translation* translation2 = new Translation(glm::vec3(0.3f, 0.0f, 0.0f));
-	Scale* scale2 = new Scale(glm::vec3(0.5f, 0.5f, 0.5f));
-
-	TransformCollection* tranformationCollection2 = new TransformCollection();
-	tranformationCollection2->addTransformation(rotation2);
-	tranformationCollection2->addTransformation(translation2);
-	tranformationCollection2->addTransformation(scale2);
 
 
-	this->shaderPrograms[1]->setUniform("modelMatrix", tranformationCollection2->getMatrix());
 
-	// test projection and view matrix
-	this->shaderPrograms[1]->setUniform("projectionMatrix", projectionMatrix);
 
-	this->drawables[1]->Render();
+	//this->drawables[1]->LinkShaderProgram(this->shaderPrograms[1]);
+
+	//// Second object transformations
+	//float angleInRadians2 = static_cast<float>(glm::radians(50.0));
+	//Rotation* rotation2 = new Rotation(angleInRadians2, glm::vec3(1.0f, 1.0f, 1.0f));
+	//Translation* translation2 = new Translation(glm::vec3(0.3f, 0.0f, 0.0f));
+	//Scale* scale2 = new Scale(glm::vec3(0.5f, 0.5f, 0.5f));
+
+	//TransformCollection* tranformationCollection2 = new TransformCollection();
+	//tranformationCollection2->addTransformation(rotation2);
+	//tranformationCollection2->addTransformation(translation2);
+	//tranformationCollection2->addTransformation(scale2);
+
+	//this->shaderPrograms[1]->setUniform("modelMatrix", tranformationCollection2->getMatrix());
+
+	//// test projection and view matrix
+	//this->shaderPrograms[1]->setUniform("projectionMatrix", projectionMatrix);
+
+	//this->drawables[1]->Render();
 }

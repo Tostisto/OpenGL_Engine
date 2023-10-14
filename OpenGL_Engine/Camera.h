@@ -10,7 +10,7 @@
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 
-class Camera : public Subject, public Observer
+class Camera : public Subject
 {
 private:
     float last_x = 0;
@@ -23,15 +23,24 @@ private:
     glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
 
+    float cameraSpeed = 0.05f;
+
 public:
     Camera();
 
     glm::mat4 GetViewMatrix();
-    glm::vec3 GetCameraPosition();
+    glm::vec3 GetCameraPos();
 
-    void CameraMovement(Window* window);
-    void MouseMovement(float x_pos, float y_pos);
+    // Movement 
+    void MoveForward();
+    void MoveBackward();
+    void MoveLeft();
+    void MoveRight();
+    void MoveUp();
+    void MoveDown();
 
-    void Update(Subject* subject);
+    glm::vec2 ApplyMouseSensitivity(glm::vec2 offset);
+    void UpdateCameraOrientation(glm::vec2 offset);
+    void UpdateCameraFront();  
 };
 

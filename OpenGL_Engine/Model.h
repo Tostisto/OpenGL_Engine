@@ -10,16 +10,17 @@
 
 class Model
 {
+private:
 	GLuint VBO = 0;
 	GLuint VAO = 0;
 
 	float* points;
 	int numPoints;
 
-	public:
-		Model(float* points, int numPoints, int pointSize);
-		~Model();
+public:
+	Model(float* points, int numPoints, int pointSize);
+	~Model();
 
-		void Draw();
+	void Draw();
 };
 

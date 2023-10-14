@@ -10,10 +10,7 @@
 
 #include "Callback.h"
 
-#include "Observer.h"
-#include "Subject.h"
-
-class Window : public Observer, public Subject
+class Window
 {
 public:
 
@@ -30,12 +27,6 @@ public:
 
 	glm::mat4 GetProjectionMatrix();
 
-	void Update(Subject* subject);
-
-
-
-	// Test
-	// Get Key
 	bool GetKey(int key);
 };
 

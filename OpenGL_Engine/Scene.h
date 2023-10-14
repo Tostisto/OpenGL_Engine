@@ -24,7 +24,7 @@
 #include "Window.h"
 
 #include "Camera.h"
-
+#include "CameraControll.h"
 
 class Scene
 {
@@ -32,11 +32,10 @@ private:
 	std::vector<Drawable*> drawables;
 	std::vector<ShaderProgram*> shaderPrograms;
 
-	double angle = 0.0f;
-
 	Window* window;
 
 	Camera* camera;
+	CameraControll* cameraControll;
 
 public:
 	Scene(Window* window);

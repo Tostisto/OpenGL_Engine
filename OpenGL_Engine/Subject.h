@@ -11,9 +11,7 @@ private:
 	std::vector<Observer*>* observers = new std::vector<Observer*>();
 
 public:
-	const char* type;
-
 	void Attach(Observer* observer);
 	void Detach(Observer* observer);
-	void Notify();
+	void Notify(const char* type, void* data);
 };

@@ -25,6 +25,8 @@ void Callback::KeyCallback(GLFWwindow* window, int key, int scancode, int action
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+	
+	Notify("key_press", nullptr);
 }
 
 void Callback::WindowFocusCallback(GLFWwindow* window, int focused)
@@ -45,10 +47,12 @@ void Callback::WindowSizeCallback(GLFWwindow* window, int width, int height)
 
 void Callback::CursorCallback(GLFWwindow* window, double xpos, double ypos)
 {
-	printf("cursor_callback \n");
 	mouse_x = xpos;
 	mouse_y = ypos;
-	Notify();
+
+	glm::vec2 mouse_pos = glm::vec2(xpos, ypos);
+
+	Notify("cursor_move", &mouse_pos);
 }
 
 void Callback::ButtonCallback(GLFWwindow* window, int button, int action, int mods)
