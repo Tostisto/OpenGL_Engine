@@ -1,87 +1,86 @@
 #include "Scene.h"
 
-Scene::Scene()
+#include "sphere.h"
+#include "suzi_smooth.h"
+
+Scene::Scene(Window* window)
 {
+	this->window = window;
+
 	this->drawables = std::vector<Drawable*>();
 
-	float points[] = {
-		0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-		0.5f, -0.5f, 0.0f, 0.0f,1.0f, 0.0f,
-	   -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,1.0f
-	};
-
-	Model* model = new Model(points, 3, 6);
-
-	Drawable* drawable = new Drawable(model);
-
-	this->AddDrawable(drawable);
-
+	// Model 1 Shaders
 	VertexShader* vertexShaderTest = new VertexShader("Shaders\\shader.vert");
 	FragmentShader* fragmentShaderTest = new FragmentShader("Shaders\\shader.frag");
-
 	ShaderProgram* shaderProgram = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
 
 	this->shaderPrograms.push_back(shaderProgram);
 
-	float cubeVertices[] = {
-		// Front face
-		-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
 
-		// Back face
-		-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
+	// Model 1
+	Model* model = new Model(suziSmooth, 2904, 6);
+	Drawable* drawable = new Drawable(model);
+	drawable->AddTransformation(new Rotation(static_cast<float>(glm::radians(50.0)), glm::vec3(1.0f, 1.0f, 1.0f)));
+	drawable->LinkShaderProgram(shaderPrograms[0]);
 
-		// Top face
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
+	this->AddDrawable(drawable);
 
-		// Bottom face
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f,
 
-		// Right face
-		 0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
 
-		 // Left face
-		 -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-		 -0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-		 -0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-		 -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-		 -0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-		 -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-	};
-
-	Model* model2 = new Model(cubeVertices, 36, 6);
-	
-	Drawable* drawable2 = new Drawable(model2);
-	//this->AddDrawable(drawable2);
-
+	// Model 2 Shaders
+	VertexShader*  vertexShaderTest2 = new VertexShader("Shaders\\shader.vert");
 	FragmentShader* fragmentShaderTest2 = new FragmentShader("Shaders\\shader.frag");
-	ShaderProgram* shaderProgram2 = new ShaderProgram(vertexShaderTest, fragmentShaderTest2);
+	ShaderProgram* shaderProgram2 = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
 
 	this->shaderPrograms.push_back(shaderProgram2);
+
+
+	// Model 2
+	Model* model2 = new Model(suziSmooth, 2904, 6);
+	Drawable* drawable2 = new Drawable(model2);
+	drawable->AddTransformation(new Translation(glm::vec3(2.0f, 0.0f, 0.0f)));
+	drawable2->LinkShaderProgram(shaderPrograms[1]);
+
+	this->AddDrawable(drawable2);
+
+
+	// Model 3 Shaders
+	VertexShader*  vertexShaderTest3 = new VertexShader("Shaders\\shader.vert");
+	FragmentShader* fragmentShaderTest3 = new FragmentShader("Shaders\\shader2.frag");
+	ShaderProgram* shaderProgram3 = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
+
+	this->shaderPrograms.push_back(shaderProgram3);
+
+	// Model 3
+	Model* model3 = new Model(sphere, 2880, 6);
+	Drawable* drawable3 = new Drawable(model3);
+	drawable3->AddTransformation(new Translation(glm::vec3(-3.0f, 0.0f, 0.0f)));
+	drawable3->LinkShaderProgram(shaderPrograms[2]);
+
+	this->AddDrawable(drawable3);
+
+
+	// Camera
+	this->camera = new Camera();
+
+	this->cameraControll = new CameraControll(this->camera, this->window);
+	Callback::GetInstance()->Attach(this->cameraControll);
+
+	this->camera->Attach(shaderProgram);
+	this->camera->Attach(shaderProgram2);
+	this->camera->Attach(shaderProgram3);
+
+
+
+	// Projection matrix
+	glm::mat4 projectionMatrix = this->window->GetProjectionMatrix();
+
+	// Projection matrix to shaders
+	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		this->shaderPrograms[i]->UseProgram();
+		this->shaderPrograms[i]->setUniform("projectionMatrix", projectionMatrix);
+	}
+
 }
 
 void Scene::AddDrawable(Drawable* drawable)
@@ -91,8 +90,6 @@ void Scene::AddDrawable(Drawable* drawable)
 
 void Scene::RemoveDrawable(Drawable* drawable)
 {
-	double angle = 20.0;
-
 	for (int i = 0; i < this->drawables.size(); i++) {
 		if (this->drawables[i] == drawable) {
 			this->drawables.erase(this->drawables.begin() + i);
@@ -103,27 +100,9 @@ void Scene::RemoveDrawable(Drawable* drawable)
 
 void Scene::Render()
 {
+	this->cameraControll->KeyboardMovement();
+
 	for (int i = 0; i < this->drawables.size(); i++) {
-
-		this->drawables[i]->LinkShaderProgram(this->shaderPrograms[i]);
-
-		float angleInRadians = static_cast<float>(glm::radians(angle));
-
-		Rotation* rotation = new Rotation(angleInRadians, glm::vec3(1.0f, 1.0f, 1.0f));
-		Translation* translation = new Translation(glm::vec3(1.0f, 0.0f, 0.0f));
-		Scale* scale = new Scale(glm::vec3(0.5f, 0.5f, 0.5f));
-
-		TransformCollection* transformCollection = new TransformCollection();
-
-		transformCollection->addTransformation(rotation);
-		//transformCollection->addTransformation(translation);
-		//transformCollection->addTransformation(scale);
-		
-
-		this->shaderPrograms[i]->setUniform("modelMatrix", transformCollection->getMatrix());
-
-		this->angle += 0.5f;
-
 		this->drawables[i]->Render();
 	}
 }

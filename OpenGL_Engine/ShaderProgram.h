@@ -7,28 +7,36 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include "VertexShader.h"
 #include "FragmentShader.h"
 
-class ShaderProgram
+#include "Observer.h"
+
+#include "Camera.h"
+
+class ShaderProgram : public Observer
 {
 	GLuint programID;
 
 	VertexShader* vertexShader;
 	FragmentShader* fragmentShader;
 
+	glm::mat4 viewMatrix;
+
 	void AttachShaders();
 	void LinkProgram();
-
 	void CheckProgram();
 
 public:
 	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader);
+	
+	void UseProgram();
+	void setUniform(const char* name, glm::mat4 matrix);
 
 	GLuint GetProgramID();
-	void UseProgram();
+	void SetViewMatrix();
 
-	void setUniform(const char* name, glm::mat4 matrix);
+
+	void Update(Subject* subject, const char* type, void* data);
 };
 

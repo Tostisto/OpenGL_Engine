@@ -4,9 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-class Window
-{
+#include <glm/glm.hpp>
 
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "Callback.h"
+
+class Window : public Observer
+{
 public:
 
 	GLFWwindow* window;
@@ -17,5 +22,13 @@ public:
 	~Window();
 
 	void UpdateViewportSize();
+
+	void BindCallbacks();
+
+	glm::mat4 GetProjectionMatrix();
+
+	bool GetKey(int key);
+
+	void Update(Subject* subject, const char* type, void* data);
 };
 

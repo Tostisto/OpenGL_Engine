@@ -21,16 +21,24 @@
 #include "Translation.h"
 #include "Scale.h"
 
+#include "Window.h"
+
+#include "Camera.h"
+#include "CameraControll.h"
+
 class Scene
 {
 private:
 	std::vector<Drawable*> drawables;
 	std::vector<ShaderProgram*> shaderPrograms;
 
-	double angle = 0.0f;
+	Window* window;
+
+	Camera* camera;
+	CameraControll* cameraControll;
 
 public:
-	Scene();
+	Scene(Window* window);
 
 	void AddDrawable(Drawable* drawable);
 	void RemoveDrawable(Drawable* drawable);
