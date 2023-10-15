@@ -1,8 +1,6 @@
 #include "Rotation.h"
 
-Rotation::Rotation(float angle, glm::vec3 axis) : angle(angle), axis(axis)
-{
-}
+Rotation::Rotation(float angle, glm::vec3 axis) : angle(angle), axis(axis) {}
 
 glm::mat4 Rotation::getMatrix() const
 {
