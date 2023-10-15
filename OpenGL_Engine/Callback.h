@@ -13,9 +13,6 @@ class Callback : public Subject
 private:
 	static Callback* instance;
 
-	double mouse_x = 0;
-	double mouse_y = 0;
-
 	Callback() = default;
 	static void ErrorCallback(int error, const char* description);
 
@@ -30,8 +27,5 @@ public:
 	void WindowSizeCallback(GLFWwindow* window, int width, int height);
 	void CursorCallback(GLFWwindow* window, double xpos, double ypos);
 	void ButtonCallback(GLFWwindow* window, int button, int action, int mods);
-
-	double GetMouseX();
-	double GetMouseY();
 };
 

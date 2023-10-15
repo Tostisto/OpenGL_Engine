@@ -8,15 +8,18 @@ CameraControll::CameraControll(Camera* camera, Window* window)
 
 void CameraControll::MouseMovement(float x_pos, float y_pos)
 {
-    float x_offset = x_pos - last_x;
-    float y_offset = last_y - y_pos;
-    last_x = x_pos;
-    last_y = y_pos;
+    glfwSetCursorPos(this->window->window, this->window->width / 2, this->window->height / 2);
 
-    glm::vec2 offset = glm::vec2(x_offset, y_offset);
+    glfwSetInputMode(this->window->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    offset = this->camera->ApplyMouseSensitivity(offset);
-    this->camera->UpdateCameraOrientation(offset);
+    float yawChange = this->window->width / 2 - x_pos;
+    float pitchChange = this->window->height / 2 - y_pos;
+
+    glm::vec2 angles = glm::vec2(yawChange, pitchChange);
+
+    angles = this->camera->ApplyMouseSensitivity(angles);
+
+    this->camera->UpdateCameraOrientation(angles);
 }
 
 void CameraControll::KeyboardMovement()

@@ -21,7 +21,7 @@ class ShaderProgram : public Observer
 	VertexShader* vertexShader;
 	FragmentShader* fragmentShader;
 
-	GLuint GetProgramID();
+	glm::mat4 viewMatrix;
 
 	void AttachShaders();
 	void LinkProgram();
@@ -32,6 +32,10 @@ public:
 	
 	void UseProgram();
 	void setUniform(const char* name, glm::mat4 matrix);
+
+	GLuint GetProgramID();
+	void SetViewMatrix();
+
 
 	void Update(Subject* subject, const char* type, void* data);
 };

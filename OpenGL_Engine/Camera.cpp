@@ -15,50 +15,49 @@ glm::vec3 Camera::GetCameraPos()
 void Camera::MoveForward()
 {
     this->camera_pos += cameraSpeed * this->camera_front;
-    Notify("camera_pos", nullptr);
+    Notify("camera", nullptr);
 }
 
 void Camera::MoveBackward()
 {
     this->camera_pos -= cameraSpeed * this->camera_front;
-    Notify("camera_pos", nullptr);
+    Notify("camera", nullptr);
 }
 
 void Camera::MoveLeft()
 {
     this->camera_pos -= glm::normalize(glm::cross(this->camera_front, this->camera_up)) * cameraSpeed;
-    Notify("camera_pos", nullptr);
+    Notify("camera", nullptr);
 }
 
 void Camera::MoveRight()
 {
     this->camera_pos += glm::normalize(glm::cross(this->camera_front, this->camera_up)) * cameraSpeed;
-    Notify("camera_pos", nullptr);
+    Notify("camera", nullptr);
 }
 
 void Camera::MoveUp()
 {
     this->camera_pos += cameraSpeed * this->camera_up;
-    Notify("camera_pos", nullptr);
+    Notify("camera", nullptr);
 }
 
 void Camera::MoveDown()
 {
     this->camera_pos -= cameraSpeed * this->camera_up;
-    Notify("camera_pos", nullptr);
+    Notify("camera", nullptr);
 }
 
-glm::vec2 Camera::ApplyMouseSensitivity(glm::vec2 offset)
+glm::vec2 Camera::ApplyMouseSensitivity(glm::vec2 angles)
 {
-    float sensitivity = 0.2f;
-    offset *= sensitivity;
-    return offset;
+    angles *= this->mouseSensitivity;
+    return angles;
 }
 
-void Camera::UpdateCameraOrientation(glm::vec2 offset)
+void Camera::UpdateCameraOrientation(glm::vec2 angles)
 {
-    yaw += offset.x;
-    pitch += offset.y;
+    yaw += angles.x;
+    pitch += angles.y;
 
     if (pitch > 89.0f) {
         pitch = 89.0f;
@@ -73,10 +72,10 @@ void Camera::UpdateCameraOrientation(glm::vec2 offset)
 void Camera::UpdateCameraFront()
 {
     glm::vec3 target;
-    target.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    target.x = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     target.y = sin(glm::radians(pitch));
-    target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    target.z = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     camera_front = glm::normalize(target);
 
-    Notify("camera_front", nullptr);
+    Notify("camera", nullptr);
 }

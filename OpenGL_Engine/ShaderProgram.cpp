@@ -49,6 +49,20 @@ GLuint ShaderProgram::GetProgramID()
 	return this->programID;
 }
 
+void ShaderProgram::SetViewMatrix()
+{
+	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), "viewMatrix");
+
+	if (idModelTransform == -1)
+	{
+		fprintf(stderr, "Could not bind uniform %s\n", "viewMatrix");
+		exit(EXIT_FAILURE);
+	}
+
+	this->setUniform("viewMatrix", this->viewMatrix);
+}
+
+
 void ShaderProgram::UseProgram()
 {
 	glUseProgram(this->programID);
@@ -56,6 +70,8 @@ void ShaderProgram::UseProgram()
 
 void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 {
+	this->UseProgram();
+
 	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), name);
 
 	if (idModelTransform == -1)
@@ -69,9 +85,14 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 
 void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 {
-	Camera* camera = (Camera*)subject;
+	if (strcmp(type, "camera") == 0)
+	{
+		Camera* camera = (Camera*)subject;
 
-	glm::mat4 viewMatrix = camera->GetViewMatrix();
+		glm::mat4 viewMatrix = camera->GetViewMatrix();
 
-	this->setUniform("viewMatrix", viewMatrix);
+		this->viewMatrix = viewMatrix;
+
+		this->setUniform("viewMatrix", viewMatrix);
+	}
 }

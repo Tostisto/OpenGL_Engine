@@ -50,9 +50,6 @@ void Callback::WindowSizeCallback(GLFWwindow* window, int width, int height)
 
 void Callback::CursorCallback(GLFWwindow* window, double xpos, double ypos)
 {
-	mouse_x = xpos;
-	mouse_y = ypos;
-
 	glm::vec2 mouse_pos = glm::vec2(xpos, ypos);
 
 	Notify("cursor_move", &mouse_pos);
@@ -61,14 +58,4 @@ void Callback::CursorCallback(GLFWwindow* window, double xpos, double ypos)
 void Callback::ButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
 	printf("button_callback \n");
-}
-
-double Callback::GetMouseX()
-{
-	return mouse_x;
-}
-
-double Callback::GetMouseY()
-{
-	return mouse_y;
 }
