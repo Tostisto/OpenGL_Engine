@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{98f16448-d74a-4bee-a58d-d448d106a698}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{0c46d99c-9b9f-4e22-bf36-236023663a5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,14 +143,14 @@
     <ClInclude Include="Callback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sphere.h">
+    <ClInclude Include="CameraControll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="suzi_smooth.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="CameraControll.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="sphere.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

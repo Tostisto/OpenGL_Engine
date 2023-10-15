@@ -23,7 +23,7 @@ private:
     glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    float cameraSpeed = 0.05f;
+    float cameraSpeed = 0.1f;
     float mouseSensitivity = 0.1f;
 
 public:
@@ -38,6 +38,9 @@ public:
     void MoveRight();
     void MoveUp();
     void MoveDown();
+
+    void SetCameraSpeed(float speed);
+    void SetMouseSensitivity(float sensitivity);
 
     glm::vec2 ApplyMouseSensitivity(glm::vec2 offset);
     void UpdateCameraOrientation(glm::vec2 offset);

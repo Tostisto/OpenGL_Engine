@@ -48,6 +48,16 @@ void Camera::MoveDown()
     Notify("camera", nullptr);
 }
 
+void Camera::SetCameraSpeed(float speed)
+{
+    this->cameraSpeed = speed;
+}
+
+void Camera::SetMouseSensitivity(float sensitivity)
+{
+    this->mouseSensitivity = sensitivity;
+}
+
 glm::vec2 Camera::ApplyMouseSensitivity(glm::vec2 angles)
 {
     angles *= this->mouseSensitivity;
