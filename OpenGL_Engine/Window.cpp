@@ -29,6 +29,8 @@ void Window::UpdateViewportSize()
 	glfwGetFramebufferSize(this->window, &width, &height);
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
+
+	Notify("window_resize", new glm::vec2(width, height));
 }
 
 void Window::BindCallbacks()
