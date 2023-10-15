@@ -10,7 +10,7 @@
 
 #include "Callback.h"
 
-class Window : public Observer
+class Window : public Observer, public Subject
 {
 public:
 

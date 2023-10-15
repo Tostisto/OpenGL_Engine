@@ -26,7 +26,6 @@ Scene::Scene(Window* window)
 	this->AddDrawable(drawable);
 
 
-
 	// Model 2 Shaders
 	VertexShader*  vertexShaderTest2 = new VertexShader("Shaders\\shader.vert");
 	FragmentShader* fragmentShaderTest2 = new FragmentShader("Shaders\\shader.frag");
@@ -71,7 +70,6 @@ Scene::Scene(Window* window)
 	this->camera->Attach(shaderProgram3);
 
 
-
 	// Projection matrix
 	glm::mat4 projectionMatrix = this->window->GetProjectionMatrix();
 
@@ -79,6 +77,11 @@ Scene::Scene(Window* window)
 	for (int i = 0; i < this->shaderPrograms.size(); i++) {
 		this->shaderPrograms[i]->UseProgram();
 		this->shaderPrograms[i]->setUniform("projectionMatrix", projectionMatrix);
+	}
+
+
+	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		this->window->Attach(this->shaderPrograms[i]);
 	}
 
 }

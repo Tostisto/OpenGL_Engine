@@ -95,4 +95,12 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		this->setUniform("viewMatrix", viewMatrix);
 	}
+	else if (strcmp(type, "window_resize") == 0)
+	{
+		glm::vec2* size = (glm::vec2*)data;
+
+		glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), size->x / (float)size->y, 0.1f, 100.0f);
+
+		this->setUniform("projectionMatrix", projectionMatrix);
+	}
 }
