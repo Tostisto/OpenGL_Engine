@@ -32,6 +32,7 @@ public:
 	
 	void UseProgram();
 	void setUniform(const char* name, glm::mat4 matrix);
+	void setUniform(const char* name, glm::vec3 vector);
 
 	GLuint GetProgramID();
 	void SetViewMatrix();

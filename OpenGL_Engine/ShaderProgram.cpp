@@ -83,6 +83,21 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 	glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &matrix[0][0]);
 }
 
+void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
+{
+	this->UseProgram();
+
+	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), name);
+
+	if (idModelTransform == -1)
+	{
+		fprintf(stderr, "Could not bind uniform %s\n", name);
+		exit(EXIT_FAILURE);
+	}
+
+	glUniform3fv(idModelTransform, 1, glm::value_ptr(vector));
+}
+
 void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 {
 	if (strcmp(type, "camera") == 0)
@@ -93,6 +108,10 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		this->viewMatrix = viewMatrix;
 
+		glm::vec3 cameraPos = camera->GetCameraPos();
+
+		this->setUniform("cameraPos", cameraPos);
+		
 		this->setUniform("viewMatrix", viewMatrix);
 	}
 	else if (strcmp(type, "window_resize") == 0)
