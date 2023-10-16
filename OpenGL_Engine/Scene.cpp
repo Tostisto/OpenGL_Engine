@@ -10,8 +10,8 @@ Scene::Scene(Window* window)
 	this->drawables = std::vector<Drawable*>();
 
 	// Model 1 Shaders
-	VertexShader* vertexShaderTest = new VertexShader("Shaders\\shader.vert");
-	FragmentShader* fragmentShaderTest = new FragmentShader("Shaders\\shader.frag");
+	VertexShader* vertexShaderTest = new VertexShader("Shaders\\phong.vert");
+	FragmentShader* fragmentShaderTest = new FragmentShader("Shaders\\phong.frag");
 	ShaderProgram* shaderProgram = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
 
 	this->shaderPrograms.push_back(shaderProgram);
@@ -27,8 +27,8 @@ Scene::Scene(Window* window)
 
 
 	// Model 2 Shaders
-	VertexShader*  vertexShaderTest2 = new VertexShader("Shaders\\shader.vert");
-	FragmentShader* fragmentShaderTest2 = new FragmentShader("Shaders\\shader.frag");
+	VertexShader*  vertexShaderTest2 = new VertexShader("Shaders\\phong.vert");
+	FragmentShader* fragmentShaderTest2 = new FragmentShader("Shaders\\phong.frag");
 	ShaderProgram* shaderProgram2 = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
 
 	this->shaderPrograms.push_back(shaderProgram2);
@@ -44,8 +44,8 @@ Scene::Scene(Window* window)
 
 
 	// Model 3 Shaders
-	VertexShader*  vertexShaderTest3 = new VertexShader("Shaders\\shader.vert");
-	FragmentShader* fragmentShaderTest3 = new FragmentShader("Shaders\\shader2.frag");
+	VertexShader*  vertexShaderTest3 = new VertexShader("Shaders\\phong.vert");
+	FragmentShader* fragmentShaderTest3 = new FragmentShader("Shaders\\phong.frag");
 	ShaderProgram* shaderProgram3 = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
 
 	this->shaderPrograms.push_back(shaderProgram3);
