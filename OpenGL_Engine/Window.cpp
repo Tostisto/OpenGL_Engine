@@ -33,6 +33,20 @@ void Window::UpdateViewportSize()
 	Notify("window_resize", new glm::vec2(width, height));
 }
 
+void Window::UpdateFov(glm::vec2 offset)
+{
+	this->fov -= offset.y;
+
+	if (this->fov < 1.0f)
+		this->fov = 1.0f;
+	else if (this->fov > 100.0f)
+		this->fov = 100.0f;
+
+	glm::vec3 perspective_data = glm::vec3(fov, this->width, (float)this->height);
+
+	Notify("fov_change", &perspective_data);
+}
+
 void Window::BindCallbacks()
 {
 	// Key callback
@@ -52,11 +66,14 @@ void Window::BindCallbacks()
 
 	// Button callback
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {Callback::GetInstance()->ButtonCallback(w, button, action, mods); });
+
+	// Scroll callback
+	glfwSetScrollCallback(window, [](GLFWwindow* w, double xoffset, double yoffset) {Callback::GetInstance()->ScrollCallback(w, xoffset, yoffset); });
 }
 
 glm::mat4 Window::GetProjectionMatrix()
 {
-	glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), this->width / (float)this->height, 0.1f, 100.0f);
+	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), this->width / (float)this->height, 0.1f, 100.0f);
 	return projectionMatrix;
 }
 
@@ -74,5 +91,11 @@ void Window::Update(Subject* subject, const char* type, void* data)
 		this->height = window_size.y;
 
 		this->UpdateViewportSize();
+	}
+	else if (strcmp(type, "scroll") == 0) {
+
+		glm::vec2 scroll_offset = *static_cast<glm::vec2*>(data);
+
+		this->UpdateFov(scroll_offset);
 	}
 }

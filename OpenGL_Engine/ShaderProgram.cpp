@@ -103,4 +103,18 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		this->setUniform("projectionMatrix", projectionMatrix);
 	}
+	else if (strcmp(type, "fov_change") == 0)
+	{
+		printf("fov_change \n");
+
+		glm::vec3 *new_data = (glm::vec3*)data;
+
+		float fov = new_data->x;
+		float width = new_data->y;
+		float height = new_data->z;
+
+		glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), width / (float)height, 0.1f, 100.0f);
+
+		this->setUniform("projectionMatrix", projectionMatrix);
+	}
 }

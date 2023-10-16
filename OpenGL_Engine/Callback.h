@@ -27,5 +27,6 @@ public:
 	void WindowSizeCallback(GLFWwindow* window, int width, int height);
 	void CursorCallback(GLFWwindow* window, double xpos, double ypos);
 	void ButtonCallback(GLFWwindow* window, int button, int action, int mods);
+	void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 };
 
