@@ -59,3 +59,10 @@ void Callback::ButtonCallback(GLFWwindow* window, int button, int action, int mo
 {
 	printf("button_callback \n");
 }
+
+void Callback::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	glm::vec2 scroll_offset = glm::vec2(xoffset, yoffset);
+
+	Notify("scroll", &scroll_offset);
+}

@@ -12,8 +12,10 @@
 
 class Window : public Observer, public Subject
 {
-public:
+private:
+	float fov = 45.0f;
 
+public:
 	GLFWwindow* window;
 	int width;
 	int height;
@@ -21,13 +23,12 @@ public:
 	Window(int width, int height);
 	~Window();
 
-	void UpdateViewportSize();
-
 	void BindCallbacks();
-
-	glm::mat4 GetProjectionMatrix();
-
 	bool GetKey(int key);
+
+	void UpdateViewportSize();
+	void UpdateFov(glm::vec2 offset);
+	glm::mat4 GetProjectionMatrix();
 
 	void Update(Subject* subject, const char* type, void* data);
 };
