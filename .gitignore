@@ -365,5 +365,6 @@ FodyWeavers.xsd
 # Ignore Lib
 Lib
 
-# Ignore glew32.dll
+# Ignore dll
 glew32.dll
+assimp-vc140-mt.dll

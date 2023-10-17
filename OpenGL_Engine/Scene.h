@@ -26,6 +26,8 @@
 #include "Camera.h"
 #include "CameraControll.h"
 
+#include "ModelLoader.h"
+
 class Scene
 {
 private:
