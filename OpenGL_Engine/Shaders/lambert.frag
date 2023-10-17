@@ -7,7 +7,7 @@ out vec4 fragColor;
 void main (void)
 {
 	vec4 lightColor = vec4(0.785, 0.347, 0.812, 1.0);
-	vec3 lightPosition = vec3 (-10.0 ,15.0 ,15.0);
+	vec3 lightPosition = vec3 (0.0, 15.0, 0.0);
 
 	vec4 ambient = vec4 (0.1 ,0.1 ,0.1 ,1.0);
 

@@ -16,11 +16,14 @@ Scene::Scene(Window* window)
 
 	this->shaderPrograms.push_back(shaderProgram);
 
+	ModelLoader* modelLoader = new ModelLoader("C:\\Users\\kubac\\Desktop\\model.obj");
 
 	// Model 1
-	Model* model = new Model(suziSmooth, 2904, 6);
+	Model* model = new Model(modelLoader->getVertices(), modelLoader->getVerticesSize()/6, 6);
 	Drawable* drawable = new Drawable(model);
+	drawable->AddTransformation(new Translation(glm::vec3(3.0f, 0.0f, 0.0f)));
 	drawable->AddTransformation(new Rotation(static_cast<float>(glm::radians(50.0)), glm::vec3(1.0f, 1.0f, 1.0f)));
+	drawable->AddTransformation(new Scale(glm::vec3(0.0004f, 0.0004f, 0.0004f)));
 	drawable->LinkShaderProgram(shaderPrograms[0]);
 
 	this->AddDrawable(drawable);
@@ -37,7 +40,7 @@ Scene::Scene(Window* window)
 	// Model 2
 	Model* model2 = new Model(suziSmooth, 2904, 6);
 	Drawable* drawable2 = new Drawable(model2);
-	drawable->AddTransformation(new Translation(glm::vec3(2.0f, 0.0f, 0.0f)));
+	drawable2->AddTransformation(new Translation(glm::vec3(-3.0f, 0.0f, 0.0f)));
 	drawable2->LinkShaderProgram(shaderPrograms[1]);
 
 	this->AddDrawable(drawable2);
@@ -46,18 +49,17 @@ Scene::Scene(Window* window)
 	// Model 3 Shaders
 	VertexShader*  vertexShaderTest3 = new VertexShader("Shaders\\phong.vert");
 	FragmentShader* fragmentShaderTest3 = new FragmentShader("Shaders\\phong.frag");
-	ShaderProgram* shaderProgram3 = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
+	ShaderProgram* shaderProgram3 = new ShaderProgram(vertexShaderTest3, fragmentShaderTest3);
 
 	this->shaderPrograms.push_back(shaderProgram3);
 
 	// Model 3
 	Model* model3 = new Model(sphere, 2880, 6);
 	Drawable* drawable3 = new Drawable(model3);
-	drawable3->AddTransformation(new Translation(glm::vec3(-3.0f, 0.0f, 0.0f)));
+	drawable3->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	drawable3->LinkShaderProgram(shaderPrograms[2]);
 
 	this->AddDrawable(drawable3);
-
 
 	// Camera
 	this->camera = new Camera();
