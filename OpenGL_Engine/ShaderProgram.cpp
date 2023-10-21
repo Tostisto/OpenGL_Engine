@@ -136,4 +136,16 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		this->setUniform("projectionMatrix", projectionMatrix);
 	}
+	else if (strcmp(type, "light_position") == 0)
+	{
+		printf("light position\n");
+
+		this->setUniform("lightPos", *(glm::vec3*)data);
+	}
+	else if (strcmp(type, "light_color") == 0)
+	{
+		printf("light color\n");
+
+		this->setUniform("lightColor", *(glm::vec3*)data);
+	}
 }
