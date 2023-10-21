@@ -137,6 +137,7 @@
     <ClCompile Include="CameraControll.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="FragmentShader.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="FragmentShader.h" />
     <ClInclude Include="gift.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="Observer.h" />
@@ -185,6 +187,10 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\blinn.frag" />
+    <None Include="Shaders\blinn.vert" />
+    <None Include="Shaders\constant.frag" />
+    <None Include="Shaders\constant.vert" />
     <None Include="Shaders\lambert.frag" />
     <None Include="Shaders\lambert.vert" />
     <None Include="Shaders\phong.frag" />

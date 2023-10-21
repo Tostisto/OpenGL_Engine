@@ -9,12 +9,26 @@ Scene::Scene(Window* window)
 
 	this->drawables = std::vector<Drawable*>();
 
-	// Model 1 Shaders
-	VertexShader* vertexShaderTest = new VertexShader("Shaders\\phong.vert");
-	FragmentShader* fragmentShaderTest = new FragmentShader("Shaders\\phong.frag");
-	ShaderProgram* shaderProgram = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
+	// Constant Shader
+	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
+	FragmentShader* constantFragmentShader = new FragmentShader("Shaders\\constant.frag");
+	ShaderProgram* constantShaderProgram = new ShaderProgram(constantVertexShader, constantFragmentShader);
+	this->shaderPrograms.push_back(constantShaderProgram);
 
-	this->shaderPrograms.push_back(shaderProgram);
+	// Lambert Shader 
+	VertexShader* lamberVertexShader = new VertexShader("Shaders\\lambert.vert");
+	FragmentShader* lamberFragmentShader = new FragmentShader("Shaders\\lambert.frag");
+	ShaderProgram* lambertShaderProgram = new ShaderProgram(lamberVertexShader, lamberFragmentShader);
+
+	this->shaderPrograms.push_back(lambertShaderProgram);
+
+	// Phong Shader 
+	VertexShader* phongVertexShader = new VertexShader("Shaders\\phong.vert");
+	FragmentShader* phongFragmentShader = new FragmentShader("Shaders\\phong.frag");
+	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader);
+
+	this->shaderPrograms.push_back(phongShaderProgram);
+
 
 	ModelLoader* modelLoader = new ModelLoader("C:\\Users\\kubac\\Desktop\\model.obj");
 
@@ -24,34 +38,17 @@ Scene::Scene(Window* window)
 	drawable->AddTransformation(new Translation(glm::vec3(3.0f, 0.0f, 0.0f)));
 	drawable->AddTransformation(new Rotation(static_cast<float>(glm::radians(50.0)), glm::vec3(1.0f, 1.0f, 1.0f)));
 	drawable->AddTransformation(new Scale(glm::vec3(0.0004f, 0.0004f, 0.0004f)));
-	drawable->LinkShaderProgram(shaderPrograms[0]);
+	drawable->LinkShaderProgram(shaderPrograms[2]);
 
 	this->AddDrawable(drawable);
-
-
-	// Model 2 Shaders
-	VertexShader*  vertexShaderTest2 = new VertexShader("Shaders\\phong.vert");
-	FragmentShader* fragmentShaderTest2 = new FragmentShader("Shaders\\phong.frag");
-	ShaderProgram* shaderProgram2 = new ShaderProgram(vertexShaderTest, fragmentShaderTest);
-
-	this->shaderPrograms.push_back(shaderProgram2);
-
 
 	// Model 2
 	Model* model2 = new Model(suziSmooth, 2904, 6);
 	Drawable* drawable2 = new Drawable(model2);
 	drawable2->AddTransformation(new Translation(glm::vec3(-3.0f, 0.0f, 0.0f)));
-	drawable2->LinkShaderProgram(shaderPrograms[1]);
+	drawable2->LinkShaderProgram(shaderPrograms[2]);
 
 	this->AddDrawable(drawable2);
-
-
-	// Model 3 Shaders
-	VertexShader*  vertexShaderTest3 = new VertexShader("Shaders\\phong.vert");
-	FragmentShader* fragmentShaderTest3 = new FragmentShader("Shaders\\phong.frag");
-	ShaderProgram* shaderProgram3 = new ShaderProgram(vertexShaderTest3, fragmentShaderTest3);
-
-	this->shaderPrograms.push_back(shaderProgram3);
 
 	// Model 3
 	Model* model3 = new Model(sphere, 2880, 6);
@@ -64,19 +61,22 @@ Scene::Scene(Window* window)
 	// Camera
 	this->camera = new Camera();
 
+	// Light
+	this->light = new Light();
+
+
 	this->cameraControll = new CameraControll(this->camera, this->window);
 	Callback::GetInstance()->Attach(this->cameraControll);
-
-	this->camera->Attach(shaderProgram);
-	this->camera->Attach(shaderProgram2);
-	this->camera->Attach(shaderProgram3);
-
 
 	// Projection matrix
 	glm::mat4 projectionMatrix = this->window->GetProjectionMatrix();
 
-	// Projection matrix to shaders
+
+	this->camera->Attach(shaderPrograms[2]);
+	this->light->Attach(shaderPrograms[2]);
+
 	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+
 		this->shaderPrograms[i]->UseProgram();
 		this->shaderPrograms[i]->setUniform("projectionMatrix", projectionMatrix);
 	}
@@ -86,6 +86,8 @@ Scene::Scene(Window* window)
 		this->window->Attach(this->shaderPrograms[i]);
 	}
 
+	this->light->setPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+	this->light->setColor(glm::vec3(0.2f, 0.2f, 0.2f));
 }
 
 void Scene::AddDrawable(Drawable* drawable)
