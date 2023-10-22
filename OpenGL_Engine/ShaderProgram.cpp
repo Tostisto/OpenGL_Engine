@@ -1,11 +1,13 @@
 #include "ShaderProgram.h"
 
-ShaderProgram::ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader)
+ShaderProgram::ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* ShaderType)
 {
 	this->programID = glCreateProgram();
 
 	this->vertexShader = vertexShader;
 	this->fragmentShader = fragmentShader;
+
+	this->ShaderType = ShaderType;
 
 	this->AttachShaders();
 	this->LinkProgram();
@@ -110,7 +112,11 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraPos = camera->GetCameraPos();
 
-		this->setUniform("cameraPos", cameraPos);
+
+		if (this->ShaderType != "constantShaderProgram" && this->ShaderType != "lambertShaderProgram")
+		{
+			this->setUniform("cameraPos", cameraPos);
+		}
 		
 		this->setUniform("viewMatrix", viewMatrix);
 	}
@@ -140,12 +146,18 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 	{
 		printf("light position\n");
 
-		this->setUniform("lightPos", *(glm::vec3*)data);
+		if (this->ShaderType != "constantShaderProgram")
+		{
+			this->setUniform("lightPos", *(glm::vec3*)data);
+		}
 	}
 	else if (strcmp(type, "light_color") == 0)
 	{
 		printf("light color\n");
 
-		this->setUniform("lightColor", *(glm::vec3*)data);
+		if (this->ShaderType != "constantShaderProgram")
+		{
+			this->setUniform("lightColor", *(glm::vec3*)data);
+		}
 	}
 }

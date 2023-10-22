@@ -10,7 +10,7 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
-void main ( void )
+void main(void)
 {
 	worldPos = modelMatrix * vec4 ( vp ,1.0);
 	
