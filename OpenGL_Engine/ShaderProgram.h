@@ -23,12 +23,14 @@ class ShaderProgram : public Observer
 
 	glm::mat4 viewMatrix;
 
+	const char* ShaderType;
+
 	void AttachShaders();
 	void LinkProgram();
 	void CheckProgram();
 
 public:
-	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader);
+	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* ShaderType);
 	
 	void UseProgram();
 	void setUniform(const char* name, glm::mat4 matrix);

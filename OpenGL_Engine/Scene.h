@@ -48,6 +48,11 @@ private:
 public:
 	Scene(Window* window);
 
+	void Scene1();
+	void Scene2();
+	void Scene3();
+
+
 	void AddDrawable(Drawable* drawable);
 	void RemoveDrawable(Drawable* drawable);
 
