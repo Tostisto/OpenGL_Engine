@@ -15,15 +15,15 @@ void main(void)
 	
 	vec4 objectColor = vec4(0.385, 0.647, 0.812, 1.0);
 
-	vec3 lightVector = lightPos - worldPos.xyz / worldPos.z;
-	vec3 viewVector = cameraPos - worldPos.xyz / worldPos.z;
+	vec3 lightVector = lightPos - worldPos.xyz / worldPos.w;
+	vec3 viewVector = cameraPos - worldPos.xyz / worldPos.w;
 
 	vec3 reflectionDir = reflect(-lightVector, worldNorm);
 
 	float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
 	vec4 diffuse = diff * lightColor;
 
-	float spec = pow(max(dot(normalize(reflectionDir), normalize(viewVector)),0.0), 1.0);
+	float spec = pow(max(dot(normalize(reflectionDir), normalize(viewVector)),0.0), 32.0);
 
 	vec4 specular = vec4(0.0, 0.0, 0.0, 0.0);
 
