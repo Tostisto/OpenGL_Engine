@@ -41,7 +41,7 @@ Scene::Scene(Window* window)
 	this->shaderPrograms.push_back(blinnShaderProgram);
 
 	// Use scene
-	Scene3();
+	Scene2();
 	
 	// Camera
 	this->camera = new Camera();

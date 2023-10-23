@@ -12,7 +12,7 @@ void main(void)
 	vec4 lightColor = vec4(lightColor, 1.0);
 	vec4 ambient = vec4(0.1, 0.1, 0.1, 1.0);
 
-	vec3 lightVector = lightPos - worldPos.xyz / worldPos.z;
+	vec3 lightVector = lightPos - worldPos.xyz / worldPos.w;
 
 	float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
 	vec4 diffuse = diff * lightColor;
