@@ -16,11 +16,16 @@ private:
 	float last_x = 0;
 	float last_y = 0;
 
+	float current_x = 0;
+	float current_y = 0;
+
+	bool lock_camera = true;
+
 public:
 	CameraControll(Camera* camera, Window* window);
 
 	void MouseMovement(float x_pos, float y_pos);
 	void KeyboardMovement();
-
+	
 	void Update(Subject* subject, const char* type, void* data);
 };

@@ -24,7 +24,7 @@ private:
     glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
 
     float cameraSpeed = 0.1f;
-    float mouseSensitivity = 0.1f;
+    float mouseSensitivity = 0.5f;
 
 public:
     Camera();
