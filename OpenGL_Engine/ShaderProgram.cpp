@@ -14,6 +14,14 @@ ShaderProgram::ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmen
 	this->CheckProgram();
 }
 
+ShaderProgram::~ShaderProgram()
+{
+	glDeleteProgram(this->programID);
+
+	delete this->vertexShader;
+	delete this->fragmentShader;
+}
+
 void ShaderProgram::AttachShaders()
 {
 	glAttachShader(this->programID, this->fragmentShader->GetShaderID());
@@ -46,14 +54,9 @@ void ShaderProgram::CheckProgram()
 	}
 }
 
-GLuint ShaderProgram::GetProgramID()
-{
-	return this->programID;
-}
-
 void ShaderProgram::SetViewMatrix()
 {
-	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), "viewMatrix");
+	GLint idModelTransform = glGetUniformLocation(this->programID, "viewMatrix");
 
 	if (idModelTransform == -1)
 	{
@@ -74,7 +77,7 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 {
 	this->UseProgram();
 
-	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), name);
+	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
 	if (idModelTransform == -1)
 	{
@@ -89,7 +92,7 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 {
 	this->UseProgram();
 
-	GLint idModelTransform = glGetUniformLocation(this->GetProgramID(), name);
+	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
 	if (idModelTransform == -1)
 	{
@@ -98,6 +101,21 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 	}
 
 	glUniform3fv(idModelTransform, 1, glm::value_ptr(vector));
+}
+
+void ShaderProgram::setUniform(const char* name, float value)
+{
+	this->UseProgram();
+
+	GLint idModelTransform = glGetUniformLocation(this->programID, name);
+
+	if (idModelTransform == -1)
+	{
+		fprintf(stderr, "Could not bind uniform %s\n", name);
+		exit(EXIT_FAILURE);
+	}
+
+	glUniform1f(idModelTransform, value);
 }
 
 void ShaderProgram::Update(Subject* subject, const char* type, void* data)

@@ -23,23 +23,23 @@ class ShaderProgram : public Observer
 
 	glm::mat4 viewMatrix;
 
-	const char* ShaderType;
-
 	void AttachShaders();
 	void LinkProgram();
 	void CheckProgram();
 
 public:
 	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* ShaderType);
+	~ShaderProgram();
 	
 	void UseProgram();
 	void setUniform(const char* name, glm::mat4 matrix);
 	void setUniform(const char* name, glm::vec3 vector);
+	void setUniform(const char* name, float value);
 
-	GLuint GetProgramID();
 	void SetViewMatrix();
 
-
 	void Update(Subject* subject, const char* type, void* data);
+
+	const char* ShaderType;
 };
 
