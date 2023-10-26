@@ -15,7 +15,6 @@ void Callback::RegisterCallbacks()
 	glfwSetErrorCallback(ErrorCallback);
 }
 
-
 void Callback::ErrorCallback(int error, const char* description)
 {
 	fprintf(stderr, "Error: %s\n", description);
@@ -58,6 +57,19 @@ void Callback::CursorCallback(GLFWwindow* window, double xpos, double ypos)
 void Callback::ButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
 	printf("button_callback \n");
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		bool left_button_pressed = true;
+
+		Notify("mouse_button", &left_button_pressed);
+	}
+	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+	{
+		bool left_button_pressed = false;
+
+		Notify("mouse_button", &left_button_pressed);
+	}
 }
 
 void Callback::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)

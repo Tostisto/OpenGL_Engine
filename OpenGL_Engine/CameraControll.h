@@ -19,7 +19,7 @@ private:
 	float current_x = 0;
 	float current_y = 0;
 
-	bool lock_camera = true;
+	bool lock_camera = false;
 
 public:
 	CameraControll(Camera* camera, Window* window);
