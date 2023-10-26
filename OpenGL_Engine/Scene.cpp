@@ -39,9 +39,6 @@ Scene::Scene(Window* window)
 	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, "blinnShaderProgram");
 
 	this->shaderPrograms.push_back(blinnShaderProgram);
-
-	// Use scene
-	Scene2();
 	
 	// Camera
 	this->camera = new Camera();
@@ -71,6 +68,9 @@ Scene::Scene(Window* window)
 
 	this->light->setPosition(glm::vec3(0.0f, 5.0f, 0.0f));
 	this->light->setColor(glm::vec3(1.0f, 0.2f, 0.2f));
+
+	// Use scene
+	Scene3();
 }
 
 void Scene::Scene1()
@@ -112,6 +112,9 @@ void Scene::Scene2()
 	drawable4->LinkShaderProgram(shaderPrograms[2]);
 
 	this->AddDrawable(drawable4);
+
+	this->light->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	this->light->setColor(glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void Scene::Scene3()

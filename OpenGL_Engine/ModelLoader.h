@@ -4,9 +4,7 @@
 #include<assimp/scene.h>// aiSceneoutputdata structure
 #include<assimp/postprocess.h>// Post processingflags
 
-
 #include <vector>
-
 
 class ModelLoader
 {
@@ -21,6 +19,4 @@ public:
 	void processMesh(aiMesh* mesh);
 	void processNode(aiNode* node, const aiScene* scene);
 	int getVerticesSize();
-
 };
-

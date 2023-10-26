@@ -4,7 +4,7 @@ Application::Application()
 {
 	this->InitGLFW();
 
-	this->InitVersions(3, 3);
+	//this->InitVersions(3, 3);
 
 	this->window = new Window(1080, 720);
 	this->window->BindCallbacks();

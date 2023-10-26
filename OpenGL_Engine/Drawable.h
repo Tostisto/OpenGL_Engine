@@ -27,4 +27,3 @@ public:
 	void SetMaterial(Material* material);
 	void Render();
 };
-

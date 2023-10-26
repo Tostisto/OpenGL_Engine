@@ -29,4 +29,3 @@ public:
 	void ButtonCallback(GLFWwindow* window, int button, int action, int mods);
 	void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 };
-

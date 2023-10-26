@@ -46,4 +46,3 @@ public:
     void UpdateCameraOrientation(glm::vec2 offset);
     void UpdateCameraFront();  
 };
-

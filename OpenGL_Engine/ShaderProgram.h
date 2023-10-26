@@ -44,4 +44,3 @@ public:
 
 	const char* ShaderType;
 };
-
