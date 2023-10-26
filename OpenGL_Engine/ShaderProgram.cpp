@@ -118,6 +118,22 @@ void ShaderProgram::setUniform(const char* name, float value)
 	glUniform1f(idModelTransform, value);
 }
 
+void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader)
+{
+	if (this->vertexShader != nullptr)
+	{
+		delete this->vertexShader;
+	}
+
+	if (this->fragmentShader != nullptr)
+	{
+		delete this->fragmentShader;
+	}
+
+	this->vertexShader = vertexShader;
+	this->fragmentShader = fragmentShader;
+}
+
 void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 {
 	if (strcmp(type, "camera") == 0)
