@@ -3,9 +3,6 @@
 void Subject::Attach(Observer* observer)
 {
 	this->observers->push_back(observer);
-
-	// Notify the observer about the current state
-	observer->Update(this, "attach", nullptr);
 }
 
 void Subject::Detach(Observer* observer)
