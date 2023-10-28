@@ -19,15 +19,21 @@
     <Filter Include="Header Files\Models">
       <UniqueIdentifier>{0c46d99c-9b9f-4e22-bf36-236023663a5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{e8076db5-8797-48cc-a6a3-52fac945ea0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{90b00713-80ed-4c9d-8e20-948f288050b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{587cbad1-a5c0-4403-a8f2-2921a6940b8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
@@ -93,12 +99,27 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="PhongTestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MultipleModelsScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="models.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="SolarSystemScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
@@ -184,6 +205,24 @@
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PhongTestScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleModelsScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="models.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="SolarSystemScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

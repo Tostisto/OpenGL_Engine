@@ -14,8 +14,6 @@ Application::Application()
 	this->OpenGLVersion();
 
 	this->window->UpdateViewportSize();
-
-	this->scene = new Scene(this->window);
 }
 
 void Application::InitGLFW()
@@ -54,6 +52,13 @@ void Application::InitVersions(int major_version, int minor_version)
 
 void Application::Run()
 {
+	//TestScene* scene = new TestScene();
+	//PhongTestScene* scene = new PhongTestScene();
+	MultipleModelsScene* scene = new MultipleModelsScene();
+	//SolarSystemScene* scene = new SolarSystemScene();
+
+	scene->Create(this->window);
+
 	Callback* callback = Callback::GetInstance();
 	callback->RegisterCallbacks();
 	callback->Attach(this->window);
@@ -64,7 +69,7 @@ void Application::Run()
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		this->scene->Render();
+		scene->Render();
 
 		// update other events like input handling
 		glfwPollEvents();

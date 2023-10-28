@@ -31,30 +31,30 @@
 
 #include "Light.h"
 
-
 class Scene
 {
 private:
 	std::vector<Drawable*> drawables;
 	std::vector<ShaderProgram*> shaderPrograms;
 
-	Window* window;
-
-	Camera* camera;
 	CameraControll* cameraControll;
 
-	Light* light;
-
-public:
-	Scene(Window* window);
-
-	void Scene1();
-	void Scene2();
-	void Scene3();
-
+protected:
+	void AddCamera(Camera* camera);
+	void AddCameraControll(CameraControll* cameraControll);
+	void AddLight(Light* light);
+	void AddWindow(Window* window);
 
 	void AddDrawable(Drawable* drawable);
 	void RemoveDrawable(Drawable* drawable);
+
+	void AddShaderProgram(ShaderProgram* shaderProgram);
+	void RemoveShaderProgram(ShaderProgram* shaderProgram);
+
+	virtual void UpdateFrame();
+
+public:
+	virtual void Create(Window* window) = 0;
 
 	void Render();
 };

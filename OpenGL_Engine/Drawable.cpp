@@ -31,16 +31,13 @@ void Drawable::Render()
 	{
 
 		this->material = new Material(
-			glm::vec3(1.0f, 1.0f, 1.0f),
+			glm::vec3(0.1f, 0.1f, 0.0f),
 			glm::vec3(1.0f, 1.0f, 1.0f),
 			glm::vec3(1.0f, 1.0f, 1.0f),
 			32.0f
 		);
 
-		// TODO: Require material to be set. Now is set to default
-
-		//fprintf(stderr, "ERROR: Drawable::Render() called before material was set. Material is required for rendering\n");
-		//exit(EXIT_FAILURE);
+		fprintf(stderr, "WARNING: Drawable::Render() called before material was set. Using default material\n");
 	}
 	else {
  		this->shader_program->UseProgram();

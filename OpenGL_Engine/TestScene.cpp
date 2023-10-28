@@ -1,0 +1,50 @@
+#include "TestScene.h"
+
+void TestScene::Create(Window* window)
+{
+	// Constant Shader
+	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
+	FragmentShader* constantFragmentShader = new FragmentShader("Shaders\\constant.frag");
+	ShaderProgram* constantShaderProgram = new ShaderProgram(constantVertexShader, constantFragmentShader, "constantShaderProgram");
+	AddShaderProgram(constantShaderProgram);
+
+	// Lambert Shader 
+	VertexShader* lamberVertexShader = new VertexShader("Shaders\\lambert.vert");
+	FragmentShader* lamberFragmentShader = new FragmentShader("Shaders\\lambert.frag");
+	ShaderProgram* lambertShaderProgram = new ShaderProgram(lamberVertexShader, lamberFragmentShader, "lambertShaderProgram");
+	AddShaderProgram(lambertShaderProgram);
+
+	// Phong Shader 
+	VertexShader* phongVertexShader = new VertexShader("Shaders\\phong.vert");
+	FragmentShader* phongFragmentShader = new FragmentShader("Shaders\\phong.frag");
+	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, "phongShaderProgram");
+	AddShaderProgram(phongShaderProgram);
+
+	// Blinn shader 
+	VertexShader* blinnVertexShader = new VertexShader("Shaders\\blinn.vert");
+	FragmentShader* blinnFragmentShader = new FragmentShader("Shaders\\blinn.frag");
+	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, "blinnShaderProgram");
+	AddShaderProgram(blinnShaderProgram);
+
+	Camera* camera = new Camera();
+	Light* light = new Light();
+
+	CameraControll* cameraControll = new CameraControll(camera, window);
+
+	AddCameraControll(cameraControll);
+
+	AddCamera(camera);
+	AddLight(light);
+	AddWindow(window);
+
+	light->setPosition(glm::vec3(0.0f, 5.0f, 0.0f));
+	light->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+
+	Model* model = new Model(sphere, 2880, 6);
+	Drawable* drawable = new Drawable(model);
+	drawable->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 2.0)));
+	drawable->LinkShaderProgram(phongShaderProgram);
+	drawable->SetMaterial(new Material(glm::vec3(0.1f, 0.1f, 0.0f), glm::vec3(1.0f), glm::vec3(1.0f), 1.0f));
+
+	this->AddDrawable(drawable);
+}

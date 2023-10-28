@@ -118,7 +118,7 @@ void ShaderProgram::setUniform(const char* name, float value)
 	glUniform1f(idModelTransform, value);
 }
 
-void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader)
+void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType)
 {
 	if (this->vertexShader != nullptr)
 	{
@@ -132,6 +132,11 @@ void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader*
 
 	this->vertexShader = vertexShader;
 	this->fragmentShader = fragmentShader;
+	this->ShaderType = shaderType;
+
+	this->AttachShaders();
+	this->LinkProgram();
+	this->CheckProgram();
 }
 
 void ShaderProgram::Update(Subject* subject, const char* type, void* data)

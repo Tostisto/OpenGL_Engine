@@ -36,7 +36,7 @@ public:
 	void setUniform(const char* name, glm::vec3 vector);
 	void setUniform(const char* name, float value);
 
-	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader);
+	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType);
 
 	void SetViewMatrix();
 
