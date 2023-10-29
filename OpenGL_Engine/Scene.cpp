@@ -8,15 +8,10 @@ void Scene::AddCameraControll(CameraControll* cameraControll)
 
 void Scene::AddCamera(Camera* camera)
 {
-	camera = camera;
-
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		camera->Attach(shaderPrograms[i]);
-	}
-
 	glm::mat4 viewMatrix = camera->GetViewMatrix();
 
 	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		camera->Attach(shaderPrograms[i]);
 		this->shaderPrograms[i]->UseProgram();
 		this->shaderPrograms[i]->setUniform("viewMatrix", viewMatrix);
 	}
@@ -31,20 +26,13 @@ void Scene::AddLight(Light* light)
 
 void Scene::AddWindow(Window* window)
 {
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		window->Attach(shaderPrograms[i]);
-	}
-
 	glm::mat4 projectionMatrix = window->GetProjectionMatrix();
 
 	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		window->Attach(shaderPrograms[i]);
 		this->shaderPrograms[i]->UseProgram();
 		this->shaderPrograms[i]->setUniform("projectionMatrix", projectionMatrix);
 	}
-}
-
-void Scene::UpdateFrame()
-{
 }
 
 void Scene::AddDrawable(Drawable* drawable)
@@ -75,6 +63,10 @@ void Scene::RemoveShaderProgram(ShaderProgram* shaderProgram)
 			return;
 		}
 	}
+}
+
+void Scene::UpdateFrame()
+{
 }
 
 void Scene::Render()

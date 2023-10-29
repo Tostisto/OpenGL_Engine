@@ -29,7 +29,6 @@ void Drawable::Render()
 	}
 	else if (this->material == nullptr)
 	{
-
 		this->material = new Material(
 			glm::vec3(0.1f, 0.1f, 0.0f),
 			glm::vec3(1.0f, 1.0f, 1.0f),
@@ -43,7 +42,6 @@ void Drawable::Render()
  		this->shader_program->UseProgram();
 		this->shader_program->setUniform("modelMatrix", this->transformation_collection->getMatrix());
 
-		// if shader type is phong
 		if (strcmp(this->shader_program->ShaderType, "phongShaderProgram") == 0 || strcmp(this->shader_program->ShaderType, "blinnShaderProgram") == 0)
 		{
 			this->shader_program->setUniform("material.ambient", this->material->GetAmbient());
