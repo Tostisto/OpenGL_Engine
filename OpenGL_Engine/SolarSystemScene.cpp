@@ -1,5 +1,18 @@
 #include "SolarSystemScene.h"
 
+glm::vec3 SolarSystemScene::MoveOnLine(Drawable* object, glm::vec3 position, glm::vec3 toPosition, float speed)
+{
+	glm::vec3 direction = toPosition - position;
+
+	glm::vec3 newPosition = position + (direction * speed);
+
+	glm::vec3 positionChange = newPosition - position;
+
+	object->AddTransformation(new Translation(positionChange));
+
+	return newPosition;
+}
+
 void SolarSystemScene::Create(Window* window)
 {
 	// Constant Shader
@@ -138,6 +151,11 @@ void SolarSystemScene::UpdateFrame()
 	planet3->AddTransformation(new Rotation(0.1f, glm::vec3(0.0, 1.0, 0.0)));
 	planet3->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 5.0)));
 
-	// Meteorit movement
-	meteorit->AddTransformation(new Translation(glm::vec3(0.0, -0.01, -0.01)));
+	//// Meteorit movement
+	//meteorit->AddTransformation(new Translation(glm::vec3(0.0, -0.01, -0.01)));
+
+	
+	meteoritPos = MoveOnLine(meteorit, meteoritPos, glm::vec3(0.0, 0.0, 0.0), 0.1f);
+
+	fprintf(stdout, "Meteorit Position: %f, %f, %f\n", meteoritPos.x, meteoritPos.y, meteoritPos.z);
 }
