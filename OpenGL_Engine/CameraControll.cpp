@@ -4,22 +4,25 @@ CameraControll::CameraControll(Camera* camera, Window* window)
 {
 	this->camera = camera;
 	this->window = window;
+
+    glfwSetCursorPos(this->window->window, this->window->width / 2, this->window->height / 2);
 }
 
 void CameraControll::MouseMovement(float x_pos, float y_pos)
 {
-    glfwSetCursorPos(this->window->window, this->window->width / 2, this->window->height / 2);
+    if (lock_camera) {
+        float yawChange = last_x - x_pos;
+        float pitchChange = last_y - y_pos;
 
-    glfwSetInputMode(this->window->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        last_x = x_pos;
+        last_y = y_pos;
 
-    float yawChange = this->window->width / 2 - x_pos;
-    float pitchChange = this->window->height / 2 - y_pos;
+        glm::vec2 angles = glm::vec2(yawChange, pitchChange);
 
-    glm::vec2 angles = glm::vec2(yawChange, pitchChange);
+        angles = this->camera->ApplyMouseSensitivity(angles);
 
-    angles = this->camera->ApplyMouseSensitivity(angles);
-
-    this->camera->UpdateCameraOrientation(angles);
+        this->camera->UpdateCameraOrientation(angles);
+    }
 }
 
 void CameraControll::KeyboardMovement()
@@ -55,6 +58,18 @@ void CameraControll::Update(Subject* subject, const char* type, void* data)
     if (strcmp(type, "cursor_move") == 0) {
         glm::vec2 mouse_pos = *static_cast<glm::vec2*>(data);
 
+        this->current_x = mouse_pos.x;
+        this->current_y = mouse_pos.y;
+
         MouseMovement(mouse_pos.x, mouse_pos.y);
+    }
+    else if (strcmp(type, "mouse_button") == 0) {
+	    
+        bool left_button_pressed = *static_cast<bool*>(data);
+
+        lock_camera = left_button_pressed;
+
+        this->last_x = this->current_x;
+        this->last_y = this->current_y;
     }
 }

@@ -6,7 +6,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "Scene.h"
+#include "TestScene.h"
+#include "PhongTestScene.h"
+#include "MultipleModelsScene.h"
+#include "SolarSystemScene.h"
+
 #include "Callback.h"
 
 class Application
@@ -14,7 +18,6 @@ class Application
 
 private:
 	Window* window;
-	Scene* scene;
 
 public:
 	Application();

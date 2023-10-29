@@ -2,7 +2,7 @@
 
 ShaderLoader::ShaderLoader(const char* shader_path)
 {
-	const char* shaderCode = GetShaderCode(shader_path);
+	const char* shaderCode = ReadShaderCode(shader_path);
 	if (shaderCode == NULL)
 	{
 		fprintf(stderr, "Failed to load shader code from file '%s'\n", shader_path);
@@ -19,7 +19,7 @@ const char* ShaderLoader::GetShaderCode()
 	return this->shaderCode;
 }
 
-const char* ShaderLoader::GetShaderCode(const char* shader_path)
+const char* ShaderLoader::ReadShaderCode(const char* shader_path)
 {
 	FILE* file;
 	fopen_s(&file, shader_path, "r");

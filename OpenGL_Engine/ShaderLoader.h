@@ -6,7 +6,7 @@ class ShaderLoader
 {
 private:
 	const char* shaderCode;
-	const char* GetShaderCode(const char* shader_path);
+	const char* ReadShaderCode(const char* shader_path);
 
 public:
 	ShaderLoader(const char* shader_path);
