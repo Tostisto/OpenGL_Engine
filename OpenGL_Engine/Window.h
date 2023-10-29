@@ -32,4 +32,3 @@ public:
 
 	void Update(Subject* subject, const char* type, void* data);
 };
-

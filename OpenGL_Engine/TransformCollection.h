@@ -12,4 +12,3 @@ public:
     void addTransformation(Transformation* transform);
     glm::mat4 getMatrix() const override;
 };
-

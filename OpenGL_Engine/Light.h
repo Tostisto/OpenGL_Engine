@@ -22,4 +22,3 @@ public:
 	void setPosition(glm::vec3 position);
 	void setColor(glm::vec3 color);
 };
-

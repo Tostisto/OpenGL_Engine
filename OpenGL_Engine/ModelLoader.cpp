@@ -7,7 +7,6 @@ ModelLoader::ModelLoader(const char* modelPath)
     unsigned int flags = aiProcess_Triangulate
         | aiProcess_OptimizeMeshes
         | aiProcess_JoinIdenticalVertices
-        | aiProcess_Triangulate
         | aiProcess_CalcTangentSpace;
 
     const aiScene* scene = importer.ReadFile(modelPath, flags);

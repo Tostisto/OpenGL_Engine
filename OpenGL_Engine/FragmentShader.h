@@ -7,4 +7,3 @@ class FragmentShader : public Shader
 public:
 	FragmentShader(const char* shaderPath);
 };
-
