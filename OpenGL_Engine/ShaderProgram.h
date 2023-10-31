@@ -14,6 +14,10 @@
 
 #include "Camera.h"
 
+#include "PointLight.h"
+#include "DirectionalLight.h"
+
+
 class ShaderProgram : public Observer
 {
 	GLuint programID;
@@ -35,6 +39,9 @@ public:
 	void setUniform(const char* name, glm::mat4 matrix);
 	void setUniform(const char* name, glm::vec3 vector);
 	void setUniform(const char* name, float value);
+	void setUniform(const char* name, int value);
+	void setUniform(const char* name, PointLight pointLight);
+
 
 	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType);
 

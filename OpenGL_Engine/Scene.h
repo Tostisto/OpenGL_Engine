@@ -30,19 +30,22 @@
 #include "ModelLoader.h"
 
 #include "Light.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 
 class Scene
 {
 private:
 	std::vector<Drawable*> drawables;
 	std::vector<ShaderProgram*> shaderPrograms;
+	std::vector<Light*> lights;
 
 	CameraControll* cameraControll;
 
 protected:
 	void AddCamera(Camera* camera);
 	void AddCameraControll(CameraControll* cameraControll);
-	void AddLight(Light* light);
 	void AddWindow(Window* window);
 
 	void AddDrawable(Drawable* drawable);
@@ -50,6 +53,9 @@ protected:
 
 	void AddShaderProgram(ShaderProgram* shaderProgram);
 	void RemoveShaderProgram(ShaderProgram* shaderProgram);
+
+	void AddLight(Light* light);
+	void RemoveLight(Light* light);
 
 	virtual void UpdateFrame();
 

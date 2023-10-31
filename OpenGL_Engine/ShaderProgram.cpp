@@ -81,7 +81,7 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s\n", name);
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -96,7 +96,7 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s\n", name);
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -111,11 +111,44 @@ void ShaderProgram::setUniform(const char* name, float value)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s\n", name);
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
 	glUniform1f(idModelTransform, value);
+}
+
+void ShaderProgram::setUniform(const char* name, int value)
+{
+	this->UseProgram();
+
+	GLint idModelTransform = glGetUniformLocation(this->programID, name);
+
+	if (idModelTransform == -1)
+	{
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
+		exit(EXIT_FAILURE);
+	}
+
+	glUniform1i(idModelTransform, value);
+}
+
+void ShaderProgram::setUniform(const char* name, PointLight pointLight)
+{
+	// Type
+	std::string uniformName(name);
+	uniformName += ".type";
+	this->setUniform(uniformName.c_str(), pointLight.getLightType());
+
+	// Position
+	uniformName = name;
+	uniformName += ".position";
+	this->setUniform(uniformName.c_str(), pointLight.getPosition());
+
+	// Color
+	uniformName = name;
+	uniformName += ".color";
+	this->setUniform(uniformName.c_str(), pointLight.getColor());
 }
 
 void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType)
@@ -151,12 +184,14 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraPos = camera->GetCameraPos();
 
+		glm::vec3 cameraDir = camera->GetCameraDirection();
+
 
 		if (this->ShaderType != "constantShaderProgram" && this->ShaderType != "lambertShaderProgram")
 		{
 			this->setUniform("cameraPos", cameraPos);
 		}
-		
+
 		this->setUniform("viewMatrix", viewMatrix);
 	}
 	else if (strcmp(type, "window_resize") == 0)

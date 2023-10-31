@@ -17,13 +17,6 @@ void Scene::AddCamera(Camera* camera)
 	}
 }
 
-void Scene::AddLight(Light* light)
-{
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		light->Attach(shaderPrograms[i]);
-	}
-}
-
 void Scene::AddWindow(Window* window)
 {
 	glm::mat4 projectionMatrix = window->GetProjectionMatrix();
@@ -77,5 +70,72 @@ void Scene::Render()
 
  	for (int i = 0; i < this->drawables.size(); i++) {
 		this->drawables[i]->Render();
+	}
+}
+
+void Scene::AddLight(Light* light)
+{
+	this->lights.push_back(light);
+
+	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		light->Attach(shaderPrograms[i]);
+	}
+
+
+	std::string uniformName;
+
+	// send light data to shaders
+	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		this->shaderPrograms[i]->UseProgram();
+
+		if (this->shaderPrograms[i]->ShaderType == "phongShaderProgram" || this->shaderPrograms[i]->ShaderType == "blinnShaderProgram" || this->shaderPrograms[i]->ShaderType == "lambertShaderProgram")
+		{
+			if (light->getLightType() == LightType::DIRECTIONAL_LIGHT) {
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].direction";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((DirectionalLight*)light)->getDirection());
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].color";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), light->getColor());
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].type";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), light->getLightType());
+			}
+			else if (light->getLightType() == LightType::POINT_LIGHT) {
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].position";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((PointLight*)light)->getPosition());
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].color";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), light->getColor());
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].type";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), light->getLightType());
+			}
+			else if (light->getLightType() == LightType::SPOT_LIGHT) {
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].position";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((SpotLight*)light)->getPosition());
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].color";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), light->getColor());
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].type";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), light->getLightType());
+
+				uniformName = "lights[" + std::to_string(lights.size() - 1) + "].direction";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((SpotLight*)light)->getDirection());
+			}
+		}
+	}
+}
+
+void Scene::RemoveLight(Light* light)
+{
+	for (int i = 0; i < this->lights.size(); i++) {
+		if (this->lights[i] == light) {
+			this->lights.erase(this->lights.begin() + i);
+			return;
+		}
 	}
 }
