@@ -4,24 +4,44 @@ Light::Light() {}
 
 Light::~Light() {}
 
-glm::vec3 Light::getPosition()
-{
-	return this->position;
-}
-
 glm::vec3 Light::getColor()
 {
 	return this->color;
 }
 
-void Light::setPosition(glm::vec3 position)
+int Light::getLightType()
 {
-	this->position = position;
-	Notify("light_position", &this->position);
+	return static_cast<int>(this->type);
+}
+
+void Light::setLightType(LightType type)
+{
+	this->type = type;
 }
 
 void Light::setColor(glm::vec3 color)
 {
 	this->color = color;
-	Notify("light_color", &this->color);
+	Notify("light", nullptr);
+}
+
+glm::vec3 Light::getColor(glm::vec3 color)
+{
+	return color;
+}
+
+int Light::getLightType(LightType type)
+{
+	return type;
+}
+
+void Light::setLightIndex(int index)
+{
+	this->LightIndex = index;
+	Notify("light", nullptr);
+}
+
+int Light::getLightIndex()
+{
+	return this->LightIndex;
 }

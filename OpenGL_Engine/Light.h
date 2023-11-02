@@ -6,19 +6,29 @@
 
 #include "Subject.h"
 
+#include "LightType.h"
+
 class Light : public Subject
 {
 private:
-	glm::vec3 position;
 	glm::vec3 color;
+	LightType type = LightType::NONE;
+	int LightIndex;
+
+protected:
+	void setLightType(LightType type);
+	void setColor(glm::vec3 color);
+	glm::vec3 getColor(glm::vec3 color);
+	int getLightType(LightType type);
 
 public:
 	Light();
-	~Light();
 
-	glm::vec3 getPosition();
+	virtual ~Light();
+
 	glm::vec3 getColor();
+	int getLightType();
 
-	void setPosition(glm::vec3 position);
-	void setColor(glm::vec3 color);
+	void setLightIndex(int index);
+	int getLightIndex();
 };

@@ -31,6 +31,7 @@ public:
 
     glm::mat4 GetViewMatrix();
     glm::vec3 GetCameraPos();
+    glm::vec3 GetCameraDirection();
 
     void MoveForward();
     void MoveBackward();

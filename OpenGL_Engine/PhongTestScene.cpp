@@ -10,42 +10,40 @@ void PhongTestScene::Create(Window* window)
 	AddShaderProgram(phongShaderProgram);
 
 	Camera* camera = new Camera();
-	Light* light = new Light();
+	PointLight* light = new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	CameraControll* cameraControll = new CameraControll(camera, window);
 
 	AddCameraControll(cameraControll);
 
 	AddCamera(camera);
-	AddLight(light);
 	AddWindow(window);
-
-	light->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	light->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-
+	AddLight(light);
 
 	Model* model = new Model(sphere, 2880, 6);
 	
+	// Ball 1
 	Drawable* drawable1 = new Drawable(model);
 	drawable1->AddTransformation(new Translation(glm::vec3(2.0, -2.0, 0.0)));
 	drawable1->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(drawable1);
 
-
+	// Ball 2
 	Drawable* drawable2 = new Drawable(model);
 	drawable2->AddTransformation(new Translation(glm::vec3(2.0, 2.0, 0.0)));
 	drawable2->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(drawable2);
 
-
+	// Ball 3
 	Drawable* drawable3 = new Drawable(model);
 	drawable3->AddTransformation(new Translation(glm::vec3(-2.0, 2.0, 0.0)));
 	drawable3->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(drawable3);
 
+	// Ball 4
 	Drawable* drawable4 = new Drawable(model);
 	drawable4->AddTransformation(new Translation(glm::vec3(-2.0, -2.0, 0.0)));
 	drawable4->LinkShaderProgram(phongShaderProgram);
