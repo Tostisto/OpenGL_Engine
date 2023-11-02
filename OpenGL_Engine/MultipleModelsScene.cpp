@@ -33,11 +33,16 @@ void MultipleModelsScene::Create(Window* window)
 
 	AddCameraControll(cameraControll);
 
-	AddCamera(camera);
 	AddWindow(window);
+	AddCamera(camera);
 
-	PointLight* light = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
-	AddLight(light);
+
+	SpotLight* spotLight = new SpotLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::cos(glm::radians(30.0f)));
+	AddLight(spotLight);
+
+	PointLight* pointLight = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f));
+	AddLight(pointLight);
+
 
 	// Plain model
 	Model* plainModel = new Model(plain, 6, 6);
@@ -62,7 +67,7 @@ void MultipleModelsScene::Create(Window* window)
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		32.0f
 	));
-	drawable->LinkShaderProgram(blinnShaderProgram);
+	drawable->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(drawable);
 
@@ -75,8 +80,12 @@ void MultipleModelsScene::Create(Window* window)
 		treeDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
 		treeDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
 		treeDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
-		treeDrawable->LinkShaderProgram(lambertShaderProgram);
-		treeDrawable->SetMaterial(new Material(glm::vec3(0.1f, 0.35f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+		treeDrawable->LinkShaderProgram(phongShaderProgram);
+		treeDrawable->SetMaterial(new Material(
+			glm::vec3(0.05, 0.2f, 0.05f),
+			glm::vec3(1.0f, 1.0f, 1.0f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f)
+		);
 
 		this->AddDrawable(treeDrawable);
 	}
@@ -92,7 +101,11 @@ void MultipleModelsScene::Create(Window* window)
 		bushesDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
 		bushesDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
 		bushesDrawable->LinkShaderProgram(phongShaderProgram);
-		bushesDrawable->SetMaterial(new Material(glm::vec3(0.1f, 0.35f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+		bushesDrawable->SetMaterial(new Material(
+			glm::vec3(0.1f, 0.35f, 0.1f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f)
+		);
 
 		this->AddDrawable(bushesDrawable);
 	}
@@ -105,7 +118,11 @@ void MultipleModelsScene::Create(Window* window)
 		Drawable* giftBoxDrawable = new Drawable(giftBoxModel);
 		giftBoxDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
 		giftBoxDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
-		giftBoxDrawable->SetMaterial(new Material(glm::vec3(0.7f, 0.35f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+		giftBoxDrawable->SetMaterial(new Material(
+			glm::vec3(0.1f, 0.1f, 0.1f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f)
+		);
 		giftBoxDrawable->LinkShaderProgram(phongShaderProgram);
 		this->AddDrawable(giftBoxDrawable);
 	}

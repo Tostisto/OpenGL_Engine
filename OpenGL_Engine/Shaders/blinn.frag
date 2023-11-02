@@ -40,7 +40,6 @@ float LightAttenuation(float distance)
 	return 1.0 / (kc + (kl * distance) + (kq * (distance * distance)));
 }
 
-
 vec4 AddDirectionLight(Light light, vec3 worldNorm, vec4 worldPos)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
@@ -100,8 +99,6 @@ vec4 AddPointLight(Light light, vec3 worldNorm, vec4 worldPos)
 
 	return ambient + diffuse + specular;
 }
-
-
 
 void main(void)
 {

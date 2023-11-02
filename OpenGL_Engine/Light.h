@@ -13,6 +13,7 @@ class Light : public Subject
 private:
 	glm::vec3 color;
 	LightType type = LightType::NONE;
+	int LightIndex;
 
 protected:
 	void setLightType(LightType type);
@@ -27,4 +28,7 @@ public:
 
 	glm::vec3 getColor();
 	int getLightType();
+
+	void setLightIndex(int index);
+	int getLightIndex();
 };

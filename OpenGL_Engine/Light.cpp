@@ -34,3 +34,13 @@ int Light::getLightType(LightType type)
 {
 	return type;
 }
+
+void Light::setLightIndex(int index)
+{
+	this->LightIndex = index;
+}
+
+int Light::getLightIndex()
+{
+	return this->LightIndex;
+}

@@ -133,22 +133,52 @@ void ShaderProgram::setUniform(const char* name, int value)
 	glUniform1i(idModelTransform, value);
 }
 
-void ShaderProgram::setUniform(const char* name, PointLight pointLight)
+void ShaderProgram::setUniform(const char* name, PointLight* pointLight)
 {
-	// Type
-	std::string uniformName(name);
-	uniformName += ".type";
-	this->setUniform(uniformName.c_str(), pointLight.getLightType());
+	std::string uniformName;
 
-	// Position
-	uniformName = name;
-	uniformName += ".position";
-	this->setUniform(uniformName.c_str(), pointLight.getPosition());
+	uniformName = name + std::string(".position");
+	this->setUniform(uniformName.c_str(), pointLight->getPosition());
 
-	// Color
-	uniformName = name;
-	uniformName += ".color";
-	this->setUniform(uniformName.c_str(), pointLight.getColor());
+	uniformName = name + std::string(".color");
+	this->setUniform(uniformName.c_str(), pointLight->getColor());
+
+	uniformName = name + std::string(".type");
+	this->setUniform(uniformName.c_str(), pointLight->getLightType());
+}
+
+void ShaderProgram::setUniform(const char* name, DirectionalLight* directionalLight)
+{
+	std::string uniformName;
+
+	uniformName = name + std::string(".direction");
+	this->setUniform(uniformName.c_str(), directionalLight->getDirection());
+
+	uniformName = name + std::string(".color");
+	this->setUniform(uniformName.c_str(), directionalLight->getColor());
+
+	uniformName = name + std::string(".type");
+	this->setUniform(uniformName.c_str(), directionalLight->getLightType());
+}
+
+void ShaderProgram::setUniform(const char* name, SpotLight* spotLight)
+{
+	std::string uniformName;
+
+	uniformName = name + std::string(".position");
+	this->setUniform(uniformName.c_str(), spotLight->getPosition());
+
+	uniformName = name + std::string(".color");
+	this->setUniform(uniformName.c_str(), spotLight->getColor());
+
+	uniformName = name + std::string(".type");
+	this->setUniform(uniformName.c_str(), spotLight->getLightType());
+
+	uniformName = name + std::string(".direction");
+	this->setUniform(uniformName.c_str(), spotLight->getDirection());
+
+	uniformName = name + std::string(".cutOff");
+	this->setUniform(uniformName.c_str(), spotLight->getCutOff());
 }
 
 void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType)
@@ -186,10 +216,14 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraDir = camera->GetCameraDirection();
 
-
 		if (this->ShaderType != "constantShaderProgram" && this->ShaderType != "lambertShaderProgram")
 		{
 			this->setUniform("cameraPos", cameraPos);
+		}
+
+		if (this->ShaderType == "phongShaderProgram")
+		{
+			this->setUniform("cameraDir", cameraDir);
 		}
 
 		this->setUniform("viewMatrix", viewMatrix);

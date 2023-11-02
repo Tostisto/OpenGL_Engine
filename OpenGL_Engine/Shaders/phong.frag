@@ -1,4 +1,4 @@
-#version 330
+#version 460
 
 #define MAX_LIGHTS 2
 
@@ -7,6 +7,7 @@ in vec3 worldNorm;
 out vec4 fragColor;
 
 uniform vec3 cameraPos;
+uniform vec3 cameraDir;
 
 struct Material
 {
@@ -21,6 +22,7 @@ struct Light {
 	vec3 position;
 	vec3 direction;
     int type;
+	float cutOff;
 };
 
 uniform Light light;
@@ -94,6 +96,37 @@ vec4 AddPointLight(Light light, vec3 worldNorm, vec4 worldPos)
 }
 
 
+vec4 AddSpotLight(Light light, vec3 worldNorm, vec4 worldPos)
+{
+	vec4 lightColor = vec4(light.color, 1.0);
+	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
+
+	vec3 lightVector = cameraPos - worldPos.xyz / worldPos.w;
+	vec3 viewVector = cameraPos - worldPos.xyz / worldPos.w;
+
+	float attenuation = LightAttenuation(length(lightVector));
+	vec3 reflectionDir = reflect(-lightVector, worldNorm);
+
+    float cosTheta = dot(normalize(lightVector), normalize(-cameraDir));
+
+
+    if (cosTheta > light.cutOff)
+    {
+		float intensity = 0.f + 1.f/ (1.f - light.cutOff) * (cosTheta - light.cutOff);
+
+		float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
+		vec4 diffuse = lightColor * attenuation * vec4(material.diffuse, 1.0) * diff * intensity;
+
+		float spec = pow(max(dot(normalize(reflectionDir), normalize(viewVector)),0.0), material.shininess);
+        vec4 specular = lightColor * attenuation * vec4(material.specular, 1.0) * spec * intensity;
+
+        return ambient + diffuse + specular;
+    }
+
+    return ambient;
+}
+
+
 void main(void)
 {
 	vec4 result = vec4(0.0);
@@ -107,6 +140,10 @@ void main(void)
 		else if (lights[i].type == 2)
 		{
 			result += AddDirectionLight(lights[i], worldNorm, worldPos);
+		}
+		else if (lights[i].type == 3)
+		{
+			result += AddSpotLight(lights[i], worldNorm, worldPos);
 		}
 	}
 

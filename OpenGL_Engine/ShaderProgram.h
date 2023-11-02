@@ -16,6 +16,7 @@
 
 #include "PointLight.h"
 #include "DirectionalLight.h"
+#include "SpotLight.h"
 
 
 class ShaderProgram : public Observer
@@ -40,8 +41,9 @@ public:
 	void setUniform(const char* name, glm::vec3 vector);
 	void setUniform(const char* name, float value);
 	void setUniform(const char* name, int value);
-	void setUniform(const char* name, PointLight pointLight);
-
+	void setUniform(const char* name, PointLight* pointLight);
+	void setUniform(const char* name, DirectionalLight* directionalLight);
+	void setUniform(const char* name, SpotLight* spotLight);
 
 	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType);
 

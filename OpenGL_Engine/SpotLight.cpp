@@ -4,12 +4,13 @@ SpotLight::SpotLight()
 {
 }
 
-SpotLight::SpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color)
+SpotLight::SpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff)
 {
 	this->setPosition(position);
 	this->setDirection(direction);
 	this->setColor(color);
 	this->setLightType(LightType::SPOT_LIGHT);
+	this->setCutOff(cutOff);
 }
 
 SpotLight::~SpotLight()
@@ -35,4 +36,14 @@ glm::vec3 SpotLight::getDirection()
 void SpotLight::setDirection(glm::vec3 direction)
 {
 	this->direction = direction;
+}
+
+float SpotLight::getCutOff()
+{
+	return this->cutOff;
+}
+
+void SpotLight::setCutOff(float cutOff)
+{
+	this->cutOff = cutOff;
 }
