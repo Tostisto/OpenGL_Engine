@@ -17,13 +17,6 @@ void Scene::AddCamera(Camera* camera)
 	}
 }
 
-void Scene::AddLight(Light* light)
-{
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		light->Attach(shaderPrograms[i]);
-	}
-}
-
 void Scene::AddWindow(Window* window)
 {
 	glm::mat4 projectionMatrix = window->GetProjectionMatrix();
@@ -77,5 +70,51 @@ void Scene::Render()
 
  	for (int i = 0; i < this->drawables.size(); i++) {
 		this->drawables[i]->Render();
+	}
+}
+
+void Scene::AddLight(Light* light)
+{
+	light->setLightIndex(this->lights.size());
+
+	this->lights.push_back(light);
+
+	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		light->Attach(shaderPrograms[i]);
+	}
+
+	std::string uniformName;
+
+	for (int i = 0; i < this->shaderPrograms.size(); i++) {
+		this->shaderPrograms[i]->UseProgram();
+
+		if (this->shaderPrograms[i]->ShaderType != "constantShaderProgram")
+		{
+			if (light->getLightType() == LightType::DIRECTIONAL_LIGHT) {
+				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), (DirectionalLight*)light);
+			}
+			else if (light->getLightType() == LightType::POINT_LIGHT) {
+				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), (PointLight*)light);
+			}
+			else if (light->getLightType() == LightType::SPOT_LIGHT) {
+				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), (SpotLight*)light);
+			}
+		}
+	}
+}
+
+void Scene::RemoveLight(Light* light)
+{
+	for (int i = 0; i < this->lights.size(); i++) {
+		if (this->lights[i] == light) {
+			this->lights.erase(this->lights.begin() + i);
+			return;
+		}
 	}
 }

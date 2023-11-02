@@ -1,0 +1,7 @@
+enum LightType
+{
+	NONE = 0,
+	POINT_LIGHT = 1,
+	DIRECTIONAL_LIGHT = 2,
+	SPOT_LIGHT = 3
+};

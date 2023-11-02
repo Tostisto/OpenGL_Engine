@@ -28,26 +28,30 @@ void MultipleModelsScene::Create(Window* window)
 	AddShaderProgram(blinnShaderProgram);
 
 	Camera* camera = new Camera();
-	Light* light = new Light();
 
 	CameraControll* cameraControll = new CameraControll(camera, window);
 
 	AddCameraControll(cameraControll);
 
-	AddCamera(camera);
-	AddLight(light);
 	AddWindow(window);
+	AddCamera(camera);
 
-	light->setPosition(glm::vec3(10.0f, 5.0f, -10.0f));
-	light->setColor(glm::vec3(0.8f, 0.8f, 0.8f));
 
+	SpotLight* spotLight = new SpotLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.8f, 0.6f, 0.6f), glm::cos(glm::radians(20.0f)));
+	AddLight(spotLight);
+
+	PointLight* pointLight1 = new PointLight(glm::vec3(-5.0f, 5.0f, 5.0f), glm::vec3(0.8f, 0.2f, 0.2f));
+	AddLight(pointLight1);
+
+	PointLight* pointLight2 = new PointLight(glm::vec3(5.0f, 5.0f, -5.0f), glm::vec3(0.2f, 0.2f, 0.8f));
+	AddLight(pointLight2);
 
 	// Plain model
 	Model* plainModel = new Model(plain, 6, 6);
 	Drawable* plainDrawable = new Drawable(plainModel);
 	plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
-	plainDrawable->AddTransformation(new Scale(glm::vec3(10.0f, 1.0f, 10.0f)));
-	plainDrawable->LinkShaderProgram(constantShaderProgram);
+	plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
+	plainDrawable->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(plainDrawable);
 
@@ -59,7 +63,13 @@ void MultipleModelsScene::Create(Window* window)
 	drawable->AddTransformation(new Translation(glm::vec3(5.0f, -0.6f, -5.0f)));
 	drawable->AddTransformation(new Rotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
 	drawable->AddTransformation(new Scale(glm::vec3(0.35f, 0.35f, 0.35f)));
-	drawable->LinkShaderProgram(phongShaderProgram);
+	drawable->SetMaterial(new Material(
+		glm::vec3(0.03f, 0.03f, 0.03f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		32.0f
+	));
+	drawable->LinkShaderProgram(blinnShaderProgram);
 
 	this->AddDrawable(drawable);
 
@@ -73,7 +83,11 @@ void MultipleModelsScene::Create(Window* window)
 		treeDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
 		treeDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
 		treeDrawable->LinkShaderProgram(phongShaderProgram);
-		treeDrawable->SetMaterial(new Material(glm::vec3(0.1f, 0.35f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+		treeDrawable->SetMaterial(new Material(
+			glm::vec3(0.05, 0.2f, 0.05f),
+			glm::vec3(1.0f, 1.0f, 1.0f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f)
+		);
 
 		this->AddDrawable(treeDrawable);
 	}
@@ -88,9 +102,12 @@ void MultipleModelsScene::Create(Window* window)
 		bushesDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
 		bushesDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
 		bushesDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
-		bushesDrawable->LinkShaderProgram(blinnShaderProgram);
-		bushesDrawable->SetMaterial(new Material(glm::vec3(0.1f, 0.35f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
-
+		bushesDrawable->LinkShaderProgram(phongShaderProgram);
+		bushesDrawable->SetMaterial(new Material(
+			glm::vec3(0.1f, 0.35f, 0.1f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f)
+		);
 
 		this->AddDrawable(bushesDrawable);
 	}
@@ -103,8 +120,12 @@ void MultipleModelsScene::Create(Window* window)
 		Drawable* giftBoxDrawable = new Drawable(giftBoxModel);
 		giftBoxDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
 		giftBoxDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
-		giftBoxDrawable->SetMaterial(new Material(glm::vec3(0.7f, 0.35f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
-		giftBoxDrawable->LinkShaderProgram(blinnShaderProgram);
+		giftBoxDrawable->SetMaterial(new Material(
+			glm::vec3(0.1f, 0.1f, 0.1f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 
+			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f)
+		);
+		giftBoxDrawable->LinkShaderProgram(phongShaderProgram);
 		this->AddDrawable(giftBoxDrawable);
 	}
 }

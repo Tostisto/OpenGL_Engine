@@ -12,6 +12,11 @@ glm::vec3 Camera::GetCameraPos()
     return this->camera_pos;
 }
 
+glm::vec3 Camera::GetCameraDirection()
+{
+    return this->camera_front;
+}
+
 void Camera::MoveForward()
 {
     this->camera_pos += cameraSpeed * this->camera_front;

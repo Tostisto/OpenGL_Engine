@@ -40,8 +40,6 @@ void Callback::WindowIconifyCallback(GLFWwindow* window, int iconified)
 
 void Callback::WindowSizeCallback(GLFWwindow* window, int width, int height)
 {
-	printf("resize %d, %d \n", width, height);
-
 	glm::vec2 window_size = glm::vec2(width, height);
 
 	Notify("window_resize", &window_size);
@@ -56,8 +54,6 @@ void Callback::CursorCallback(GLFWwindow* window, double xpos, double ypos)
 
 void Callback::ButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
-	printf("button_callback \n");
-
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 	{
 		bool left_button_pressed = true;

@@ -1,17 +1,30 @@
 #version 330
 
+#define MAX_LIGHTS 10
+
 in vec4 worldPos;
 in vec3 worldNorm;
 out vec4 fragColor;
 
-uniform vec3 lightPos;
-uniform vec3 lightColor;
+uniform vec3 cameraPos;
+uniform vec3 cameraDir;
 
 struct Material
 {
 	vec3 ambient;
 	vec3 diffuse;
 };
+
+struct Light {
+    vec3 color;
+	vec3 position;
+	vec3 direction;
+    int type;
+	float cutOff;
+};
+
+uniform Light light;
+uniform Light lights[MAX_LIGHTS];
 
 uniform Material material;
 
@@ -25,18 +38,86 @@ float LightAttenuation(float distance)
 	return 1.0 / (kc + (kl * distance) + (kq * (distance * distance)));
 }
 
-void main(void)
+vec4 AddDirectionLight(Light light, vec3 worldNorm, vec4 worldPos)
 {
-	vec4 lightColor = vec4(lightColor, 1.0);
-
+	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
+	
+	vec3 lightVector = light.direction;
 
-	vec3 lightVector = lightPos - worldPos.xyz / worldPos.w;
+	float attenuation = LightAttenuation(length(lightColor.xyz - worldPos.xyz / worldPos.w));
 
-	float attenuation = LightAttenuation(length(lightPos - worldPos.xyz / worldPos.w));
+	vec3 reflectionDir = reflect(-lightVector, worldNorm);
 
 	float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
 	vec4 diffuse = lightColor * attenuation * vec4(material.diffuse, 1.0) * diff;
 
-	fragColor = ambient + diffuse;
+	return ambient + diffuse;
+}
+
+
+vec4 AddPointLight(Light light, vec3 worldNorm, vec4 worldPos)
+{
+	vec4 lightColor = vec4(light.color, 1.0);
+	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
+	
+	vec3 lightVector = light.position - worldPos.xyz / worldPos.w;
+
+	float attenuation = LightAttenuation(length(light.position - worldPos.xyz / worldPos.w));
+
+	vec3 reflectionDir = reflect(-lightVector, worldNorm);
+
+	float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
+	vec4 diffuse = lightColor * attenuation * vec4(material.diffuse, 1.0) * diff;
+
+	
+	return ambient + diffuse;
+}
+
+
+vec4 AddSpotLight(Light light, vec3 worldNorm, vec4 worldPos)
+{
+	vec4 lightColor = vec4(light.color, 1.0);
+	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
+
+	vec3 lightVector = cameraPos - worldPos.xyz / worldPos.w;
+	float attenuation = LightAttenuation(length(lightVector));
+
+    float cosTheta = dot(normalize(lightVector), normalize(-cameraDir));
+
+    if (cosTheta > light.cutOff)
+    {
+		float intensity = 1.f/ (1.f - light.cutOff) * (cosTheta - light.cutOff);
+
+		float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
+		vec4 diffuse = lightColor * attenuation * vec4(material.diffuse, 1.0) * diff * intensity;
+
+        return ambient + diffuse;
+    }
+
+    return ambient;
+}
+
+
+void main(void)
+{
+	vec4 result = vec4(0.0);
+
+	for (int i = 0; i < MAX_LIGHTS; i++)
+	{
+		if (lights[i].type == 1)
+		{
+			result += AddPointLight(lights[i], worldNorm, worldPos);
+		}
+		else if (lights[i].type == 2)
+		{
+			result += AddDirectionLight(lights[i], worldNorm, worldPos);
+		}
+		else if (lights[i].type == 3)
+		{
+			result += AddSpotLight(lights[i], worldNorm, worldPos);
+		}
+	}
+
+	fragColor = result;
 }
