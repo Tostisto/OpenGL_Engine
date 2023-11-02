@@ -37,18 +37,20 @@ void MultipleModelsScene::Create(Window* window)
 	AddCamera(camera);
 
 
-	SpotLight* spotLight = new SpotLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::cos(glm::radians(30.0f)));
+	SpotLight* spotLight = new SpotLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.8f, 0.6f, 0.6f), glm::cos(glm::radians(20.0f)));
 	AddLight(spotLight);
 
-	PointLight* pointLight = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f));
-	AddLight(pointLight);
+	PointLight* pointLight1 = new PointLight(glm::vec3(-5.0f, 5.0f, 5.0f), glm::vec3(0.8f, 0.2f, 0.2f));
+	AddLight(pointLight1);
 
+	PointLight* pointLight2 = new PointLight(glm::vec3(5.0f, 5.0f, -5.0f), glm::vec3(0.2f, 0.2f, 0.8f));
+	AddLight(pointLight2);
 
 	// Plain model
 	Model* plainModel = new Model(plain, 6, 6);
 	Drawable* plainDrawable = new Drawable(plainModel);
 	plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
-	plainDrawable->AddTransformation(new Scale(glm::vec3(10.0f, 1.0f, 10.0f)));
+	plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
 	plainDrawable->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(plainDrawable);
@@ -62,12 +64,12 @@ void MultipleModelsScene::Create(Window* window)
 	drawable->AddTransformation(new Rotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
 	drawable->AddTransformation(new Scale(glm::vec3(0.35f, 0.35f, 0.35f)));
 	drawable->SetMaterial(new Material(
-		glm::vec3(0.2f, 0.2f, 0.2f),
+		glm::vec3(0.03f, 0.03f, 0.03f),
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		32.0f
 	));
-	drawable->LinkShaderProgram(phongShaderProgram);
+	drawable->LinkShaderProgram(blinnShaderProgram);
 
 	this->AddDrawable(drawable);
 

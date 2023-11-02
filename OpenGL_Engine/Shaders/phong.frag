@@ -1,6 +1,6 @@
 #version 460
 
-#define MAX_LIGHTS 2
+#define MAX_LIGHTS 10
 
 in vec4 worldPos;
 in vec3 worldNorm;
@@ -112,7 +112,7 @@ vec4 AddSpotLight(Light light, vec3 worldNorm, vec4 worldPos)
 
     if (cosTheta > light.cutOff)
     {
-		float intensity = 0.f + 1.f/ (1.f - light.cutOff) * (cosTheta - light.cutOff);
+		float intensity = 1.f/ (1.f - light.cutOff) * (cosTheta - light.cutOff);
 
 		float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
 		vec4 diffuse = lightColor * attenuation * vec4(material.diffuse, 1.0) * diff * intensity;

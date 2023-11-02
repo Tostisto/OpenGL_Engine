@@ -48,10 +48,6 @@ void ShaderProgram::CheckProgram()
 
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		printf("Shader program linked successfully\n");	
-	}
 }
 
 void ShaderProgram::SetViewMatrix()
@@ -216,13 +212,10 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraDir = camera->GetCameraDirection();
 
-		if (this->ShaderType != "constantShaderProgram" && this->ShaderType != "lambertShaderProgram")
+		// Send to all shaders except constantShaderProgram
+		if (this->ShaderType != "constantShaderProgram")
 		{
 			this->setUniform("cameraPos", cameraPos);
-		}
-
-		if (this->ShaderType == "phongShaderProgram")
-		{
 			this->setUniform("cameraDir", cameraDir);
 		}
 
@@ -238,8 +231,6 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 	}
 	else if (strcmp(type, "fov_change") == 0)
 	{
-		printf("fov_change \n");
-
 		glm::vec3 *new_data = (glm::vec3*)data;
 
 		float fov = new_data->x;
@@ -250,22 +241,36 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		this->setUniform("projectionMatrix", projectionMatrix);
 	}
-	else if (strcmp(type, "light_position") == 0)
+	else if (strcmp(type, "light") == 0)
 	{
-		printf("light position\n");
-
-		if (this->ShaderType != "constantShaderProgram")
+		if (this->ShaderType == "phongShaderProgram")
 		{
-			this->setUniform("lightPos", *(glm::vec3*)data);
-		}
-	}
-	else if (strcmp(type, "light_color") == 0)
-	{
-		printf("light color\n");
+			Light* light = (Light*)subject;
 
-		if (this->ShaderType != "constantShaderProgram")
-		{
-			this->setUniform("lightColor", *(glm::vec3*)data);
+			if (light->getLightType() == LightType::POINT_LIGHT)
+			{
+				PointLight* pointLight = (PointLight*)light;
+
+				std::string unatchedUniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+
+				this->setUniform(unatchedUniformName.c_str(), pointLight);
+			}
+			else if (light->getLightType() == LightType::DIRECTIONAL_LIGHT)
+			{
+				DirectionalLight* directionalLight = (DirectionalLight*)light;
+
+				std::string unatchedUniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+
+				this->setUniform(unatchedUniformName.c_str(), directionalLight);
+			}
+			else if (light->getLightType() == LightType::SPOT_LIGHT)
+			{
+				SpotLight* spotLight = (SpotLight*)light;
+
+				std::string unatchedUniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+
+				this->setUniform(unatchedUniformName.c_str(), spotLight);
+			}
 		}
 	}
 }

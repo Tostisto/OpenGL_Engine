@@ -25,7 +25,7 @@ glm::vec3 SpotLight::getPosition()
 void SpotLight::setPosition(glm::vec3 position)
 {
 	this->position = position;
-	Notify("light_position", &this->position);
+	Notify("light", nullptr);
 }
 
 glm::vec3 SpotLight::getDirection()
@@ -36,6 +36,7 @@ glm::vec3 SpotLight::getDirection()
 void SpotLight::setDirection(glm::vec3 direction)
 {
 	this->direction = direction;
+	Notify("light", nullptr);
 }
 
 float SpotLight::getCutOff()
@@ -46,4 +47,5 @@ float SpotLight::getCutOff()
 void SpotLight::setCutOff(float cutOff)
 {
 	this->cutOff = cutOff;
+	Notify("light", nullptr);
 }

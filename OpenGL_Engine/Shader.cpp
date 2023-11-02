@@ -35,7 +35,4 @@ void Shader::CheckShaderCompilation()
     
         exit(EXIT_FAILURE);
     }
-    else {
-		printf("Shader compilation successful\n");
-    }
 }

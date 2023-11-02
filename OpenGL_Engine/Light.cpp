@@ -22,7 +22,7 @@ void Light::setLightType(LightType type)
 void Light::setColor(glm::vec3 color)
 {
 	this->color = color;
-	Notify("light_color", &this->color);
+	Notify("light", nullptr);
 }
 
 glm::vec3 Light::getColor(glm::vec3 color)
@@ -38,6 +38,7 @@ int Light::getLightType(LightType type)
 void Light::setLightIndex(int index)
 {
 	this->LightIndex = index;
+	Notify("light", nullptr);
 }
 
 int Light::getLightIndex()

@@ -21,5 +21,5 @@ glm::vec3 DirectionalLight::getDirection()
 void DirectionalLight::setDirection(glm::vec3 direction)
 {
 	this->direction = direction;
-	Notify("light_direction", &this->direction);
+	Notify("light", nullptr);
 }
