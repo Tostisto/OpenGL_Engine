@@ -18,25 +18,25 @@ void SolarSystemScene::Create(Window* window)
 	// Constant Shader
 	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
 	FragmentShader* constantFragmentShader = new FragmentShader("Shaders\\constant.frag");
-	ShaderProgram* constantShaderProgram = new ShaderProgram(constantVertexShader, constantFragmentShader, "constantShaderProgram");
+	ShaderProgram* constantShaderProgram = new ShaderProgram(constantVertexShader, constantFragmentShader, ShaderType::CONSTANT);
 	AddShaderProgram(constantShaderProgram);
 
 	// Lambert Shader 
 	VertexShader* lamberVertexShader = new VertexShader("Shaders\\lambert.vert");
 	FragmentShader* lamberFragmentShader = new FragmentShader("Shaders\\lambert.frag");
-	ShaderProgram* lambertShaderProgram = new ShaderProgram(lamberVertexShader, lamberFragmentShader, "lambertShaderProgram");
+	ShaderProgram* lambertShaderProgram = new ShaderProgram(lamberVertexShader, lamberFragmentShader, ShaderType::LAMBERT);
 	AddShaderProgram(lambertShaderProgram);
 
 	// Phong Shader 
 	VertexShader* phongVertexShader = new VertexShader("Shaders\\phong.vert");
 	FragmentShader* phongFragmentShader = new FragmentShader("Shaders\\phong.frag");
-	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, "phongShaderProgram");
+	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, ShaderType::PHONG);
 	AddShaderProgram(phongShaderProgram);
 
 	// Blinn shader 
 	VertexShader* blinnVertexShader = new VertexShader("Shaders\\blinn.vert");
 	FragmentShader* blinnFragmentShader = new FragmentShader("Shaders\\blinn.frag");
-	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, "blinnShaderProgram");
+	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, ShaderType::BLINN_PHONG);
 	AddShaderProgram(blinnShaderProgram);
 
 	Camera* camera = new Camera();
@@ -112,27 +112,6 @@ void SolarSystemScene::UpdateFrame()
 	planet->AddTransformation(new Translation(glm::vec3(-5.0, 0.0, 0.0)));
 	planet->AddTransformation(new Rotation(0.1f, glm::vec3(0.0, 1.0, 0.0)));
 	planet->AddTransformation(new Translation(glm::vec3(5.0, 0.0, 0.0)));
-
-	//static float planetAngle = 0.0f;
-	//const float planetRotationSpeed = 0.1f;
-
-	//planetAngle += planetRotationSpeed;
-
-	//float planetRadius = 5.0f;
-	//glm::vec3 planetPosition;
-	//planetPosition.x = planetRadius * cos(planetAngle);
-	//planetPosition.y = 0.0f;
-	//planetPosition.z = planetRadius * sin(planetAngle);
-
-	//fprintf(stdout, "Planet Position: %f, %f, %f\n", planetPosition.x, planetPosition.y, planetPosition.z);
-
-	//// how position change
-	//glm::vec3 planetPositionChange = planetPosition - oldPlanetPosition;
-
-	//// move the moon to the same position as the planet
-	////moon->AddTransformation(new Translation(planetPositionChange));
-
-	//oldPlanetPosition = planetPosition;
 
 	// Moon rotation
 	moon->AddTransformation(new Translation(glm::vec3(-5.0, 0.0, 0.0)));

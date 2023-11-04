@@ -6,25 +6,25 @@ void MultipleModelsScene::Create(Window* window)
 	// Constant Shader
 	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
 	FragmentShader* constantFragmentShader = new FragmentShader("Shaders\\constant.frag");
-	ShaderProgram* constantShaderProgram = new ShaderProgram(constantVertexShader, constantFragmentShader, "constantShaderProgram");
+	ShaderProgram* constantShaderProgram = new ShaderProgram(constantVertexShader, constantFragmentShader, ShaderType::CONSTANT);
 	AddShaderProgram(constantShaderProgram);
 
 	// Lambert Shader 
 	VertexShader* lamberVertexShader = new VertexShader("Shaders\\lambert.vert");
 	FragmentShader* lamberFragmentShader = new FragmentShader("Shaders\\lambert.frag");
-	ShaderProgram* lambertShaderProgram = new ShaderProgram(lamberVertexShader, lamberFragmentShader, "lambertShaderProgram");
+	ShaderProgram* lambertShaderProgram = new ShaderProgram(lamberVertexShader, lamberFragmentShader, ShaderType::LAMBERT);
 	AddShaderProgram(lambertShaderProgram);
 
 	// Phong Shader 
 	VertexShader* phongVertexShader = new VertexShader("Shaders\\phong.vert");
 	FragmentShader* phongFragmentShader = new FragmentShader("Shaders\\phong.frag");
-	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, "phongShaderProgram");
+	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, ShaderType::PHONG);
 	AddShaderProgram(phongShaderProgram);
 
 	// Blinn shader 
 	VertexShader* blinnVertexShader = new VertexShader("Shaders\\blinn.vert");
 	FragmentShader* blinnFragmentShader = new FragmentShader("Shaders\\blinn.frag");
-	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, "blinnShaderProgram");
+	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, ShaderType::BLINN_PHONG);
 	AddShaderProgram(blinnShaderProgram);
 
 	Camera* camera = new Camera();
@@ -128,4 +128,8 @@ void MultipleModelsScene::Create(Window* window)
 		giftBoxDrawable->LinkShaderProgram(phongShaderProgram);
 		this->AddDrawable(giftBoxDrawable);
 	}
+
+	
+	pointLight1->setPosition(glm::vec3(20.0f, 5.0f, -10.0f));
+
 }
