@@ -6,7 +6,7 @@ void PhongTestScene::Create(Window* window)
 	// Phong Shader 
 	VertexShader* phongVertexShader = new VertexShader("Shaders\\phong.vert");
 	FragmentShader* phongFragmentShader = new FragmentShader("Shaders\\phong.frag");
-	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, "phongShaderProgram");
+	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, ShaderType::PHONG);
 	AddShaderProgram(phongShaderProgram);
 
 	Camera* camera = new Camera();
