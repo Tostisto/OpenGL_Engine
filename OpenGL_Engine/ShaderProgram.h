@@ -18,6 +18,8 @@
 #include "DirectionalLight.h"
 #include "SpotLight.h"
 
+#include "ShaderType.h"
+
 
 class ShaderProgram : public Observer
 {
@@ -33,7 +35,9 @@ class ShaderProgram : public Observer
 	void CheckProgram();
 
 public:
-	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* ShaderType);
+	ShaderType shaderType;
+
+	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType);
 	~ShaderProgram();
 	
 	void UseProgram();
@@ -45,11 +49,9 @@ public:
 	void setUniform(const char* name, DirectionalLight* directionalLight);
 	void setUniform(const char* name, SpotLight* spotLight);
 
-	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType);
+	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType);
 
 	void SetViewMatrix();
 
 	void Update(Subject* subject, const char* type, void* data);
-
-	const char* ShaderType;
 };

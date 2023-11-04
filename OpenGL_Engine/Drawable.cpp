@@ -42,14 +42,14 @@ void Drawable::Render()
  		this->shader_program->UseProgram();
 		this->shader_program->setUniform("modelMatrix", this->transformation_collection->getMatrix());
 
-		if (strcmp(this->shader_program->ShaderType, "phongShaderProgram") == 0 || strcmp(this->shader_program->ShaderType, "blinnShaderProgram") == 0)
+		if (this->shader_program->shaderType == ShaderType::PHONG || this->shader_program->shaderType == ShaderType::BLINN_PHONG)
 		{
 			this->shader_program->setUniform("material.ambient", this->material->GetAmbient());
 			this->shader_program->setUniform("material.diffuse", this->material->GetDiffuse());
 			this->shader_program->setUniform("material.specular", this->material->GetSpecular());
 			this->shader_program->setUniform("material.shininess", this->material->GetShininess());
 		}
-		else if (strcmp(this->shader_program->ShaderType, "lambertShaderProgram") == 0)
+		else if (this->shader_program->shaderType == ShaderType::LAMBERT)
 		{
 			this->shader_program->setUniform("material.ambient", this->material->GetAmbient());
 			this->shader_program->setUniform("material.diffuse", this->material->GetDiffuse());

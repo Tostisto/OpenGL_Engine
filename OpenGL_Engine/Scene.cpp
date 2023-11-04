@@ -88,7 +88,7 @@ void Scene::AddLight(Light* light)
 	for (int i = 0; i < this->shaderPrograms.size(); i++) {
 		this->shaderPrograms[i]->UseProgram();
 
-		if (this->shaderPrograms[i]->ShaderType != "constantShaderProgram")
+		if (this->shaderPrograms[i]->shaderType != ShaderType::CONSTANT)
 		{
 			if (light->getLightType() == LightType::DIRECTIONAL_LIGHT) {
 				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";

@@ -1,13 +1,13 @@
 #include "ShaderProgram.h"
 
-ShaderProgram::ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* ShaderType)
+ShaderProgram::ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType)
 {
 	this->programID = glCreateProgram();
 
 	this->vertexShader = vertexShader;
 	this->fragmentShader = fragmentShader;
 
-	this->ShaderType = ShaderType;
+	this->shaderType = shaderType;
 
 	this->AttachShaders();
 	this->LinkProgram();
@@ -77,7 +77,7 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -92,7 +92,7 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -107,7 +107,7 @@ void ShaderProgram::setUniform(const char* name, float value)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -122,7 +122,7 @@ void ShaderProgram::setUniform(const char* name, int value)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->ShaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -177,7 +177,7 @@ void ShaderProgram::setUniform(const char* name, SpotLight* spotLight)
 	this->setUniform(uniformName.c_str(), spotLight->getCutOff());
 }
 
-void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, const char* shaderType)
+void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType)
 {
 	if (this->vertexShader != nullptr)
 	{
@@ -191,7 +191,7 @@ void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader*
 
 	this->vertexShader = vertexShader;
 	this->fragmentShader = fragmentShader;
-	this->ShaderType = shaderType;
+	this->shaderType = shaderType;
 
 	this->AttachShaders();
 	this->LinkProgram();
@@ -213,7 +213,7 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 		glm::vec3 cameraDir = camera->GetCameraDirection();
 
 		// Send to all shaders except constantShaderProgram
-		if (this->ShaderType != "constantShaderProgram")
+		if (this->shaderType != ShaderType::CONSTANT)
 		{
 			this->setUniform("cameraPos", cameraPos);
 			this->setUniform("cameraDir", cameraDir);
@@ -243,7 +243,7 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 	}
 	else if (strcmp(type, "light") == 0)
 	{
-		if (this->ShaderType == "phongShaderProgram")
+		if (this->shaderType == ShaderType::PHONG || this->shaderType == ShaderType::BLINN_PHONG || this->shaderType == ShaderType::LAMBERT)
 		{
 			Light* light = (Light*)subject;
 
