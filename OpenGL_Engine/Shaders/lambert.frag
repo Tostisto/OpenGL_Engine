@@ -42,15 +42,11 @@ vec4 AddDirectionLight(Light light, vec3 worldNorm, vec4 worldPos)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
-	
-	vec3 lightVector = light.direction;
 
-	float attenuation = LightAttenuation(length(lightColor.xyz - worldPos.xyz / worldPos.w));
+	vec3 reflectionDir = reflect(-light.direction, worldNorm);
 
-	vec3 reflectionDir = reflect(-lightVector, worldNorm);
-
-	float diff = max(dot(normalize(lightVector), normalize(worldNorm)), 0.0);
-	vec4 diffuse = lightColor * attenuation * vec4(material.diffuse, 1.0) * diff;
+	float diff = max(dot(normalize(light.direction), normalize(worldNorm)), 0.0);
+	vec4 diffuse = lightColor * vec4(material.diffuse, 1.0) * diff;
 
 	return ambient + diffuse;
 }
