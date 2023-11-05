@@ -36,7 +36,6 @@ void MultipleModelsScene::Create(Window* window)
 	AddWindow(window);
 	AddCamera(camera);
 
-
 	SpotLight* spotLight = new SpotLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.8f, 0.6f, 0.6f), glm::cos(glm::radians(20.0f)));
 	AddLight(spotLight);
 
