@@ -21,6 +21,8 @@ private:
 
 	bool lock_camera = false;
 
+	void MouseBorderSwitch();
+
 public:
 	CameraControll(Camera* camera, Window* window);
 

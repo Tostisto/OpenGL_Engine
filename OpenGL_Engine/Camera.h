@@ -43,6 +43,9 @@ public:
     void SetCameraSpeed(float speed);
     void SetMouseSensitivity(float sensitivity);
 
+    float GetPitch();
+    float GetYaw();
+
     glm::vec2 ApplyMouseSensitivity(glm::vec2 offset);
     void UpdateCameraOrientation(glm::vec2 offset);
     void UpdateCameraFront();  

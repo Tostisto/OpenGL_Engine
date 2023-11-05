@@ -63,6 +63,16 @@ void Camera::SetMouseSensitivity(float sensitivity)
     this->mouseSensitivity = sensitivity;
 }
 
+float Camera::GetPitch()
+{
+    return this->pitch;
+}
+
+float Camera::GetYaw()
+{
+    return this->yaw;
+}
+
 glm::vec2 Camera::ApplyMouseSensitivity(glm::vec2 angles)
 {
     angles *= this->mouseSensitivity;

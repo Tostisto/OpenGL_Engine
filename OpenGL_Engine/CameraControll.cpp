@@ -1,5 +1,33 @@
 #include "CameraControll.h"
 
+void CameraControll::MouseBorderSwitch()
+{
+    if (this->current_x <= 0) {
+        glfwSetCursorPos(this->window->window, this->window->width - 1, this->current_y);
+        this->last_x = this->window->width - 1;
+    }
+    else if (this->current_x >= this->window->width - 1) {
+        glfwSetCursorPos(this->window->window, 0, this->current_y);
+        this->last_x = 0;
+    }
+
+    if (this->current_y <= 0) {
+
+        if (this->camera->GetPitch() < 90.0f) {
+            this->current_x = this->window->height - 1;
+            this->last_y = this->window->height - 1;
+ 			glfwSetCursorPos(this->window->window, this->current_x, this->window->height - 1);
+		}
+	}
+    else if (this->current_y >= this->window->height - 1) {
+        if (this->camera->GetPitch() > -90.0f) {
+            this->current_x = 0;
+            this->last_y = 0;
+            glfwSetCursorPos(this->window->window, this->current_x, 0);
+        }
+	}
+}
+
 CameraControll::CameraControll(Camera* camera, Window* window)
 {
 	this->camera = camera;
@@ -62,6 +90,8 @@ void CameraControll::Update(Subject* subject, const char* type, void* data)
         this->current_y = mouse_pos.y;
 
         MouseMovement(mouse_pos.x, mouse_pos.y);
+
+        MouseBorderSwitch();
     }
     else if (strcmp(type, "mouse_button") == 0) {
 	    
