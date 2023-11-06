@@ -3,7 +3,7 @@
 #include "Transformation.h"
 #include <vector>
 
-class TransformCollection : public Transformation
+class TransformCollection
 {
 private:
     glm::mat4 matrix = glm::mat4(1.0f);
@@ -14,7 +14,6 @@ public:
 
     void addTransformation(Transformation* transform);
     void addTransformationCollection(TransformCollection* transform_collection);
-    void transform(glm::mat4* matrix) override;
 
     glm::mat4 transform();
 };

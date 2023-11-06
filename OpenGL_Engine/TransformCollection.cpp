@@ -17,8 +17,6 @@ void TransformCollection::addTransformationCollection(TransformCollection* trans
 	}
 }
 
-void TransformCollection::transform(glm::mat4* matrix) {}
-
 glm::mat4 TransformCollection::transform()
 {
     matrix = glm::mat4(1.0f);
