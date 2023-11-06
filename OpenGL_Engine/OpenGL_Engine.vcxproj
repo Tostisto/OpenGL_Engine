@@ -135,6 +135,7 @@
     <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraControll.cpp" />
+    <ClCompile Include="CleanTransformations.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="FragmentShader.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="PhongTestScene.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Rotation.cpp" />
+    <ClCompile Include="RotationAroundModel.cpp" />
     <ClCompile Include="Scale.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -170,6 +172,7 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraControll.h" />
+    <ClInclude Include="CleanTransformations.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="FragmentShader.h" />
@@ -185,6 +188,7 @@
     <ClInclude Include="plain.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Rotation.h" />
+    <ClInclude Include="RotationAroundModel.h" />
     <ClInclude Include="Scale.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />

@@ -21,6 +21,11 @@ void Drawable::SetMaterial(Material* material)
 	this->material = material;
 }
 
+glm::mat4 Drawable::GetModelMatrix()
+{
+	return this->transformation_collection->getMatrix();
+}
+
 void Drawable::Render()
 {
 	if (this->shader_program == nullptr) {

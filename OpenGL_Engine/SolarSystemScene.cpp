@@ -54,85 +54,35 @@ void SolarSystemScene::Create(Window* window)
 	Model* sphereModel = new Model(sphere, 2880, 6);
 
 	// Sun Drawable
-	Drawable* sun = new Drawable(sphereModel);
+	sun = new Drawable(sphereModel);
 	sun->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	sun->LinkShaderProgram(lambertShaderProgram);
+	sun->AddTransformation(new Translation(glm::vec3(2.0, 0.0, 0.0)));
 	sun->SetMaterial(new Material(glm::vec3(1.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, 0.0, 1.0), 32.0));
 	this->AddDrawable(sun);
-
-	// Sun 2 Drawable
-	Drawable* sun2 = new Drawable(sphereModel);
-	sun2->AddTransformation(new Translation(glm::vec3(0.0, 10.0, 0.0)));
-	sun2->LinkShaderProgram(lambertShaderProgram);
-	sun2->SetMaterial(new Material(glm::vec3(1.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, 0.0, 1.0), 32.0));
-	this->AddDrawable(sun2);
-
 
 	// Planet 1 Drawable
 	planet = new Drawable(sphereModel);
 	planet->LinkShaderProgram(lambertShaderProgram);
-	planet->AddTransformation(new Translation(glm::vec3(5.0, 0.0, 0.0)));
+	planet->AddTransformation(new Translation(glm::vec3(10.0, 0.0, 0.0)));	
+	planet->AddTransformation(new Rotation(angle, glm::vec3(0.0, 1.0, 0.0)));
 	planet->SetMaterial(new Material(glm::vec3(0.3, 1.0, 3.0), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), 32.0));
 	this->AddDrawable(planet);
 
-	// Planet 2 Drawable
-	planet2 = new Drawable(sphereModel);
-	planet2->LinkShaderProgram(lambertShaderProgram);
-	planet2->AddTransformation(new Translation(glm::vec3(12.0, 0.0, 0.0)));
-	planet2->SetMaterial(new Material(glm::vec3(0.3, 0.3, 1.0), glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, 0.0, 1.0), 32.0));
-	this->AddDrawable(planet2);
-
-	// Planet 3 Drawable
-	planet3 = new Drawable(sphereModel);
-	planet3->LinkShaderProgram(lambertShaderProgram);
-	planet3->AddTransformation(new Translation(glm::vec3(0.0, 10.0, 5.0)));
-	planet3->SetMaterial(new Material(glm::vec3(0.3, 0.3, 1.0), glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, 0.0, 1.0), 32.0));
-	this->AddDrawable(planet3);
-
-
-	// Meteorit Drawable
-	meteorit = new Drawable(sphereModel);
-	meteorit->LinkShaderProgram(lambertShaderProgram);
-	meteorit->AddTransformation(new Scale(glm::vec3(0.5, 0.5, 0.5)));
-	meteorit->AddTransformation(new Translation(glm::vec3(0.0, 10.0, 10.0)));
-	meteorit->SetMaterial(new Material(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), 32.0));
-	this->AddDrawable(meteorit);
-
 	// Moon Drawable
 	moon = new Drawable(sphereModel);
-	moon->AddTransformation(new Translation(glm::vec3(8.0, 0.0, 0.0)));
 	moon->LinkShaderProgram(phongShaderProgram);
-
+	moon->AddTransformation(new RotationAroundModel(0.1f, 2.0f, glm::vec3(0.0, 1.0, 0.0), moon->GetModelMatrix(), planet));
 	this->AddDrawable(moon);
 }
 
 void SolarSystemScene::UpdateFrame()
 {
-	// Rotate the planet around the sun
-	planet->AddTransformation(new Translation(glm::vec3(-5.0, 0.0, 0.0)));
-	planet->AddTransformation(new Rotation(0.1f, glm::vec3(0.0, 1.0, 0.0)));
-	planet->AddTransformation(new Translation(glm::vec3(5.0, 0.0, 0.0)));
+	//// Rotate the planet around the sun
+	//planet->AddTransformation(new Translation(glm::vec3(-8.0, 0.0, 0.0)));
+	//planet->AddTransformation(new Rotation(0.1f, glm::vec3(0.0, 1.0, 0.0)));
+	//planet->AddTransformation(new Translation(glm::vec3(8.0, 0.0, 0.0)));
 
-	// Moon rotation
-	moon->AddTransformation(new Translation(glm::vec3(-5.0, 0.0, 0.0)));
-	moon->AddTransformation(new Rotation(0.1f, glm::vec3(0.0, 1.0, 0.0)));
-	moon->AddTransformation(new Translation(glm::vec3(5.0, 0.0, 0.0)));
-
-	// Planet 2 rotation
-	planet2->AddTransformation(new Translation(glm::vec3(-12.0, 0.0, 0.0)));
-	planet2->AddTransformation(new Rotation(0.1f, glm::vec3(0.0, 1.0, 0.0)));
-	planet2->AddTransformation(new Translation(glm::vec3(12.0, 0.0, 0.0)));
-
-	// Rotate Planet 3 around the sun 2
-	planet3->AddTransformation(new Translation(glm::vec3(0.0, 0.0, -5.0)));
-	planet3->AddTransformation(new Rotation(0.1f, glm::vec3(0.0, 1.0, 0.0)));
-	planet3->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 5.0)));
-
-	//// Meteorit movement
-	//meteorit->AddTransformation(new Translation(glm::vec3(0.0, -0.01, -0.01)));
-
-	
-	meteoritPos = MoveOnLine(meteorit, meteoritPos, glm::vec3(0.0, 0.0, 0.0), 0.1f);
-
-	fprintf(stdout, "Meteorit Position: %f, %f, %f\n", meteoritPos.x, meteoritPos.y, meteoritPos.z);
+	//moon->AddTransformation(new RotationAroundModel(0.1f, 2.0f, glm::vec3(0.0, 1.0, 0.0), moon->GetModelMatrix(), planet));
 }
+	

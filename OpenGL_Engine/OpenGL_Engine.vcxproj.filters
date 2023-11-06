@@ -144,6 +144,12 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
+    <ClCompile Include="CleanTransformations.cpp">
+      <Filter>Source Files\Transformation</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationAroundModel.cpp">
+      <Filter>Source Files\Transformation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -262,6 +268,12 @@
     </ClInclude>
     <ClInclude Include="SpotLight.h">
       <Filter>Header Files\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="RotationAroundModel.h">
+      <Filter>Header Files\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="CleanTransformations.h">
+      <Filter>Header Files\Transformation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

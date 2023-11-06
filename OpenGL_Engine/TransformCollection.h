@@ -2,6 +2,7 @@
 
 #include "Transformation.h"
 #include <vector>
+#include "CleanTransformations.h"
 
 class TransformCollection : public Transformation
 {
@@ -10,5 +11,5 @@ private:
 
 public:
     void addTransformation(Transformation* transform);
-    glm::mat4 getMatrix() const override;
+    glm::mat4 getMatrix() override;
 };
