@@ -5,12 +5,13 @@
 
 class Rotation : public Transformation
 {
-private:
+protected:
     float angle;
     glm::vec3 axis;
+    float speed;
 
 public:
     Rotation(float angle, glm::vec3 axis);
-
-    glm::mat4 getMatrix() const override;
+    Rotation(float angle, glm::vec3 axis, float speed);
+    void transform(glm::mat4* matrix) override;
 };

@@ -16,9 +16,19 @@ void Drawable::AddTransformation(Transformation* transformation)
 	this->transformation_collection->addTransformation(transformation);
 }
 
+void Drawable::AddTranformationCollection(TransformCollection* transformation_collection)
+{
+	this->transformation_collection->addTransformationCollection(transformation_collection);
+}
+
 void Drawable::SetMaterial(Material* material)
 {
 	this->material = material;
+}
+
+glm::mat4 Drawable::GetModelMatrix()
+{
+	return this->transformation_collection->transform();
 }
 
 void Drawable::Render()
@@ -40,7 +50,7 @@ void Drawable::Render()
 	}
 	else {
  		this->shader_program->UseProgram();
-		this->shader_program->setUniform("modelMatrix", this->transformation_collection->getMatrix());
+		this->shader_program->setUniform("modelMatrix", this->transformation_collection->transform());
 
 		if (this->shader_program->shaderType == ShaderType::PHONG || this->shader_program->shaderType == ShaderType::BLINN_PHONG)
 		{

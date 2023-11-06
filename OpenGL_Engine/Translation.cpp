@@ -1,8 +1,11 @@
 #include "Translation.h"
 
-Translation::Translation(glm::vec3 translation) : translation(translation) {}
-
-glm::mat4 Translation::getMatrix() const
+Translation::Translation(glm::vec3 translation)
 {
-	return glm::translate(glm::mat4(1.0f), translation);
+	this->translation = translation;
+}
+
+void Translation::transform(glm::mat4* matrix)
+{
+	*matrix = glm::translate(*matrix, translation);
 }
