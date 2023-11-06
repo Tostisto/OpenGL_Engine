@@ -52,9 +52,9 @@ void Application::InitVersions(int major_version, int minor_version)
 
 void Application::Run()
 {
-	//TestScene* scene = new TestScene();
+	TestScene* scene = new TestScene();
 	//PhongTestScene* scene = new PhongTestScene();
-	SolarSystemScene* scene = new SolarSystemScene();
+	//SolarSystemScene* scene = new SolarSystemScene();
 	//MultipleModelsScene* scene = new MultipleModelsScene();
 
 	scene->Create(this->window);

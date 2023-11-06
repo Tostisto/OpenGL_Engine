@@ -1,6 +1,5 @@
 #include "MultipleModelsScene.h"
 
-
 void MultipleModelsScene::Create(Window* window)
 {
 	// Constant Shader

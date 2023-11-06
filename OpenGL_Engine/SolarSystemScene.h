@@ -7,7 +7,16 @@ class SolarSystemScene : public Scene
 {
 private:
 	Drawable* sun;
-	Drawable* planet;
+
+	Drawable* mercury;
+	Drawable* venus;
+	Drawable* earth;
+	Drawable* mars;
+	Drawable* jupiter;
+	Drawable* saturn;
+	Drawable* uranus;
+	Drawable* neptune;
+
 	Drawable* moon;
 
 	glm::vec3 MoveOnLine(Drawable* object, glm::vec3 position, glm::vec3 toPosition, float speed);
@@ -17,6 +26,5 @@ private:
 public:
 	SolarSystemScene() = default;
 	void Create(Window* window) override;	
-	void UpdateFrame() override;
 };
 

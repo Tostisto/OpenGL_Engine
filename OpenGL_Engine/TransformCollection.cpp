@@ -1,21 +1,32 @@
 #include "TransformCollection.h"
 
+TransformCollection::TransformCollection()
+{
+}
+
 void TransformCollection::addTransformation(Transformation* transform)
 {
     transformations.push_back(transform);
 }
 
-glm::mat4 TransformCollection::getMatrix()
+void TransformCollection::addTransformationCollection(TransformCollection* transform_collection)
 {
-    glm::mat4 result(1.0f);
-
-    for (int i = 0; i < transformations.size(); ++i) {
-		result *= transformations[i]->getMatrix();
+    for (auto& transform : transform_collection->transformations)
+    {
+		transformations.push_back(transform);
 	}
+}
 
-    transformations.clear();
+void TransformCollection::transform(glm::mat4* matrix) {}
 
-    transformations.push_back(new CleanTransformations(result));
+glm::mat4 TransformCollection::transform()
+{
+    matrix = glm::mat4(1.0f);
+    for (auto& transform : transformations)
+    {
+        transform->transform(&matrix);
+    }
 
-    return result;
+
+    return matrix;
 }

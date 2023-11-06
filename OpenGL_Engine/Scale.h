@@ -11,5 +11,5 @@ private:
 public:
     Scale(glm::vec3 scale);
 
-    glm::mat4 getMatrix() override;
+    void transform(glm::mat4* matrix) override;
 };

@@ -10,6 +10,5 @@ private:
 
 public:
     Translation(glm::vec3 translation);
-
-    glm::mat4 getMatrix() override;
+    void transform(glm::mat4* matrix) override;
 };

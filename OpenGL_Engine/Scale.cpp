@@ -1,8 +1,9 @@
 #include "Scale.h"
 
-Scale::Scale(glm::vec3 scale) : scale(scale) {}
+Scale::Scale(glm::vec3 scale) {
+	this->scale = scale;
+}
 
-glm::mat4 Scale::getMatrix()
-{
-	return glm::scale(glm::mat4(1.0f), scale);
+void Scale::transform(glm::mat4* matrix) {
+	*matrix = glm::scale(*matrix, scale);
 }

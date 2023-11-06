@@ -21,7 +21,6 @@
 #include "Rotation.h"
 #include "Translation.h"
 #include "Scale.h"
-#include "RotationAroundModel.h"
 
 #include "Window.h"
 
