@@ -177,6 +177,21 @@ void ShaderProgram::setUniform(const char* name, SpotLight* spotLight)
 	this->setUniform(uniformName.c_str(), spotLight->getCutOff());
 }
 
+void ShaderProgram::setUniform(const char* name, GLuint textureID)
+{
+this->UseProgram();
+
+	GLint idModelTransform = glGetUniformLocation(this->programID, name);
+
+	if (idModelTransform == -1)
+	{
+		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		exit(EXIT_FAILURE);
+	}
+
+	glUniform1i(idModelTransform, textureID);
+}
+
 void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType)
 {
 	if (this->vertexShader != nullptr)
@@ -213,7 +228,7 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 		glm::vec3 cameraDir = camera->GetCameraDirection();
 
 		// Send to all shaders except constantShaderProgram
-		if (this->shaderType != ShaderType::CONSTANT)
+		if (this->shaderType != ShaderType::CONSTANT && this->shaderType != ShaderType::TEXTURE)
 		{
 			this->setUniform("cameraPos", cameraPos);
 			this->setUniform("cameraDir", cameraDir);

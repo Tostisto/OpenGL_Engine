@@ -144,11 +144,11 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
-    <ClCompile Include="CleanTransformations.cpp">
-      <Filter>Source Files\Transformation</Filter>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RotationAroundModel.cpp">
-      <Filter>Source Files\Transformation</Filter>
+    <ClCompile Include="TexturesTestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -269,11 +269,14 @@
     <ClInclude Include="SpotLight.h">
       <Filter>Header Files\Lights</Filter>
     </ClInclude>
-    <ClInclude Include="RotationAroundModel.h">
-      <Filter>Header Files\Transformation</Filter>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CleanTransformations.h">
-      <Filter>Header Files\Transformation</Filter>
+    <ClInclude Include="Models\Triangle.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturesTestScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +302,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\blinn.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texture.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

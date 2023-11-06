@@ -5,3 +5,4 @@
 #include "plain.h"
 #include "suzi_smooth.h"
 #include "suzi_flat.h"
+#include "Models/Triangle.h"

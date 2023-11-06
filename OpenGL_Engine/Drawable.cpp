@@ -26,6 +26,22 @@ void Drawable::SetMaterial(Material* material)
 	this->material = material;
 }
 
+void Drawable::SetMaterialTexture(Texture* texture)
+{
+	if (this->material == nullptr)
+	{
+		this->material = new Material(
+			glm::vec3(0.1f, 0.1f, 0.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			32.0f
+		);
+		fprintf(stderr, "WARNING: Drawable::SetMaterialTexture() called before material was set. Using default material\n");
+	}
+
+	this->material->SetTexture(texture);
+}
+
 glm::mat4 Drawable::GetModelMatrix()
 {
 	return this->transformation_collection->transform();
@@ -52,7 +68,12 @@ void Drawable::Render()
  		this->shader_program->UseProgram();
 		this->shader_program->setUniform("modelMatrix", this->transformation_collection->transform());
 
-		if (this->shader_program->shaderType == ShaderType::PHONG || this->shader_program->shaderType == ShaderType::BLINN_PHONG)
+
+		if (this->shader_program->shaderType == ShaderType::TEXTURE)
+		{
+			this->shader_program->setUniform("textureUnitID", this->material->GetTexture()->GetTextureID());
+		}
+		else if (this->shader_program->shaderType == ShaderType::PHONG || this->shader_program->shaderType == ShaderType::BLINN_PHONG)
 		{
 			this->shader_program->setUniform("material.ambient", this->material->GetAmbient());
 			this->shader_program->setUniform("material.diffuse", this->material->GetDiffuse());

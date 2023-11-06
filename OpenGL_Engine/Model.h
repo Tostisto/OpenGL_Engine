@@ -19,6 +19,7 @@ private:
 
 public:
 	Model(float* points, int numPoints, int pointSize);
+	Model(float* points, int numPoints, int pointSize, bool texture);
 	~Model();
 
 	void Draw();

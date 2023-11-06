@@ -28,6 +28,11 @@ void Material::SetShininess(float shininess)
 	this->shininess = shininess;
 }
 
+void Material::SetTexture(Texture* texture)
+{
+	this->texture = texture;
+}
+
 glm::vec3 Material::GetAmbient()
 {
 	return ambient;
@@ -41,6 +46,11 @@ glm::vec3 Material::GetDiffuse()
 glm::vec3 Material::GetSpecular()
 {
 	return specular;
+}
+
+Texture* Material::GetTexture()
+{
+	return texture;
 }
 
 float Material::GetShininess()

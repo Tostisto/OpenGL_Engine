@@ -48,6 +48,7 @@ public:
 	void setUniform(const char* name, PointLight* pointLight);
 	void setUniform(const char* name, DirectionalLight* directionalLight);
 	void setUniform(const char* name, SpotLight* spotLight);
+	void setUniform(const char* name, GLuint textureID);
 
 	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType);
 

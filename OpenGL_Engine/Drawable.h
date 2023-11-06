@@ -26,6 +26,7 @@ public:
 	void AddTransformation(Transformation* transformation);
 	void AddTranformationCollection(TransformCollection* transformation_collection);
 	void SetMaterial(Material* material);
+	void SetMaterialTexture(Texture* texture);
 	glm::mat4 GetModelMatrix();
 	void Render();
 };
