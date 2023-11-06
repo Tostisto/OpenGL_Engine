@@ -6,23 +6,25 @@
 class SolarSystemScene : public Scene
 {
 private:
-	Drawable* planet;
-	Drawable* planet2;
-	Drawable* planet3;
+	Drawable* sun;
+
+	Drawable* mercury;
+	Drawable* venus;
+	Drawable* earth;
+	Drawable* mars;
+	Drawable* jupiter;
+	Drawable* saturn;
+	Drawable* uranus;
+	Drawable* neptune;
+
 	Drawable* moon;
-	Drawable* meteorit;
-
-	glm::vec3 oldPlanetPosition = glm::vec3(0.0f, 0.0f, 0.0f);
-
-	glm::vec3 meteoritPos = glm::vec3(0.0, 10.0, 10.0);
-	glm::vec3 oldMeteoritPosition = glm::vec3(0.0f, 0.0f, 0.0f);
-
 
 	glm::vec3 MoveOnLine(Drawable* object, glm::vec3 position, glm::vec3 toPosition, float speed);
+
+	float angle = 0.0f;
 
 public:
 	SolarSystemScene() = default;
 	void Create(Window* window) override;	
-	void UpdateFrame() override;
 };
 

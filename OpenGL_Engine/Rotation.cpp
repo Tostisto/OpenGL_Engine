@@ -1,8 +1,21 @@
 #include "Rotation.h"
 
-Rotation::Rotation(float angle, glm::vec3 axis) : angle(angle), axis(axis) {}
-
-glm::mat4 Rotation::getMatrix() const
+Rotation::Rotation(float angle, glm::vec3 axis)
 {
-    return glm::rotate(glm::mat4(1.0f), angle, axis);
+	this->angle = angle;
+	this->axis = axis;
+	this->speed = 0.0f;
+}
+
+Rotation::Rotation(float angle, glm::vec3 axis, float speed)
+{
+   	this->angle = angle;
+	this->axis = axis;
+	this->speed = speed;
+}
+
+void Rotation::transform(glm::mat4* matrix)
+{
+	this->angle += this->speed;
+	*matrix = glm::rotate(*matrix, this->angle, this->axis);
 }

@@ -5,6 +5,5 @@
 class Transformation
 {
 public:
-    virtual glm::mat4 getMatrix() const = 0;
-    virtual ~Transformation() {}
+    virtual void transform(glm::mat4* matrix) = 0;
 };
