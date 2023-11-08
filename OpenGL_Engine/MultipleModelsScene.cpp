@@ -46,7 +46,7 @@ void MultipleModelsScene::Create(Window* window)
 
 	// Plain model
 	Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
-	Drawable* plainDrawable = new Drawable(plainModel);
+	DrawableModel* plainDrawable = new DrawableModel(plainModel);
 	plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
 	plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
 	plainDrawable->LinkShaderProgram(phongShaderProgram);
@@ -57,7 +57,7 @@ void MultipleModelsScene::Create(Window* window)
 	ModelLoader* modelLoader = new ModelLoader("Models\\jeep.obj");
 
 	Model* model = new Model(modelLoader->getVertices(), modelLoader->getVerticesSize()/6, 6, ModelType::NO_TEXTURE_MODEL);
-	Drawable* drawable = new Drawable(model);
+	DrawableModel* drawable = new DrawableModel(model);
 	drawable->AddTransformation(new Translation(glm::vec3(5.0f, -0.6f, -5.0f)));
 	drawable->AddTransformation(new Rotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
 	drawable->AddTransformation(new Scale(glm::vec3(0.35f, 0.35f, 0.35f)));
@@ -76,7 +76,7 @@ void MultipleModelsScene::Create(Window* window)
 
 	for (int i = 0; i < 20; i++)
 	{
-		Drawable* treeDrawable = new Drawable(treeModel);
+		DrawableModel* treeDrawable = new DrawableModel(treeModel);
 		treeDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
 		treeDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
 		treeDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
@@ -96,7 +96,7 @@ void MultipleModelsScene::Create(Window* window)
 	// 100 bushers on plain with random position
 	for (int i = 0; i < 100; i++)
 	{
-		Drawable* bushesDrawable = new Drawable(bushesModel);
+		DrawableModel* bushesDrawable = new DrawableModel(bushesModel);
 		bushesDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
 		bushesDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
 		bushesDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
@@ -115,7 +115,7 @@ void MultipleModelsScene::Create(Window* window)
 	
 	for (int i = 0; i < 10; i++)
 	{
-		Drawable* giftBoxDrawable = new Drawable(giftBoxModel);
+		DrawableModel* giftBoxDrawable = new DrawableModel(giftBoxModel);
 		giftBoxDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
 		giftBoxDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
 		giftBoxDrawable->SetMaterial(new Material(

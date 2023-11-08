@@ -37,14 +37,14 @@ void TexturesTestScene::Create(Window* window)
 
 	Model* triangleModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
 
-	Drawable* triangleDrawable = new Drawable(triangleModel);
+	DrawableModel* triangleDrawable = new DrawableModel(triangleModel);
 	triangleDrawable->LinkShaderProgram(textureShaderProgram);
 	triangleDrawable->SetMaterialTexture(new Texture("Textures\\grass.png"));
 
 	this->AddDrawable(triangleDrawable);
 
 
-	Drawable* triangleDrawable2 = new Drawable(triangleModel);
+	DrawableModel* triangleDrawable2 = new DrawableModel(triangleModel);
 	triangleDrawable2->LinkShaderProgram(textureShaderProgram);
 	triangleDrawable2->SetMaterialTexture(new Texture("Textures\\wooden_fence.png"));
 	triangleDrawable2->AddTransformation(new Translation(glm::vec3(0.0f, 0.0f, -2.0f)));

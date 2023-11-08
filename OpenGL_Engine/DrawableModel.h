@@ -13,7 +13,7 @@
 #include "Material.h"
 #include "TransformCollection.h"
 
-class Drawable : public DrawableBase
+class DrawableModel : public DrawableBase
 {
 private:
 	TransformCollection* transformation_collection = nullptr;
@@ -22,7 +22,7 @@ protected:
 	Material* material = nullptr;
 
 public:
-	Drawable(Model* model);
+	DrawableModel(Model* model);
 
 	void AddTransformation(Transformation* transformation);
 	void AddTranformationCollection(TransformCollection* transformation_collection);

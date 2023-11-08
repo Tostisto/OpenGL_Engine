@@ -5,20 +5,20 @@
 #include <vector>
 
 #include "DrawableBase.h"
-#include "Drawable.h"
+#include "DrawableModel.h"
 
 #include "models.h"
 
-class CubeMap : public Drawable
+class CubeMap : public DrawableBase
 {
 private:
 	std::vector<const char*> faces;
-
+	Texture* texture;
 
 public:
 	CubeMap(std::vector<const char*> faces);
 	CubeMap();
 
-	void Render();
+	void Render() override;
 };
 

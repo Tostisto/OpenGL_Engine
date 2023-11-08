@@ -137,7 +137,7 @@
     <ClCompile Include="CameraControll.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
-    <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="DrawableModel.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="FragmentShader.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -176,7 +176,7 @@
     <ClInclude Include="CameraControll.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DirectionalLight.h" />
-    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="DrawableModel.h" />
     <ClInclude Include="DrawableBase.h" />
     <ClInclude Include="FragmentShader.h" />
     <ClInclude Include="gift.h" />

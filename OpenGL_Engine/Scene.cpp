@@ -28,12 +28,12 @@ void Scene::AddWindow(Window* window)
 	}
 }
 
-void Scene::AddDrawable(Drawable* drawable)
+void Scene::AddDrawable(DrawableModel* drawable)
 {
 	this->drawables.push_back(drawable);
 }
 
-void Scene::RemoveDrawable(Drawable* drawable)
+void Scene::RemoveDrawable(DrawableModel* drawable)
 {
 	for (int i = 0; i < this->drawables.size(); i++) {
 		if (this->drawables[i] == drawable) {

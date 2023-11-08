@@ -1,26 +1,26 @@
-#include "Drawable.h"
+#include "DrawableModel.h"
 
-Drawable::Drawable(Model* model) : DrawableBase(model)
+DrawableModel::DrawableModel(Model* model) : DrawableBase(model)
 {
 	this->transformation_collection = new TransformCollection();
 }
 
-void Drawable::AddTransformation(Transformation* transformation)
+void DrawableModel::AddTransformation(Transformation* transformation)
 {
 	this->transformation_collection->addTransformation(transformation);
 }
 
-void Drawable::AddTranformationCollection(TransformCollection* transformation_collection)
+void DrawableModel::AddTranformationCollection(TransformCollection* transformation_collection)
 {
 	this->transformation_collection->addTransformationCollection(transformation_collection);
 }
 
-void Drawable::SetMaterial(Material* material)
+void DrawableModel::SetMaterial(Material* material)
 {
 	this->material = material;
 }
 
-void Drawable::SetMaterialTexture(Texture* texture)
+void DrawableModel::SetMaterialTexture(Texture* texture)
 {
 	if (this->material == nullptr)
 	{
@@ -36,7 +36,7 @@ void Drawable::SetMaterialTexture(Texture* texture)
 	this->material->SetTexture(texture);
 }
 
-void Drawable::Render()
+void DrawableModel::Render()
 {
 	if (this->shader_program == nullptr) {
 		fprintf(stderr, "ERROR: Drawable::Render() called before shader program was linked. Shader program is required for rendering\n");
