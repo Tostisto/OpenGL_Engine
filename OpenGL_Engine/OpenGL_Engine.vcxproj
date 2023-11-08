@@ -135,8 +135,10 @@
     <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraControll.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="FragmentShader.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
@@ -172,8 +174,10 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraControll.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="DrawableBase.h" />
     <ClInclude Include="FragmentShader.h" />
     <ClInclude Include="gift.h" />
     <ClInclude Include="Light.h" />
@@ -181,7 +185,9 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="Models\skycube.h" />
     <ClInclude Include="Models\Triangle.h" />
+    <ClInclude Include="ModelType.h" />
     <ClInclude Include="MultipleModelsScene.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PhongTestScene.h" />
@@ -215,6 +221,8 @@
     <None Include="Shaders\blinn.vert" />
     <None Include="Shaders\constant.frag" />
     <None Include="Shaders\constant.vert" />
+    <None Include="Shaders\cubemap.frag" />
+    <None Include="Shaders\cubemap.vert" />
     <None Include="Shaders\lambert.frag" />
     <None Include="Shaders\lambert.vert" />
     <None Include="Shaders\phong.frag" />

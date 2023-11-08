@@ -58,6 +58,43 @@ void Scene::RemoveShaderProgram(ShaderProgram* shaderProgram)
 	}
 }
 
+void Scene::AddCubeMap()
+{
+	VertexShader* vertex_shader = new VertexShader("Shaders\\cubemap.vert");
+	FragmentShader* fragment_shader = new FragmentShader("Shaders\\cubemap.frag");
+
+	ShaderProgram* shader_program = new ShaderProgram(vertex_shader, fragment_shader, ShaderType::CUBEMAP);
+
+	std::vector<const char*> faces = {
+		"Textures\\Skybox\\posx.jpg",
+		"Textures\\Skybox\\negx.jpg",
+		"Textures\\Skybox\\posy.jpg",
+		"Textures\\Skybox\\negy.jpg",
+		"Textures\\Skybox\\posz.jpg",
+		"Textures\\Skybox\\negz.jpg"
+	};
+
+	this->cubeMap = new CubeMap(faces);
+
+	this->cubeMap->LinkShaderProgram(shader_program);
+
+	this->AddShaderProgram(shader_program);
+}
+
+void Scene::AddCubeMap(std::vector<const char*> faces)
+{
+	VertexShader* vertex_shader = new VertexShader("Shaders\\cubemap.vert");
+	FragmentShader* fragment_shader = new FragmentShader("Shaders\\cubemap.frag");
+
+	ShaderProgram* shader_program = new ShaderProgram(vertex_shader, fragment_shader, ShaderType::CUBEMAP);
+
+	this->cubeMap = new CubeMap(faces);
+
+	this->cubeMap->LinkShaderProgram(shader_program);
+
+	this->AddShaderProgram(shader_program);
+}
+
 void Scene::UpdateFrame()
 {
 }
@@ -67,6 +104,13 @@ void Scene::Render()
 	this->cameraControll->KeyboardMovement();
 
 	UpdateFrame();
+
+ 	if (this->cubeMap != nullptr) {
+
+		this->cubeMap->Render();
+
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
 
  	for (int i = 0; i < this->drawables.size(); i++) {
 		this->drawables[i]->Render();
@@ -88,7 +132,7 @@ void Scene::AddLight(Light* light)
 	for (int i = 0; i < this->shaderPrograms.size(); i++) {
 		this->shaderPrograms[i]->UseProgram();
 
-		if (this->shaderPrograms[i]->shaderType != ShaderType::CONSTANT || this->shaderPrograms[i]->shaderType != ShaderType::TEXTURE)
+		if (this->shaderPrograms[i]->shaderType != ShaderType::CONSTANT || this->shaderPrograms[i]->shaderType != ShaderType::TEXTURE || this->shaderPrograms[i]->shaderType != ShaderType::CUBEMAP)
 		{
 			if (light->getLightType() == LightType::DIRECTIONAL_LIGHT) {
 				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";

@@ -14,6 +14,7 @@ private:
 
 public:
 	Material(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float shininess);
+	Material(Texture* texture);
 
 	void SetAmbient(glm::vec3 ambient);
 	void SetDiffuse(glm::vec3 diffuse);

@@ -6,3 +6,4 @@ extern float plain[];
 extern float suziFlat[];
 extern float suziSmooth[];
 extern float triangle[];
+extern float skycube[];

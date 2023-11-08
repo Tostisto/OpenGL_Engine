@@ -8,6 +8,8 @@
 
 #include "ShaderProgram.h"
 
+#include "ModelType.h"
+
 class Model
 {
 private:
@@ -16,10 +18,14 @@ private:
 
 	float* points;
 	int numPoints;
+	int pointSize;
+
+	void NoTextureModel();
+	void TextureModel();
+	void SkyboxModel();
 
 public:
-	Model(float* points, int numPoints, int pointSize);
-	Model(float* points, int numPoints, int pointSize, bool texture);
+	Model(float* points, int numPoints, int pointSize, ModelType modelType);
 	~Model();
 
 	void Draw();

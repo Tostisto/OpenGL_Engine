@@ -51,7 +51,7 @@ void SolarSystemScene::Create(Window* window)
 	
 	AddLight(light);
 
-	Model* sphereModel = new Model(sphere, 2880, 6);
+	Model* sphereModel = new Model(sphere, 2880, 6, ModelType::NO_TEXTURE_MODEL);
 
 	// Sun Drawable
 	sun = new Drawable(sphereModel);

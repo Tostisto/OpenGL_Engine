@@ -37,7 +37,7 @@ void TestScene::Create(Window* window)
 	AddLight(light);
 	AddWindow(window);
 
-	Model* model = new Model(sphere, 2880, 6);
+	Model* model = new Model(sphere, 2880, 6, ModelType::NO_TEXTURE_MODEL);
 	Drawable* drawable = new Drawable(model);
 	drawable->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 2.0)));
 	drawable->LinkShaderProgram(phongShaderProgram);

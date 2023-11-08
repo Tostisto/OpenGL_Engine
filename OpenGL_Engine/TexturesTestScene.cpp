@@ -1,4 +1,5 @@
 #include "TexturesTestScene.h"
+#include "CubeMap.h"
 
 void TexturesTestScene::Create(Window* window)
 {
@@ -17,27 +18,39 @@ void TexturesTestScene::Create(Window* window)
 	Camera* camera = new Camera();
 	CameraControll* cameraControll = new CameraControll(camera, window);
 
+ 	AddCubeMap();
+
 	AddCameraControll(cameraControll);
 
 	AddWindow(window);
 	AddCamera(camera);
 
+	//// Plain model
+	//Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
+	//Drawable* plainDrawable = new Drawable(plainModel);
+	//plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
+	//plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
+	//plainDrawable->LinkShaderProgram(constantShaderProgram);
 
-	// Plain model
-	Model* plainModel = new Model(plain, 6, 6);
-	Drawable* plainDrawable = new Drawable(plainModel);
-	plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
-	plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
-	plainDrawable->LinkShaderProgram(constantShaderProgram);
-
-	this->AddDrawable(plainDrawable);
+	//this->AddDrawable(plainDrawable);
 
 
-	// Plain model
-	Model* triangleModel = new Model(triangle, 6, 8, true);
+	Model* triangleModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
+
 	Drawable* triangleDrawable = new Drawable(triangleModel);
 	triangleDrawable->LinkShaderProgram(textureShaderProgram);
-	triangleDrawable->SetMaterialTexture(new Texture("C:\\Users\\kubac\\Desktop\\textures\\grass.png"));
+	triangleDrawable->SetMaterialTexture(new Texture("Textures\\grass.png"));
 
 	this->AddDrawable(triangleDrawable);
+
+
+	Drawable* triangleDrawable2 = new Drawable(triangleModel);
+	triangleDrawable2->LinkShaderProgram(textureShaderProgram);
+	triangleDrawable2->SetMaterialTexture(new Texture("Textures\\wooden_fence.png"));
+	triangleDrawable2->AddTransformation(new Translation(glm::vec3(0.0f, 0.0f, -2.0f)));
+	triangleDrawable2->AddTransformation(new Rotation(20.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
+	triangleDrawable2->AddTransformation(new Scale(glm::vec3(2.5f, 2.5f, 2.5f)));
+
+	this->AddDrawable(triangleDrawable2);
+
 }

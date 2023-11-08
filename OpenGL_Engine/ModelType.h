@@ -1,0 +1,6 @@
+enum ModelType
+{
+	NO_TEXTURE_MODEL = 0,
+	TEXTURE_MODEL = 1,
+	SKYBOX_MODEL = 2
+};

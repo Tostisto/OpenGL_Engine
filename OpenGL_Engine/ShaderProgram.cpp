@@ -227,14 +227,24 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraDir = camera->GetCameraDirection();
 
-		// Send to all shaders except constantShaderProgram
-		if (this->shaderType != ShaderType::CONSTANT && this->shaderType != ShaderType::TEXTURE)
+		if (this->shaderType != ShaderType::CONSTANT && this->shaderType != ShaderType::TEXTURE && this->shaderType != ShaderType::CUBEMAP)
 		{
 			this->setUniform("cameraPos", cameraPos);
 			this->setUniform("cameraDir", cameraDir);
 		}
 
-		this->setUniform("viewMatrix", viewMatrix);
+		if (this->shaderType == ShaderType::CUBEMAP)
+		{
+			// Remove translation from the view matrix
+			glm::mat4 view = glm::mat4(glm::mat3(viewMatrix));
+
+			this->setUniform("viewMatrix", view);
+		}
+		else
+		{
+			this->setUniform("viewMatrix", viewMatrix);
+		}
+
 	}
 	else if (strcmp(type, "window_resize") == 0)
 	{

@@ -1,14 +1,8 @@
 #include "Drawable.h"
 
-Drawable::Drawable(Model* model)
+Drawable::Drawable(Model* model) : DrawableBase(model)
 {
 	this->transformation_collection = new TransformCollection();
-	this->model = model;
-}
-
-void Drawable::LinkShaderProgram(ShaderProgram* shader_program)
-{
-	this->shader_program = shader_program;
 }
 
 void Drawable::AddTransformation(Transformation* transformation)
@@ -42,11 +36,6 @@ void Drawable::SetMaterialTexture(Texture* texture)
 	this->material->SetTexture(texture);
 }
 
-glm::mat4 Drawable::GetModelMatrix()
-{
-	return this->transformation_collection->transform();
-}
-
 void Drawable::Render()
 {
 	if (this->shader_program == nullptr) {
@@ -71,7 +60,9 @@ void Drawable::Render()
 
 		if (this->shader_program->shaderType == ShaderType::TEXTURE)
 		{
-			this->shader_program->setUniform("textureUnitID", this->material->GetTexture()->GetTextureID());
+			this->material->GetTexture()->BindTexture();
+
+			this->shader_program->setUniform("textureUnitID", 1);
 		}
 		else if (this->shader_program->shaderType == ShaderType::PHONG || this->shader_program->shaderType == ShaderType::BLINN_PHONG)
 		{

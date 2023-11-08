@@ -45,7 +45,7 @@ void MultipleModelsScene::Create(Window* window)
 	AddLight(pointLight2);
 
 	// Plain model
-	Model* plainModel = new Model(plain, 6, 6);
+	Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
 	Drawable* plainDrawable = new Drawable(plainModel);
 	plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
 	plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
@@ -56,7 +56,7 @@ void MultipleModelsScene::Create(Window* window)
 	// Model 1
 	ModelLoader* modelLoader = new ModelLoader("Models\\jeep.obj");
 
-	Model* model = new Model(modelLoader->getVertices(), modelLoader->getVerticesSize()/6, 6);
+	Model* model = new Model(modelLoader->getVertices(), modelLoader->getVerticesSize()/6, 6, ModelType::NO_TEXTURE_MODEL);
 	Drawable* drawable = new Drawable(model);
 	drawable->AddTransformation(new Translation(glm::vec3(5.0f, -0.6f, -5.0f)));
 	drawable->AddTransformation(new Rotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
@@ -72,7 +72,7 @@ void MultipleModelsScene::Create(Window* window)
 	this->AddDrawable(drawable);
 
 	// Tree model
-	Model* treeModel = new Model(tree, 92814, 6);
+	Model* treeModel = new Model(tree, 92814, 6, ModelType::NO_TEXTURE_MODEL);
 
 	for (int i = 0; i < 20; i++)
 	{
@@ -91,7 +91,7 @@ void MultipleModelsScene::Create(Window* window)
 	}
 
 	// Bushes model
-	Model* bushesModel = new Model(bushes, 8730, 6);
+	Model* bushesModel = new Model(bushes, 8730, 6, ModelType::NO_TEXTURE_MODEL);
 
 	// 100 bushers on plain with random position
 	for (int i = 0; i < 100; i++)
@@ -111,7 +111,7 @@ void MultipleModelsScene::Create(Window* window)
 	}
 
 	// 10 gift boxes on plain with random position
-	Model* giftBoxModel = new Model(gift, 66624, 6);
+	Model* giftBoxModel = new Model(gift, 66624, 6, ModelType::NO_TEXTURE_MODEL);
 	
 	for (int i = 0; i < 10; i++)
 	{

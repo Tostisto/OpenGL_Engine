@@ -34,8 +34,13 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 
+#include "CubeMap.h"
+
 class Scene
 {
+protected:
+	CubeMap* cubeMap;
+
 private:
 	std::vector<Drawable*> drawables;
 	std::vector<ShaderProgram*> shaderPrograms;
@@ -56,6 +61,9 @@ protected:
 
 	void AddLight(Light* light);
 	void RemoveLight(Light* light);
+
+	void AddCubeMap();
+	void AddCubeMap(std::vector<const char*> faces);
 
 	virtual void UpdateFrame();
 
