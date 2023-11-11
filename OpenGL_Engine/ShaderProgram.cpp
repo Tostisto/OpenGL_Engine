@@ -77,7 +77,7 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -92,7 +92,7 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -107,7 +107,7 @@ void ShaderProgram::setUniform(const char* name, float value)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -122,7 +122,7 @@ void ShaderProgram::setUniform(const char* name, int value)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -185,7 +185,7 @@ this->UseProgram();
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -227,7 +227,9 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraDir = camera->GetCameraDirection();
 
-		if (this->shaderType != ShaderType::CONSTANT && this->shaderType != ShaderType::TEXTURE && this->shaderType != ShaderType::CUBEMAP)
+		if (this->shaderType != ShaderType::CONSTANT &&
+			this->shaderType != ShaderType::TEXTURE &&
+			this->shaderType != ShaderType::CUBEMAP)
 		{
 			this->setUniform("cameraPos", cameraPos);
 			this->setUniform("cameraDir", cameraDir);
@@ -268,7 +270,10 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 	}
 	else if (strcmp(type, "light") == 0)
 	{
-		if (this->shaderType == ShaderType::PHONG || this->shaderType == ShaderType::BLINN_PHONG || this->shaderType == ShaderType::LAMBERT)
+		if (this->shaderType == ShaderType::PHONG ||
+			this->shaderType == ShaderType::BLINN_PHONG || 
+			this->shaderType == ShaderType::LAMBERT || 
+			this->shaderType == ShaderType::TEXTURED_PHONG)
 		{
 			Light* light = (Light*)subject;
 

@@ -26,6 +26,15 @@ void MultipleModelsScene::Create(Window* window)
 	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, ShaderType::BLINN_PHONG);
 	AddShaderProgram(blinnShaderProgram);
 
+
+	// Phong Textured Shader 
+	VertexShader* texturedphongVertexShader = new VertexShader("Shaders\\texturedPhong.vert");
+	FragmentShader* texturedPhongFragmentShader = new FragmentShader("Shaders\\texturedPhong.frag");
+	ShaderProgram* texturedPhongShaderProgram = new ShaderProgram(texturedphongVertexShader, texturedPhongFragmentShader, ShaderType::TEXTURED_PHONG);
+	AddShaderProgram(texturedPhongShaderProgram);
+
+	AddCubeMap();
+
 	Camera* camera = new Camera();
 
 	CameraControll* cameraControll = new CameraControll(camera, window);
@@ -38,11 +47,11 @@ void MultipleModelsScene::Create(Window* window)
 	SpotLight* spotLight = new SpotLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.8f, 0.6f, 0.6f), glm::cos(glm::radians(20.0f)));
 	AddLight(spotLight);
 
-	PointLight* pointLight1 = new PointLight(glm::vec3(-5.0f, 5.0f, 5.0f), glm::vec3(0.8f, 0.2f, 0.2f));
+	PointLight* pointLight1 = new PointLight(glm::vec3(-5.0f, 5.0f, 5.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 	AddLight(pointLight1);
 
-	PointLight* pointLight2 = new PointLight(glm::vec3(5.0f, 5.0f, -5.0f), glm::vec3(0.2f, 0.2f, 0.8f));
-	AddLight(pointLight2);
+	//PointLight* pointLight2 = new PointLight(glm::vec3(5.0f, 5.0f, -5.0f), glm::vec3(0.2f, 0.2f, 0.8f));
+	//AddLight(pointLight2);
 
 	// Plain model
 	Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
@@ -54,7 +63,7 @@ void MultipleModelsScene::Create(Window* window)
 	this->AddDrawable(plainDrawable);
 
 	// Model 1
-	ModelLoader* modelLoader = new ModelLoader("Models\\jeep.obj");
+	ModelLoader* modelLoader = new ModelLoader("Models\\jeep.obj", ModelLoadType::NO_TEXTURES);
 
 	Model* model = new Model(modelLoader->getVertices(), modelLoader->getVerticesSize()/6, 6, ModelType::NO_TEXTURE_MODEL);
 	DrawableModel* drawable = new DrawableModel(model);
@@ -127,7 +136,32 @@ void MultipleModelsScene::Create(Window* window)
 		this->AddDrawable(giftBoxDrawable);
 	}
 
-	
-	pointLight1->setPosition(glm::vec3(20.0f, 5.0f, -10.0f));
 
+	//Model* triangleModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
+	//DrawableModel* textureDrawablePhong = new DrawableModel(triangleModel);
+	//textureDrawablePhong->LinkShaderProgram(texturedPhongShaderProgram);
+	//textureDrawablePhong->SetMaterialTexture(new Texture("Textures\\wooden_fence.png"));
+	//textureDrawablePhong->AddTransformation(new Translation(glm::vec3(0.0f, 0.0f, -2.0f)));
+	//textureDrawablePhong->AddTransformation(new Rotation(20.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
+	//textureDrawablePhong->AddTransformation(new Scale(glm::vec3(2.5f, 2.5f, 2.5f)));
+
+	//this->AddDrawable(textureDrawablePhong);
+
+
+	// House model 1
+	ModelLoader* houseModelLoader = new ModelLoader("C:\\Users\\kubac\\Desktop\\models\\003_obj.obj", ModelLoadType::TEXTURES);
+
+	Model* houseModel = new Model(houseModelLoader->getVertices(), houseModelLoader->getVerticesSize() / 8, 8, ModelType::TEXTURE_MODEL);
+	DrawableModel* houseDrawable = new DrawableModel(houseModel);
+	houseDrawable->AddTransformation(new Translation(glm::vec3(15.0f, -0.6f, 0.0f)));
+	houseDrawable->SetMaterial(new Material(
+		glm::vec3(0.2f, 0.2f, 0.2f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		32.0f
+	));
+	houseDrawable->SetMaterialTexture(new Texture("C:\\Users\\kubac\\Desktop\\models\\003_diffuse.png"));
+	houseDrawable->LinkShaderProgram(texturedPhongShaderProgram);
+
+	this->AddDrawable(houseDrawable);
 }

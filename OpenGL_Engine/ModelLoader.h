@@ -6,17 +6,22 @@
 
 #include <vector>
 
+#include "ModelLoadType.h"
+
 class ModelLoader
 {
 
 private:
+	ModelLoadType type;
+	
 	std::vector<float> modelVertices;
 
 public:
-	ModelLoader(const char* modelPath);
+	ModelLoader(const char* modelPath, ModelLoadType type);
 
 	float* getVertices();
 	void processMesh(aiMesh* mesh);
+	void processMeshTextures(aiMesh* mesh);
 	void processNode(aiNode* node, const aiScene* scene);
 	int getVerticesSize();
 };

@@ -296,6 +296,9 @@
     <ClInclude Include="DrawableBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModelLoadType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\lambert.frag">
@@ -332,6 +335,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\cubemap.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texturedPhong.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texturedPhong.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

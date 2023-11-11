@@ -185,6 +185,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="ModelLoadType.h" />
     <ClInclude Include="Models\skycube.h" />
     <ClInclude Include="Models\Triangle.h" />
     <ClInclude Include="ModelType.h" />
@@ -229,6 +230,8 @@
     <None Include="Shaders\phong.vert" />
     <None Include="Shaders\texture.frag" />
     <None Include="Shaders\texture.vert" />
+    <None Include="Shaders\texturedPhong.frag" />
+    <None Include="Shaders\texturedPhong.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

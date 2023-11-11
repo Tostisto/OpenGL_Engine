@@ -6,4 +6,5 @@ enum ShaderType
 	BLINN_PHONG = 3,
 	TEXTURE = 4,
 	CUBEMAP = 5,
+	TEXTURED_PHONG = 6
 };

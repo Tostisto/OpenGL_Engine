@@ -58,13 +58,17 @@ void DrawableModel::Render()
 		this->shader_program->setUniform("modelMatrix", this->transformation_collection->transform());
 
 
-		if (this->shader_program->shaderType == ShaderType::TEXTURE)
+		if (this->shader_program->shaderType == ShaderType::TEXTURE || this->shader_program->shaderType == ShaderType::TEXTURED_PHONG)
 		{
 			this->material->GetTexture()->BindTexture();
 
 			this->shader_program->setUniform("textureUnitID", 1);
 		}
-		else if (this->shader_program->shaderType == ShaderType::PHONG || this->shader_program->shaderType == ShaderType::BLINN_PHONG)
+
+
+		if (this->shader_program->shaderType == ShaderType::PHONG ||
+			this->shader_program->shaderType == ShaderType::BLINN_PHONG ||
+			this->shader_program->shaderType == ShaderType::TEXTURED_PHONG)
 		{
 			this->shader_program->setUniform("material.ambient", this->material->GetAmbient());
 			this->shader_program->setUniform("material.diffuse", this->material->GetDiffuse());
