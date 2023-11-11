@@ -47,20 +47,31 @@ void MultipleModelsScene::Create(Window* window)
 	SpotLight* spotLight = new SpotLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.8f, 0.6f, 0.6f), glm::cos(glm::radians(20.0f)));
 	AddLight(spotLight);
 
-	PointLight* pointLight1 = new PointLight(glm::vec3(-5.0f, 5.0f, 5.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, 2.0f), glm::vec3(0.8f, 0.8f, 0.8f));
 	AddLight(pointLight1);
 
-	//PointLight* pointLight2 = new PointLight(glm::vec3(5.0f, 5.0f, -5.0f), glm::vec3(0.2f, 0.2f, 0.8f));
-	//AddLight(pointLight2);
 
-	// Plain model
-	Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
-	DrawableModel* plainDrawable = new DrawableModel(plainModel);
-	plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
-	plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
-	plainDrawable->LinkShaderProgram(phongShaderProgram);
+	//// Plain model
+	//Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
+	//DrawableModel* plainDrawable = new DrawableModel(plainModel);
+	//plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
+	//plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
+	//plainDrawable->LinkShaderProgram(lambertShaderProgram);
 
-	this->AddDrawable(plainDrawable);
+	//this->AddDrawable(plainDrawable);
+
+
+	// textured plain
+	Model* texturedPlainModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
+	DrawableModel* texturedPlainDrawable = new DrawableModel(texturedPlainModel);
+	texturedPlainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
+	texturedPlainDrawable->AddTransformation(new Rotation(glm::radians(-90.f), glm::vec3(1.0f, 0.0f, 0.0f)));
+	texturedPlainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 100.0f, 100.0f)));
+	texturedPlainDrawable->LinkShaderProgram(texturedPhongShaderProgram);
+	texturedPlainDrawable->SetMaterialTexture(new Texture("Textures\\grass.png"));
+
+	this->AddDrawable(texturedPlainDrawable);
+
 
 	// Model 1
 	ModelLoader* modelLoader = new ModelLoader("Models\\jeep.obj", ModelLoadType::NO_TEXTURES);
@@ -136,24 +147,12 @@ void MultipleModelsScene::Create(Window* window)
 		this->AddDrawable(giftBoxDrawable);
 	}
 
-
-	//Model* triangleModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
-	//DrawableModel* textureDrawablePhong = new DrawableModel(triangleModel);
-	//textureDrawablePhong->LinkShaderProgram(texturedPhongShaderProgram);
-	//textureDrawablePhong->SetMaterialTexture(new Texture("Textures\\wooden_fence.png"));
-	//textureDrawablePhong->AddTransformation(new Translation(glm::vec3(0.0f, 0.0f, -2.0f)));
-	//textureDrawablePhong->AddTransformation(new Rotation(20.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
-	//textureDrawablePhong->AddTransformation(new Scale(glm::vec3(2.5f, 2.5f, 2.5f)));
-
-	//this->AddDrawable(textureDrawablePhong);
-
-
 	// House model 1
 	ModelLoader* houseModelLoader = new ModelLoader("C:\\Users\\kubac\\Desktop\\models\\003_obj.obj", ModelLoadType::TEXTURES);
 
 	Model* houseModel = new Model(houseModelLoader->getVertices(), houseModelLoader->getVerticesSize() / 8, 8, ModelType::TEXTURE_MODEL);
 	DrawableModel* houseDrawable = new DrawableModel(houseModel);
-	houseDrawable->AddTransformation(new Translation(glm::vec3(15.0f, -0.6f, 0.0f)));
+	houseDrawable->AddTransformation(new Translation(glm::vec3(15.0f, -0.9f, 0.0f)));
 	houseDrawable->SetMaterial(new Material(
 		glm::vec3(0.2f, 0.2f, 0.2f),
 		glm::vec3(1.0f, 1.0f, 1.0f),

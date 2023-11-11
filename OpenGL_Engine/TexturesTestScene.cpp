@@ -25,16 +25,6 @@ void TexturesTestScene::Create(Window* window)
 	AddWindow(window);
 	AddCamera(camera);
 
-	//// Plain model
-	//Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
-	//Drawable* plainDrawable = new Drawable(plainModel);
-	//plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
-	//plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
-	//plainDrawable->LinkShaderProgram(constantShaderProgram);
-
-	//this->AddDrawable(plainDrawable);
-
-
 	Model* triangleModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
 
 	DrawableModel* triangleDrawable = new DrawableModel(triangleModel);
