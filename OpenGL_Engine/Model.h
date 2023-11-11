@@ -18,14 +18,13 @@ private:
 
 	float* points;
 	int numPoints;
-	int pointSize;
 
 	void NoTextureModel();
 	void TextureModel();
 	void SkyboxModel();
 
 public:
-	Model(float* points, int numPoints, int pointSize, ModelType modelType);
+	Model(float* points, int numPoints, ModelType modelType);
 	~Model();
 
 	void Draw();

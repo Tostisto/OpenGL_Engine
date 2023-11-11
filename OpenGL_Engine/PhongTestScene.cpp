@@ -20,7 +20,7 @@ void PhongTestScene::Create(Window* window)
 	AddWindow(window);
 	AddLight(light);
 
-	Model* model = new Model(sphere, 2880, 6, ModelType::NO_TEXTURE_MODEL);
+	Model* model = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
 	
 	// Ball 1
 	DrawableModel* drawable1 = new DrawableModel(model);

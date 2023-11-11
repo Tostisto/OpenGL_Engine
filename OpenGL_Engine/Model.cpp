@@ -5,7 +5,7 @@ void Model::NoTextureModel()
 	// Create a vertex array object
 	glGenBuffers(1, &this->VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * pointSize * numPoints, this->points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * numPoints, this->points, GL_STATIC_DRAW);
 
 	//Vertex Array Object (VAO)
 	glGenVertexArrays(1, &this->VAO); //generate the VAO
@@ -25,7 +25,7 @@ void Model::TextureModel()
 	// Create a vertex array object
 	glGenBuffers(1, &this->VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * pointSize * numPoints, this->points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8 * numPoints, this->points, GL_STATIC_DRAW);
 	
 	//Vertex Array Object (VAO)
 	glGenVertexArrays(1, &this->VAO); //generate the VAO
@@ -47,7 +47,7 @@ void Model::SkyboxModel()
 	// Create a vertex array object
 	glGenBuffers(1, &this->VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * pointSize * numPoints, this->points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * numPoints, this->points, GL_STATIC_DRAW);
 
 	//Vertex Array Object (VAO)
 	glGenVertexArrays(1, &this->VAO); //generate the VAO
@@ -60,11 +60,10 @@ void Model::SkyboxModel()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, NULL);
 }
 
-Model::Model(float* points, int numPoints, int pointSize, ModelType modelType)
+Model::Model(float* points, int numPoints, ModelType modelType)
 {
 	this->points = points;
 	this->numPoints = numPoints;
-	this->pointSize	= pointSize;
 
 	switch (modelType)
 	{

@@ -51,18 +51,8 @@ void MultipleModelsScene::Create(Window* window)
 	AddLight(pointLight1);
 
 
-	//// Plain model
-	//Model* plainModel = new Model(plain, 6, 6, ModelType::NO_TEXTURE_MODEL);
-	//DrawableModel* plainDrawable = new DrawableModel(plainModel);
-	//plainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
-	//plainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 1.0f, 100.0f)));
-	//plainDrawable->LinkShaderProgram(lambertShaderProgram);
-
-	//this->AddDrawable(plainDrawable);
-
-
 	// textured plain
-	Model* texturedPlainModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
+	Model* texturedPlainModel = new Model(triangle, 6, ModelType::TEXTURE_MODEL);
 	DrawableModel* texturedPlainDrawable = new DrawableModel(texturedPlainModel);
 	texturedPlainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
 	texturedPlainDrawable->AddTransformation(new Rotation(glm::radians(-90.f), glm::vec3(1.0f, 0.0f, 0.0f)));
@@ -76,7 +66,7 @@ void MultipleModelsScene::Create(Window* window)
 	// Model 1
 	ModelLoader* modelLoader = new ModelLoader("Models\\jeep.obj", ModelLoadType::NO_TEXTURES);
 
-	Model* model = new Model(modelLoader->getVertices(), modelLoader->getVerticesSize()/6, 6, ModelType::NO_TEXTURE_MODEL);
+	Model* model = new Model(modelLoader->getVertices(), modelLoader->getVerticesSize()/6, ModelType::NO_TEXTURE_MODEL);
 	DrawableModel* drawable = new DrawableModel(model);
 	drawable->AddTransformation(new Translation(glm::vec3(5.0f, -0.6f, -5.0f)));
 	drawable->AddTransformation(new Rotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
@@ -92,7 +82,7 @@ void MultipleModelsScene::Create(Window* window)
 	this->AddDrawable(drawable);
 
 	// Tree model
-	Model* treeModel = new Model(tree, 92814, 6, ModelType::NO_TEXTURE_MODEL);
+	Model* treeModel = new Model(tree, 92814, ModelType::NO_TEXTURE_MODEL);
 
 	for (int i = 0; i < 20; i++)
 	{
@@ -111,7 +101,7 @@ void MultipleModelsScene::Create(Window* window)
 	}
 
 	// Bushes model
-	Model* bushesModel = new Model(bushes, 8730, 6, ModelType::NO_TEXTURE_MODEL);
+	Model* bushesModel = new Model(bushes, 8730, ModelType::NO_TEXTURE_MODEL);
 
 	// 100 bushers on plain with random position
 	for (int i = 0; i < 100; i++)
@@ -131,7 +121,7 @@ void MultipleModelsScene::Create(Window* window)
 	}
 
 	// 10 gift boxes on plain with random position
-	Model* giftBoxModel = new Model(gift, 66624, 6, ModelType::NO_TEXTURE_MODEL);
+	Model* giftBoxModel = new Model(gift, 66624, ModelType::NO_TEXTURE_MODEL);
 	
 	for (int i = 0; i < 10; i++)
 	{
@@ -150,7 +140,7 @@ void MultipleModelsScene::Create(Window* window)
 	// House model 1
 	ModelLoader* houseModelLoader = new ModelLoader("C:\\Users\\kubac\\Desktop\\models\\003_obj.obj", ModelLoadType::TEXTURES);
 
-	Model* houseModel = new Model(houseModelLoader->getVertices(), houseModelLoader->getVerticesSize() / 8, 8, ModelType::TEXTURE_MODEL);
+	Model* houseModel = new Model(houseModelLoader->getVertices(), houseModelLoader->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
 	DrawableModel* houseDrawable = new DrawableModel(houseModel);
 	houseDrawable->AddTransformation(new Translation(glm::vec3(15.0f, -0.9f, 0.0f)));
 	houseDrawable->SetMaterial(new Material(

@@ -1,13 +1,13 @@
 #include "CubeMap.h"
 
-CubeMap::CubeMap(std::vector<const char*> faces) : DrawableBase(new Model(skycube, 36, 3, ModelType::SKYBOX_MODEL))
+CubeMap::CubeMap(std::vector<const char*> faces) : DrawableBase(new Model(skycube, 36, ModelType::SKYBOX_MODEL))
 {
 	this->faces = faces;
 
 	this->texture = new Texture(this->faces);
 }
 
-CubeMap::CubeMap() : DrawableBase(new Model(skycube, 36, 3, ModelType::SKYBOX_MODEL))
+CubeMap::CubeMap() : DrawableBase(new Model(skycube, 36, ModelType::SKYBOX_MODEL))
 {
 	std::vector<const char*> faces = {
 		"right.jpg",

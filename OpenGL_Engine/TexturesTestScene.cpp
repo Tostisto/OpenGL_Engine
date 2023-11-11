@@ -25,14 +25,13 @@ void TexturesTestScene::Create(Window* window)
 	AddWindow(window);
 	AddCamera(camera);
 
-	Model* triangleModel = new Model(triangle, 6, 8, ModelType::TEXTURE_MODEL);
+	Model* triangleModel = new Model(triangle, 6, ModelType::TEXTURE_MODEL);
 
 	DrawableModel* triangleDrawable = new DrawableModel(triangleModel);
 	triangleDrawable->LinkShaderProgram(textureShaderProgram);
 	triangleDrawable->SetMaterialTexture(new Texture("Textures\\grass.png"));
 
 	this->AddDrawable(triangleDrawable);
-
 
 	DrawableModel* triangleDrawable2 = new DrawableModel(triangleModel);
 	triangleDrawable2->LinkShaderProgram(textureShaderProgram);
@@ -42,5 +41,4 @@ void TexturesTestScene::Create(Window* window)
 	triangleDrawable2->AddTransformation(new Scale(glm::vec3(2.5f, 2.5f, 2.5f)));
 
 	this->AddDrawable(triangleDrawable2);
-
 }
