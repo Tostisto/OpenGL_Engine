@@ -2,7 +2,7 @@
 
 #define MAX_LIGHTS 10
 
-in vec4 worldPos;
+in vec3 worldPos;
 in vec3 worldNorm;
 out vec4 fragColor;
 
@@ -38,7 +38,7 @@ float LightAttenuation(float distance)
 	return 1.0 / (kc + (kl * distance) + (kq * (distance * distance)));
 }
 
-vec4 AddDirectionLight(Light light, vec3 worldNorm, vec4 worldPos)
+vec4 AddDirectionLight(Light light, vec3 worldNorm)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
@@ -52,14 +52,14 @@ vec4 AddDirectionLight(Light light, vec3 worldNorm, vec4 worldPos)
 }
 
 
-vec4 AddPointLight(Light light, vec3 worldNorm, vec4 worldPos)
+vec4 AddPointLight(Light light, vec3 worldNorm, vec3 worldPos)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
 	
-	vec3 lightVector = light.position - worldPos.xyz / worldPos.w;
+	vec3 lightVector = light.position - worldPos;
 
-	float attenuation = LightAttenuation(length(light.position - worldPos.xyz / worldPos.w));
+	float attenuation = LightAttenuation(length(light.position - worldPos));
 
 	vec3 reflectionDir = reflect(-lightVector, worldNorm);
 
@@ -71,12 +71,12 @@ vec4 AddPointLight(Light light, vec3 worldNorm, vec4 worldPos)
 }
 
 
-vec4 AddSpotLight(Light light, vec3 worldNorm, vec4 worldPos)
+vec4 AddSpotLight(Light light, vec3 worldNorm, vec3 worldPos)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
 
-	vec3 lightVector = cameraPos - worldPos.xyz / worldPos.w;
+	vec3 lightVector = cameraPos - worldPos;
 	float attenuation = LightAttenuation(length(lightVector));
 
     float cosTheta = dot(normalize(lightVector), normalize(-cameraDir));
@@ -107,7 +107,7 @@ void main(void)
 		}
 		else if (lights[i].type == 2)
 		{
-			result += AddDirectionLight(lights[i], worldNorm, worldPos);
+			result += AddDirectionLight(lights[i], worldNorm);
 		}
 		else if (lights[i].type == 3)
 		{

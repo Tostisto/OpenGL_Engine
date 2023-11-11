@@ -4,7 +4,7 @@ layout(location=0) in vec3 vp;
 layout(location=1) in vec3 vn;
 layout(location=2) in vec2 vt;
 
-out vec4 worldPos;
+out vec3 worldPos;
 out vec3 worldNorm;
 out vec2 texCoord;
 
@@ -16,7 +16,9 @@ void main(void)
 {
 	texCoord = vt;
 
-	worldPos = modelMatrix * vec4(vp, 1.0);
+	vec4 worldPositions = modelMatrix * vec4(vp, 1.0);
+
+	worldPos = worldPositions.xyz / worldPositions.w;
 	
 	worldNorm = transpose(inverse(mat3(modelMatrix))) * vn;
 	
