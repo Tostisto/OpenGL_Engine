@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "Drawable.h"
+#include "DrawableModel.h"
 
 #include "Model.h"
 #include "ShaderProgram.h"
@@ -34,10 +34,15 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 
+#include "CubeMap.h"
+
 class Scene
 {
+protected:
+	CubeMap* cubeMap;
+
 private:
-	std::vector<Drawable*> drawables;
+	std::vector<DrawableModel*> drawables;
 	std::vector<ShaderProgram*> shaderPrograms;
 	std::vector<Light*> lights;
 
@@ -48,14 +53,17 @@ protected:
 	void AddCameraControll(CameraControll* cameraControll);
 	void AddWindow(Window* window);
 
-	void AddDrawable(Drawable* drawable);
-	void RemoveDrawable(Drawable* drawable);
+	void AddDrawable(DrawableModel* drawable);
+	void RemoveDrawable(DrawableModel* drawable);
 
 	void AddShaderProgram(ShaderProgram* shaderProgram);
 	void RemoveShaderProgram(ShaderProgram* shaderProgram);
 
 	void AddLight(Light* light);
 	void RemoveLight(Light* light);
+
+	void AddCubeMap();
+	void AddCubeMap(std::vector<const char*> faces);
 
 	virtual void UpdateFrame();
 

@@ -52,10 +52,17 @@ void Application::InitVersions(int major_version, int minor_version)
 
 void Application::Run()
 {
+	GLint maxTextureUnits;
+	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
+
+	fprintf(stdout, "Maximum number of texture units: %d\n", maxTextureUnits);
+
+
 	//TestScene* scene = new TestScene();
 	//PhongTestScene* scene = new PhongTestScene();
-	SolarSystemScene* scene = new SolarSystemScene();
-	//MultipleModelsScene* scene = new MultipleModelsScene();
+	//SolarSystemScene* scene = new SolarSystemScene();
+	MultipleModelsScene* scene = new MultipleModelsScene();
+	//TexturesTestScene* scene = new TexturesTestScene();
 
 	scene->Create(this->window);
 

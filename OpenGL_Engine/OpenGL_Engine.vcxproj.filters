@@ -60,7 +60,7 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable.cpp">
+    <ClCompile Include="DrawableModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -144,11 +144,17 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
-    <ClCompile Include="CleanTransformations.cpp">
-      <Filter>Source Files\Transformation</Filter>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RotationAroundModel.cpp">
-      <Filter>Source Files\Transformation</Filter>
+    <ClCompile Include="TexturesTestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableBase.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +167,7 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
+    <ClInclude Include="DrawableModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -269,11 +275,29 @@
     <ClInclude Include="SpotLight.h">
       <Filter>Header Files\Lights</Filter>
     </ClInclude>
-    <ClInclude Include="RotationAroundModel.h">
-      <Filter>Header Files\Transformation</Filter>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CleanTransformations.h">
-      <Filter>Header Files\Transformation</Filter>
+    <ClInclude Include="Models\Triangle.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturesTestScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\skycube.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoadType.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +323,24 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\blinn.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texture.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\cubemap.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\cubemap.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texturedPhong.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\texturedPhong.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -1,37 +1,42 @@
-#include "Drawable.h"
+#include "DrawableModel.h"
 
-Drawable::Drawable(Model* model)
+DrawableModel::DrawableModel(Model* model) : DrawableBase(model)
 {
 	this->transformation_collection = new TransformCollection();
-	this->model = model;
 }
 
-void Drawable::LinkShaderProgram(ShaderProgram* shader_program)
-{
-	this->shader_program = shader_program;
-}
-
-void Drawable::AddTransformation(Transformation* transformation)
+void DrawableModel::AddTransformation(Transformation* transformation)
 {
 	this->transformation_collection->addTransformation(transformation);
 }
 
-void Drawable::AddTranformationCollection(TransformCollection* transformation_collection)
+void DrawableModel::AddTranformationCollection(TransformCollection* transformation_collection)
 {
 	this->transformation_collection->addTransformationCollection(transformation_collection);
 }
 
-void Drawable::SetMaterial(Material* material)
+void DrawableModel::SetMaterial(Material* material)
 {
 	this->material = material;
 }
 
-glm::mat4 Drawable::GetModelMatrix()
+void DrawableModel::SetMaterialTexture(Texture* texture)
 {
-	return this->transformation_collection->transform();
+	if (this->material == nullptr)
+	{
+		this->material = new Material(
+			glm::vec3(0.1f, 0.1f, 0.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			32.0f
+		);
+		fprintf(stderr, "WARNING: Drawable::SetMaterialTexture() called before material was set. Using default material\n");
+	}
+
+	this->material->SetTexture(texture);
 }
 
-void Drawable::Render()
+void DrawableModel::Render()
 {
 	if (this->shader_program == nullptr) {
 		fprintf(stderr, "ERROR: Drawable::Render() called before shader program was linked. Shader program is required for rendering\n");
@@ -52,7 +57,18 @@ void Drawable::Render()
  		this->shader_program->UseProgram();
 		this->shader_program->setUniform("modelMatrix", this->transformation_collection->transform());
 
-		if (this->shader_program->shaderType == ShaderType::PHONG || this->shader_program->shaderType == ShaderType::BLINN_PHONG)
+
+		if (this->shader_program->shaderType == ShaderType::TEXTURE || this->shader_program->shaderType == ShaderType::TEXTURED_PHONG)
+		{
+			this->material->GetTexture()->BindTexture();
+
+			this->shader_program->setUniform("textureUnitID", 1);
+		}
+
+
+		if (this->shader_program->shaderType == ShaderType::PHONG ||
+			this->shader_program->shaderType == ShaderType::BLINN_PHONG ||
+			this->shader_program->shaderType == ShaderType::TEXTURED_PHONG)
 		{
 			this->shader_program->setUniform("material.ambient", this->material->GetAmbient());
 			this->shader_program->setUniform("material.diffuse", this->material->GetDiffuse());

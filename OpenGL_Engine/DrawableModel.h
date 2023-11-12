@@ -5,27 +5,28 @@
 
 #include <glm/glm.hpp>
 
+#include "DrawableBase.h"
+
 #include "Model.h"
 #include "ShaderProgram.h"
 
 #include "Material.h"
 #include "TransformCollection.h"
 
-class Drawable
+class DrawableModel : public DrawableBase
 {
 private:
-	Model* model;
-	ShaderProgram* shader_program = nullptr;
 	TransformCollection* transformation_collection = nullptr;
+
+protected:
 	Material* material = nullptr;
 
 public:
-	Drawable(Model* model);
+	DrawableModel(Model* model);
 
-	void LinkShaderProgram(ShaderProgram* shader_program);
 	void AddTransformation(Transformation* transformation);
 	void AddTranformationCollection(TransformCollection* transformation_collection);
 	void SetMaterial(Material* material);
-	glm::mat4 GetModelMatrix();
-	void Render();
+	void SetMaterialTexture(Texture* texture);
+	void Render() override;
 };

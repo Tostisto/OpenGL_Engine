@@ -104,14 +104,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Lib\assimp\include;$(SolutionDir)Lib\glew-2.1.0\include;$(SolutionDir)Lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)Lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib\assimp\include;$(SolutionDir)Lib\glew-2.1.0\include;$(SolutionDir)Lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)Lib\glm;$(SolutionDir)Lib\soil\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\assimp\lib\x64\v141\Release;$(SolutionDir)Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\assimp\lib\x64\v141\Release;$(SolutionDir)Lib\glew-2.1.0\lib\Release\x64;$(SolutionDir)Lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)Lib\soil\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc140-mt.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,8 +135,10 @@
     <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraControll.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
-    <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="DrawableModel.cpp" />
+    <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="FragmentShader.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
@@ -158,6 +160,8 @@
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TexturesTestScene.cpp" />
     <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="TransformCollection.cpp" />
     <ClCompile Include="Translation.cpp" />
@@ -170,8 +174,10 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraControll.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DirectionalLight.h" />
-    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="DrawableModel.h" />
+    <ClInclude Include="DrawableBase.h" />
     <ClInclude Include="FragmentShader.h" />
     <ClInclude Include="gift.h" />
     <ClInclude Include="Light.h" />
@@ -179,6 +185,10 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="ModelLoadType.h" />
+    <ClInclude Include="Models\skycube.h" />
+    <ClInclude Include="Models\Triangle.h" />
+    <ClInclude Include="ModelType.h" />
     <ClInclude Include="MultipleModelsScene.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PhongTestScene.h" />
@@ -198,6 +208,8 @@
     <ClInclude Include="suzi_flat.h" />
     <ClInclude Include="suzi_smooth.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TexturesTestScene.h" />
     <ClInclude Include="Transformation.h" />
     <ClInclude Include="TransformCollection.h" />
     <ClInclude Include="Translation.h" />
@@ -210,10 +222,16 @@
     <None Include="Shaders\blinn.vert" />
     <None Include="Shaders\constant.frag" />
     <None Include="Shaders\constant.vert" />
+    <None Include="Shaders\cubemap.frag" />
+    <None Include="Shaders\cubemap.vert" />
     <None Include="Shaders\lambert.frag" />
     <None Include="Shaders\lambert.vert" />
     <None Include="Shaders\phong.frag" />
     <None Include="Shaders\phong.vert" />
+    <None Include="Shaders\texture.frag" />
+    <None Include="Shaders\texture.vert" />
+    <None Include="Shaders\texturedPhong.frag" />
+    <None Include="Shaders\texturedPhong.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

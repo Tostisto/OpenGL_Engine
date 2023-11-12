@@ -2,7 +2,7 @@
 
 #define MAX_LIGHTS 10
 
-in vec4 worldPos;
+in vec3 worldPos;
 in vec3 worldNorm;
 out vec4 fragColor;
 
@@ -39,12 +39,12 @@ float LightAttenuation(float distance)
 	return 1.0 / (kc + (kl * distance) + (kq * (distance * distance)));
 }
 
-vec4 AddDirectionLight(Light light, vec3 worldNorm, vec4 worldPos)
+vec4 AddDirectionLight(Light light, vec3 worldNorm, vec3 worldPos)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
 	
-	vec3 viewVector = cameraPos - worldPos.xyz / worldPos.w;
+	vec3 viewVector = cameraPos - worldPos.xyz;
 	vec3 reflectionDir = reflect(-light.direction, worldNorm);
 
 	float diff = max(dot(normalize(light.direction), normalize(worldNorm)), 0.0);
@@ -62,15 +62,15 @@ vec4 AddDirectionLight(Light light, vec3 worldNorm, vec4 worldPos)
 }
 
 
-vec4 AddPointLight(Light light, vec3 worldNorm, vec4 worldPos)
+vec4 AddPointLight(Light light, vec3 worldNorm, vec3 worldPos)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
 	
-	vec3 lightVector = light.position - worldPos.xyz / worldPos.w;
-	vec3 viewVector = cameraPos - worldPos.xyz / worldPos.w;
+	vec3 lightVector = light.position - worldPos.xyz;
+	vec3 viewVector = cameraPos - worldPos.xyz;
 
-	float attenuation = LightAttenuation(length(light.position - worldPos.xyz / worldPos.w));
+	float attenuation = LightAttenuation(length(light.position - worldPos));
 
 	vec3 reflectionDir = reflect(-lightVector, worldNorm);
 
@@ -90,19 +90,18 @@ vec4 AddPointLight(Light light, vec3 worldNorm, vec4 worldPos)
 }
 
 
-vec4 AddSpotLight(Light light, vec3 worldNorm, vec4 worldPos)
+vec4 AddSpotLight(Light light, vec3 worldNorm, vec3 worldPos)
 {
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
 
-	vec3 lightVector = cameraPos - worldPos.xyz / worldPos.w;
-	vec3 viewVector = cameraPos - worldPos.xyz / worldPos.w;
+	vec3 lightVector = cameraPos - worldPos;
+	vec3 viewVector = cameraPos - worldPos;
 
 	float attenuation = LightAttenuation(length(lightVector));
 	vec3 reflectionDir = reflect(-lightVector, worldNorm);
 
     float cosTheta = dot(normalize(lightVector), normalize(-cameraDir));
-
 
     if (cosTheta > light.cutOff)
     {
