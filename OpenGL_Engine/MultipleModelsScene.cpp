@@ -56,7 +56,7 @@ void MultipleModelsScene::Create(Window* window)
 	DrawableModel* texturedPlainDrawable = new DrawableModel(texturedPlainModel);
 	texturedPlainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
 	texturedPlainDrawable->AddTransformation(new Rotation(glm::radians(-90.f), glm::vec3(1.0f, 0.0f, 0.0f)));
-	texturedPlainDrawable->AddTransformation(new Scale(glm::vec3(100.0f, 100.0f, 100.0f)));
+	texturedPlainDrawable->AddTransformation(new Scale(100));
 	texturedPlainDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 	texturedPlainDrawable->SetMaterialTexture(new Texture("Textures\\grass.png"));
 
@@ -70,7 +70,7 @@ void MultipleModelsScene::Create(Window* window)
 	DrawableModel* drawable = new DrawableModel(model);
 	drawable->AddTransformation(new Translation(glm::vec3(5.0f, -0.6f, -5.0f)));
 	drawable->AddTransformation(new Rotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
-	drawable->AddTransformation(new Scale(glm::vec3(0.35f, 0.35f, 0.35f)));
+	drawable->AddTransformation(new Scale(0.35f));
 	drawable->SetMaterial(new Material(
 		glm::vec3(0.03f, 0.03f, 0.03f),
 		glm::vec3(1.0f, 1.0f, 1.0f),
@@ -88,7 +88,7 @@ void MultipleModelsScene::Create(Window* window)
 	{
 		DrawableModel* treeDrawable = new DrawableModel(treeModel);
 		treeDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
-		treeDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
+		treeDrawable->AddTransformation(new Scale(0.5f));
 		treeDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
 		treeDrawable->LinkShaderProgram(phongShaderProgram);
 		treeDrawable->SetMaterial(new Material(
@@ -108,7 +108,7 @@ void MultipleModelsScene::Create(Window* window)
 	{
 		DrawableModel* bushesDrawable = new DrawableModel(bushesModel);
 		bushesDrawable->AddTransformation(new Translation(glm::vec3(rand() % 15 - 5, -1.0f, rand() % 15 - 5)));
-		bushesDrawable->AddTransformation(new Scale(glm::vec3(0.5f, 0.5f, 0.5)));
+		bushesDrawable->AddTransformation(new Scale(0.5f));
 		bushesDrawable->AddTransformation(new Rotation(rand() % 360, glm::vec3(0.0f, 1.0f, 0.0f)));
 		bushesDrawable->LinkShaderProgram(phongShaderProgram);
 		bushesDrawable->SetMaterial(new Material(
@@ -134,7 +134,7 @@ void MultipleModelsScene::Create(Window* window)
 			glm::vec3(1.0f, 1.0f, 1.0f), 32.0f)
 		);
 		giftBoxDrawable->LinkShaderProgram(phongShaderProgram);
-		this->AddDrawable(giftBoxDrawable);
+		this->AddDrawable(giftBoxDrawable); 
 	}
 
 	// House model 1
@@ -142,7 +142,9 @@ void MultipleModelsScene::Create(Window* window)
 
 	Model* houseModel = new Model(houseModelLoader->getVertices(), houseModelLoader->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
 	DrawableModel* houseDrawable = new DrawableModel(houseModel);
-	houseDrawable->AddTransformation(new Translation(glm::vec3(15.0f, -0.9f, 0.0f)));
+	houseDrawable->AddTransformation(new Translation(glm::vec3(14.0f, -0.95f, 0.0f)));
+	houseDrawable->AddTransformation(new Rotation(glm::radians(120.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+	houseDrawable->AddTransformation(new Scale(0.5f));
 	houseDrawable->SetMaterial(new Material(
 		glm::vec3(0.2f, 0.2f, 0.2f),
 		glm::vec3(1.0f, 1.0f, 1.0f),
