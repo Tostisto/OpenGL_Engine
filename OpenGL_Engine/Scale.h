@@ -10,6 +10,8 @@ private:
 
 public:
     Scale(glm::vec3 scale);
+    Scale(float scale);
+
 
     void transform(glm::mat4* matrix) override;
 };

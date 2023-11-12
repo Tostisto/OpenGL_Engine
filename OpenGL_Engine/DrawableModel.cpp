@@ -55,7 +55,7 @@ void DrawableModel::Render()
 	}
 	else {
  		this->shader_program->UseProgram();
-		this->shader_program->setUniform("modelMatrix", this->transformation_collection->transform());
+		this->shader_program->setUniform("modelMatrix", this->transformation_collection->getModelMatrix());
 
 
 		if (this->shader_program->shaderType == ShaderType::TEXTURE || this->shader_program->shaderType == ShaderType::TEXTURED_PHONG)

@@ -38,7 +38,7 @@ void TexturesTestScene::Create(Window* window)
 	triangleDrawable2->SetMaterialTexture(new Texture("Textures\\wooden_fence.png"));
 	triangleDrawable2->AddTransformation(new Translation(glm::vec3(0.0f, 0.0f, -2.0f)));
 	triangleDrawable2->AddTransformation(new Rotation(20.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
-	triangleDrawable2->AddTransformation(new Scale(glm::vec3(2.5f, 2.5f, 2.5f)));
+	triangleDrawable2->AddTransformation(new Scale(2.5f));
 
 	this->AddDrawable(triangleDrawable2);
 }

@@ -2,6 +2,8 @@
 
 TransformCollection::TransformCollection()
 {
+    matrix = glm::mat4(1.0f);
+    transformations = std::vector<Transformation*>();
 }
 
 void TransformCollection::addTransformation(Transformation* transform)
@@ -17,14 +19,13 @@ void TransformCollection::addTransformationCollection(TransformCollection* trans
 	}
 }
 
-glm::mat4 TransformCollection::transform()
+glm::mat4 TransformCollection::getModelMatrix()
 {
     matrix = glm::mat4(1.0f);
     for (auto& transform : transformations)
     {
         transform->transform(&matrix);
     }
-
 
     return matrix;
 }

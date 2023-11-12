@@ -57,7 +57,7 @@ void SolarSystemScene::Create(Window* window)
 	sun = new DrawableModel(sphereModel);
 	sun->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	sun->LinkShaderProgram(lambertShaderProgram);
-	sun->AddTransformation(new Scale(glm::vec3(5.0, 5.0, 5.0)));
+	sun->AddTransformation(new Scale(5.0f));
 	sun->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	sun->SetMaterial(new Material(glm::vec3(1.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, 0.0, 1.0), 32.0));
 	this->AddDrawable(sun);
@@ -66,7 +66,7 @@ void SolarSystemScene::Create(Window* window)
 	mercury = new DrawableModel(sphereModel);
 	mercury->LinkShaderProgram(lambertShaderProgram);
 
-	mercury->AddTransformation(new Scale(glm::vec3(0.7, 0.7, 0.7)));
+	mercury->AddTransformation(new Scale(0.7f));
 	mercury->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	mercury->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.01f));
 	mercury->AddTransformation(new Translation(glm::vec3(10.0, 0.0, 0.0)));
@@ -78,7 +78,7 @@ void SolarSystemScene::Create(Window* window)
 	venus = new DrawableModel(sphereModel);
 	venus->LinkShaderProgram(lambertShaderProgram);
 
-	mercury->AddTransformation(new Scale(glm::vec3(0.85, 0.85, 0.85)));
+	mercury->AddTransformation(new Scale(0.85));
 	venus->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	venus->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.02f));
 	venus->AddTransformation(new Translation(glm::vec3(14.0, 0.0, 0.0)));
@@ -106,7 +106,7 @@ void SolarSystemScene::Create(Window* window)
 	moon->AddTranformationCollection(planetTransformCollection);
 
 	TransformCollection* moonTransformCollection = new TransformCollection();
-	moonTransformCollection->addTransformation(new Scale(glm::vec3(0.3, 0.3, 0.3)));
+	moonTransformCollection->addTransformation(new Scale(0.3f));
 	moonTransformCollection->addTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	moonTransformCollection->addTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.10f));
 	moonTransformCollection->addTransformation(new Translation(glm::vec3(8.0, 0.0, 0.0)));
@@ -120,7 +120,7 @@ void SolarSystemScene::Create(Window* window)
 	mars = new DrawableModel(sphereModel);
 	mars->LinkShaderProgram(lambertShaderProgram);
 	
-	mars->AddTransformation(new Scale(glm::vec3(0.9, 0.9, 0.9)));
+	mars->AddTransformation(new Scale(0.9f));
 	mars->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	mars->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.014f));
 	mars->AddTransformation(new Translation(glm::vec3(27.0, 0.0, 0.0)));
@@ -132,7 +132,7 @@ void SolarSystemScene::Create(Window* window)
 	jupiter = new DrawableModel(sphereModel);
 	jupiter->LinkShaderProgram(lambertShaderProgram);
 
-	jupiter->AddTransformation(new Scale(glm::vec3(1.5, 1.5, 1.5)));
+	jupiter->AddTransformation(new Scale(1.5f));
 	jupiter->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	jupiter->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.013f));
 	jupiter->AddTransformation(new Translation(glm::vec3(40.0, 0.0, 0.0)));
@@ -145,7 +145,7 @@ void SolarSystemScene::Create(Window* window)
 	saturn = new DrawableModel(sphereModel);
 	saturn->LinkShaderProgram(lambertShaderProgram);
 
-	saturn->AddTransformation(new Scale(glm::vec3(1.2, 1.2, 1.2)));
+	saturn->AddTransformation(new Scale(1.2f));
 	saturn->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	saturn->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.017f));
 	saturn->AddTransformation(new Translation(glm::vec3(50.0, 0.0, 0.0)));
@@ -158,7 +158,7 @@ void SolarSystemScene::Create(Window* window)
 	uranus = new DrawableModel(sphereModel);
 	uranus->LinkShaderProgram(lambertShaderProgram);
 
-	uranus->AddTransformation(new Scale(glm::vec3(1.0, 1.0, 1.0)));
+	uranus->AddTransformation(new Scale(1.0));
 	uranus->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	uranus->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.024f));
 	uranus->AddTransformation(new Translation(glm::vec3(60.0, 0.0, 0.0)));
@@ -171,7 +171,7 @@ void SolarSystemScene::Create(Window* window)
 	neptune = new DrawableModel(sphereModel);
 	neptune->LinkShaderProgram(lambertShaderProgram);
 
-	neptune->AddTransformation(new Scale(glm::vec3(1.0, 1.0, 1.0)));
+	neptune->AddTransformation(new Scale(1.0));
 	neptune->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	neptune->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.012f));
 	neptune->AddTransformation(new Translation(glm::vec3(70.0, 0.0, 0.0)));

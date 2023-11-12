@@ -6,7 +6,7 @@
 class TransformCollection
 {
 private:
-    glm::mat4 matrix = glm::mat4(1.0f);
+    glm::mat4 matrix;
     std::vector<Transformation*> transformations;
 
 public:
@@ -15,5 +15,5 @@ public:
     void addTransformation(Transformation* transform);
     void addTransformationCollection(TransformCollection* transform_collection);
 
-    glm::mat4 transform();
+    glm::mat4 getModelMatrix();
 };
