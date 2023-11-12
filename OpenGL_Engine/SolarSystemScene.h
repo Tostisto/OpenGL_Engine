@@ -6,20 +6,20 @@
 class SolarSystemScene : public Scene
 {
 private:
-	Drawable* sun;
+	DrawableModel* sun;
 
-	Drawable* mercury;
-	Drawable* venus;
-	Drawable* earth;
-	Drawable* mars;
-	Drawable* jupiter;
-	Drawable* saturn;
-	Drawable* uranus;
-	Drawable* neptune;
+	DrawableModel* mercury;
+	DrawableModel* venus;
+	DrawableModel* earth;
+	DrawableModel* mars;
+	DrawableModel* jupiter;
+	DrawableModel* saturn;
+	DrawableModel* uranus;
+	DrawableModel* neptune;
 
-	Drawable* moon;
+	DrawableModel* moon;
 
-	glm::vec3 MoveOnLine(Drawable* object, glm::vec3 position, glm::vec3 toPosition, float speed);
+	glm::vec3 MoveOnLine(DrawableModel* object, glm::vec3 position, glm::vec3 toPosition, float speed);
 
 	float angle = 0.0f;
 

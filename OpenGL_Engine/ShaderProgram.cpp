@@ -77,7 +77,7 @@ void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -92,7 +92,7 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -107,7 +107,7 @@ void ShaderProgram::setUniform(const char* name, float value)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -122,7 +122,7 @@ void ShaderProgram::setUniform(const char* name, int value)
 
 	if (idModelTransform == -1)
 	{
-		fprintf(stderr, "Could not bind uniform %s in %s with id:%d", name, this->shaderType, this->programID);
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
 		exit(EXIT_FAILURE);
 	}
 
@@ -177,6 +177,21 @@ void ShaderProgram::setUniform(const char* name, SpotLight* spotLight)
 	this->setUniform(uniformName.c_str(), spotLight->getCutOff());
 }
 
+void ShaderProgram::setUniform(const char* name, GLuint textureID)
+{
+this->UseProgram();
+
+	GLint idModelTransform = glGetUniformLocation(this->programID, name);
+
+	if (idModelTransform == -1)
+	{
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+		exit(EXIT_FAILURE);
+	}
+
+	glUniform1i(idModelTransform, textureID);
+}
+
 void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType)
 {
 	if (this->vertexShader != nullptr)
@@ -212,14 +227,26 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraDir = camera->GetCameraDirection();
 
-		// Send to all shaders except constantShaderProgram
-		if (this->shaderType != ShaderType::CONSTANT)
+		if (this->shaderType != ShaderType::CONSTANT &&
+			this->shaderType != ShaderType::TEXTURE &&
+			this->shaderType != ShaderType::CUBEMAP)
 		{
 			this->setUniform("cameraPos", cameraPos);
 			this->setUniform("cameraDir", cameraDir);
 		}
 
-		this->setUniform("viewMatrix", viewMatrix);
+		if (this->shaderType == ShaderType::CUBEMAP)
+		{
+			// Remove translation from the view matrix
+			glm::mat4 view = glm::mat4(glm::mat3(viewMatrix));
+
+			this->setUniform("viewMatrix", view);
+		}
+		else
+		{
+			this->setUniform("viewMatrix", viewMatrix);
+		}
+
 	}
 	else if (strcmp(type, "window_resize") == 0)
 	{
@@ -243,7 +270,10 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 	}
 	else if (strcmp(type, "light") == 0)
 	{
-		if (this->shaderType == ShaderType::PHONG || this->shaderType == ShaderType::BLINN_PHONG || this->shaderType == ShaderType::LAMBERT)
+		if (this->shaderType == ShaderType::PHONG ||
+			this->shaderType == ShaderType::BLINN_PHONG || 
+			this->shaderType == ShaderType::LAMBERT || 
+			this->shaderType == ShaderType::TEXTURED_PHONG)
 		{
 			Light* light = (Light*)subject;
 
