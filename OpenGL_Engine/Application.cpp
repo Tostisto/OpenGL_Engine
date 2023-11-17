@@ -60,9 +60,8 @@ void Application::Run()
 
 	//TestScene* scene = new TestScene();
 	//PhongTestScene* scene = new PhongTestScene();
-	//SolarSystemScene* scene = new SolarSystemScene();
-	MultipleModelsScene* scene = new MultipleModelsScene();
-	//TexturesTestScene* scene = new TexturesTestScene();
+	SolarSystemScene* scene = new SolarSystemScene();
+	//MultipleModelsScene* scene = new MultipleModelsScene();
 
 	scene->Create(this->window);
 
