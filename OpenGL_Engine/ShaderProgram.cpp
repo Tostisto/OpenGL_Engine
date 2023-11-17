@@ -69,15 +69,22 @@ void ShaderProgram::UseProgram()
 	glUseProgram(this->programID);
 }
 
+bool ShaderProgram::checkUniform(GLint location, const char* name)
+{
+	if (location == -1) {
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+		return false;
+	}
+	return true;
+}
+
 void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 {
 	this->UseProgram();
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -90,9 +97,7 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -105,9 +110,7 @@ void ShaderProgram::setUniform(const char* name, float value)
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -120,9 +123,7 @@ void ShaderProgram::setUniform(const char* name, int value)
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -203,9 +204,7 @@ void ShaderProgram::setUniform(const char* name, GLuint textureID)
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -258,7 +257,6 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 			this->shaderType != ShaderType::TEXTURE &&
 			this->shaderType != ShaderType::CUBEMAP)
 		{
-
 			// Set camera spot light
 			this->setUniform("camera_spot_light", camera->GetCameraSpotLight());
 		}
