@@ -57,5 +57,11 @@ public:
 
 	void SetViewMatrix();
 
+	void UpdateCameraUniforms(Camera* camera);
+	void UpdateProjectionMatrix(glm::vec2* size);
+	void UpdateFOV(glm::vec3* new_data);
+	void UpdateLightUniforms(Light* light);
+	void UpdateLightUniforms(PointLight* pointLight);
+
 	void Update(Subject* subject, const char* type, void* data);
 };
