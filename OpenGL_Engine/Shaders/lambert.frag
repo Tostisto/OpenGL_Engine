@@ -6,9 +6,6 @@ in vec3 worldPos;
 in vec3 worldNorm;
 out vec4 fragColor;
 
-uniform vec3 cameraPos;
-uniform vec3 cameraDir;
-
 struct Material
 {
 	vec3 ambient;
@@ -21,10 +18,13 @@ struct Light {
 	vec3 direction;
     int type;
 	float cutOff;
+	bool enabled;
 };
 
 uniform Light light;
 uniform Light lights[MAX_LIGHTS];
+
+uniform Light camera_spot_light;
 
 uniform Material material;
 
@@ -76,10 +76,10 @@ vec4 AddSpotLight(Light light, vec3 worldNorm, vec3 worldPos)
 	vec4 lightColor = vec4(light.color, 1.0);
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
 
-	vec3 lightVector = cameraPos - worldPos;
+	vec3 lightVector = light.position - worldPos;
 	float attenuation = LightAttenuation(length(lightVector));
 
-    float cosTheta = dot(normalize(lightVector), normalize(-cameraDir));
+    float cosTheta = dot(normalize(lightVector), normalize(-light.direction));
 
     if (cosTheta > light.cutOff)
     {
@@ -98,6 +98,11 @@ vec4 AddSpotLight(Light light, vec3 worldNorm, vec3 worldPos)
 void main(void)
 {
 	vec4 result = vec4(0.0);
+
+	if (camera_spot_light.enabled == true)
+	{
+		result += AddSpotLight(camera_spot_light, worldNorm, worldPos);
+	}
 
 	for (int i = 0; i < MAX_LIGHTS; i++)
 	{

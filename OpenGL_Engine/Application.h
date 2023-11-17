@@ -16,12 +16,8 @@
 
 class Application
 {
-
 private:
 	Window* window;
-
-public:
-	Application();
 
 	void InitGLFW();
 	void InitGLEW();
@@ -29,5 +25,8 @@ public:
 	void OpenGLVersion();
 	void InitVersions(int major_version, int minor_version);
 
+public:
+	Application();
+	
 	void Run();
 };

@@ -28,6 +28,6 @@ public:
 
 	void MouseMovement(float x_pos, float y_pos);
 	void KeyboardMovement();
-	
+
 	void Update(Subject* subject, const char* type, void* data);
 };
