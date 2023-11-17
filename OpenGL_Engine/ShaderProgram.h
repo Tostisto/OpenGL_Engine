@@ -41,6 +41,8 @@ public:
 	~ShaderProgram();
 	
 	void UseProgram();
+
+	bool checkUniform(GLint location, const char* name);
 	void setUniform(const char* name, glm::mat4 matrix);
 	void setUniform(const char* name, glm::vec3 vector);
 	void setUniform(const char* name, float value);
@@ -48,11 +50,18 @@ public:
 	void setUniform(const char* name, PointLight* pointLight);
 	void setUniform(const char* name, DirectionalLight* directionalLight);
 	void setUniform(const char* name, SpotLight* spotLight);
+	void setUniform(const char* name, CameraSpotLight* cameraSpotLight);
 	void setUniform(const char* name, GLuint textureID);
 
 	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType);
 
 	void SetViewMatrix();
+
+	void UpdateCameraUniforms(Camera* camera);
+	void UpdateProjectionMatrix(glm::vec2* size);
+	void UpdateFOV(glm::vec3* new_data);
+	void UpdateLightUniforms(Light* light);
+	void UpdateLightUniforms(PointLight* pointLight);
 
 	void Update(Subject* subject, const char* type, void* data);
 };

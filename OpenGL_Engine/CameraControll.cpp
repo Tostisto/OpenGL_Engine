@@ -102,4 +102,7 @@ void CameraControll::Update(Subject* subject, const char* type, void* data)
         this->last_x = this->current_x;
         this->last_y = this->current_y;
     }
+    else if (strcmp(type, "key_press") == 0) {
+        this->camera->CameraSpotLightControll();
+	}
 }

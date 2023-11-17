@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CameraSpotLight.h"
+
 #include "Window.h"
 
 #include "Observer.h"
@@ -26,6 +28,8 @@ private:
     float cameraSpeed = 0.1f;
     float mouseSensitivity = 0.5f;
 
+    CameraSpotLight* cameraSpotLight;
+
 public:
     Camera();
 
@@ -45,6 +49,9 @@ public:
 
     float GetPitch();
     float GetYaw();
+
+    CameraSpotLight* GetCameraSpotLight();
+    void CameraSpotLightControll();
 
     glm::vec2 ApplyMouseSensitivity(glm::vec2 offset);
     void UpdateCameraOrientation(glm::vec2 offset);

@@ -69,15 +69,22 @@ void ShaderProgram::UseProgram()
 	glUseProgram(this->programID);
 }
 
+bool ShaderProgram::checkUniform(GLint location, const char* name)
+{
+	if (location == -1) {
+		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+		return false;
+	}
+	return true;
+}
+
 void ShaderProgram::setUniform(const char* name, glm::mat4 matrix)
 {
 	this->UseProgram();
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -90,9 +97,7 @@ void ShaderProgram::setUniform(const char* name, glm::vec3 vector)
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -105,9 +110,7 @@ void ShaderProgram::setUniform(const char* name, float value)
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -120,9 +123,7 @@ void ShaderProgram::setUniform(const char* name, int value)
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -177,15 +178,33 @@ void ShaderProgram::setUniform(const char* name, SpotLight* spotLight)
 	this->setUniform(uniformName.c_str(), spotLight->getCutOff());
 }
 
+void ShaderProgram::setUniform(const char* name, CameraSpotLight* cameraSpotLight)
+{
+	std::string uniformName;
+
+	uniformName = name + std::string(".position");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getPosition());
+
+	uniformName = name + std::string(".color");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getColor());
+
+	uniformName = name + std::string(".direction");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getDirection());
+
+	uniformName = name + std::string(".cutOff");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getCutOff());
+
+	uniformName = name + std::string(".enabled");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->isEnabled());
+}
+
 void ShaderProgram::setUniform(const char* name, GLuint textureID)
 {
-this->UseProgram();
+	this->UseProgram();
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
-	if (idModelTransform == -1)
-	{
-		fprintf(stderr, "Could not bind uniform %s in %d with id:%d", name, this->shaderType, this->programID);
+	if (!checkUniform(idModelTransform, name)) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -213,94 +232,81 @@ void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader*
 	this->CheckProgram();
 }
 
-void ShaderProgram::Update(Subject* subject, const char* type, void* data)
-{
-	if (strcmp(type, "camera") == 0)
-	{
-		Camera* camera = (Camera*)subject;
 
-		glm::mat4 viewMatrix = camera->GetViewMatrix();
+void ShaderProgram::UpdateCameraUniforms(Camera* camera) {
+	glm::mat4 viewMatrix = camera->GetViewMatrix();
+	this->viewMatrix = viewMatrix;
+	glm::vec3 cameraPos = camera->GetCameraPos();
 
-		this->viewMatrix = viewMatrix;
-
-		glm::vec3 cameraPos = camera->GetCameraPos();
-
-		glm::vec3 cameraDir = camera->GetCameraDirection();
-
-		if (this->shaderType != ShaderType::CONSTANT &&
-			this->shaderType != ShaderType::TEXTURE &&
-			this->shaderType != ShaderType::CUBEMAP)
-		{
-			this->setUniform("cameraPos", cameraPos);
-			this->setUniform("cameraDir", cameraDir);
-		}
-
-		if (this->shaderType == ShaderType::CUBEMAP)
-		{
-			// Remove translation from the view matrix
-			glm::mat4 view = glm::mat4(glm::mat3(viewMatrix));
-
-			this->setUniform("viewMatrix", view);
-		}
-		else
-		{
-			this->setUniform("viewMatrix", viewMatrix);
-		}
-
+	if (this->shaderType != ShaderType::CONSTANT &&
+		this->shaderType != ShaderType::TEXTURE &&
+		this->shaderType != ShaderType::CUBEMAP &&
+		this->shaderType != ShaderType::LAMBERT) {
+		this->setUniform("cameraPos", cameraPos);
 	}
-	else if (strcmp(type, "window_resize") == 0)
-	{
-		glm::vec2* size = (glm::vec2*)data;
 
-		glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), size->x / (float)size->y, 0.1f, 100.0f);
-
-		this->setUniform("projectionMatrix", projectionMatrix);
+	if (this->shaderType != ShaderType::CONSTANT &&
+		this->shaderType != ShaderType::TEXTURE &&
+		this->shaderType != ShaderType::CUBEMAP) {
+		this->setUniform("camera_spot_light", camera->GetCameraSpotLight());
 	}
-	else if (strcmp(type, "fov_change") == 0)
-	{
-		glm::vec3 *new_data = (glm::vec3*)data;
 
-		float fov = new_data->x;
-		float width = new_data->y;
-		float height = new_data->z;
-
-		glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), width / (float)height, 0.1f, 100.0f);
-
-		this->setUniform("projectionMatrix", projectionMatrix);
+	if (this->shaderType == ShaderType::CUBEMAP) {
+		glm::mat4 view = glm::mat4(glm::mat3(viewMatrix)); // Remove translation from the view matrix
+		this->setUniform("viewMatrix", view);
 	}
-	else if (strcmp(type, "light") == 0)
-	{
-		if (this->shaderType == ShaderType::PHONG ||
-			this->shaderType == ShaderType::BLINN_PHONG || 
-			this->shaderType == ShaderType::LAMBERT || 
-			this->shaderType == ShaderType::TEXTURED_PHONG)
-		{
-			Light* light = (Light*)subject;
+	else {
+		this->setUniform("viewMatrix", viewMatrix);
+	}
+}
 
-			if (light->getLightType() == LightType::POINT_LIGHT)
-			{
-				PointLight* pointLight = (PointLight*)light;
+void ShaderProgram::UpdateProjectionMatrix(glm::vec2* size) {
+	glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), size->x / (float)size->y, 0.1f, 100.0f);
+	this->setUniform("projectionMatrix", projectionMatrix);
+}
 
-				std::string unatchedUniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+void ShaderProgram::UpdateFOV(glm::vec3* new_data) {
+	float fov = new_data->x;
+	float width = new_data->y;
+	float height = new_data->z;
 
-				this->setUniform(unatchedUniformName.c_str(), pointLight);
-			}
-			else if (light->getLightType() == LightType::DIRECTIONAL_LIGHT)
-			{
-				DirectionalLight* directionalLight = (DirectionalLight*)light;
+	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), width / (float)height, 0.1f, 100.0f);
+	this->setUniform("projectionMatrix", projectionMatrix);
+}
 
-				std::string unatchedUniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
+void ShaderProgram::UpdateLightUniforms(Light* light) {
+	if (this->shaderType == ShaderType::PHONG ||
+		this->shaderType == ShaderType::BLINN_PHONG ||
+		this->shaderType == ShaderType::LAMBERT ||
+		this->shaderType == ShaderType::TEXTURED_PHONG) {
+		std::string unatchedUniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
 
-				this->setUniform(unatchedUniformName.c_str(), directionalLight);
-			}
-			else if (light->getLightType() == LightType::SPOT_LIGHT)
-			{
-				SpotLight* spotLight = (SpotLight*)light;
-
-				std::string unatchedUniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
-
-				this->setUniform(unatchedUniformName.c_str(), spotLight);
-			}
+		if (light->getLightType() == LightType::POINT_LIGHT) {
+			PointLight* pointLight = (PointLight*)light;
+			this->setUniform(unatchedUniformName.c_str(), pointLight);
 		}
+		else if (light->getLightType() == LightType::DIRECTIONAL_LIGHT) {
+			DirectionalLight* directionalLight = (DirectionalLight*)light;
+			this->setUniform(unatchedUniformName.c_str(), directionalLight);
+		}
+		else if (light->getLightType() == LightType::SPOT_LIGHT) {
+			SpotLight* spotLight = (SpotLight*)light;
+			this->setUniform(unatchedUniformName.c_str(), spotLight);
+		}
+	}
+}
+
+void ShaderProgram::Update(Subject* subject, const char* type, void* data) {
+	if (strcmp(type, "camera") == 0) {
+		UpdateCameraUniforms((Camera*)subject);
+	}
+	else if (strcmp(type, "window_resize") == 0) {
+		UpdateProjectionMatrix((glm::vec2*)data);
+	}
+	else if (strcmp(type, "fov_change") == 0) {
+		UpdateFOV((glm::vec3*)data);
+	}
+	else if (strcmp(type, "light") == 0) {
+		UpdateLightUniforms((Light*)subject);
 	}
 }
