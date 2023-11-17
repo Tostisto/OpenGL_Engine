@@ -1,6 +1,14 @@
 #include "Camera.h"
 
-Camera::Camera() {}
+Camera::Camera() 
+{
+    cameraSpotLight = new CameraSpotLight(
+        this->camera_pos,
+	    this->camera_front,
+        glm::vec3(1.0f, 1.0f, 1.0f),
+        glm::cos(glm::radians(20.0f))
+    );
+}
 
 glm::mat4 Camera::GetViewMatrix()
 {
@@ -20,36 +28,54 @@ glm::vec3 Camera::GetCameraDirection()
 void Camera::MoveForward()
 {
     this->camera_pos += cameraSpeed * this->camera_front;
+
+    this->cameraSpotLight->setPosition(this->camera_pos);
+
     Notify("camera", nullptr);
 }
 
 void Camera::MoveBackward()
 {
     this->camera_pos -= cameraSpeed * this->camera_front;
+
+    this->cameraSpotLight->setPosition(this->camera_pos);
+
     Notify("camera", nullptr);
 }
 
 void Camera::MoveLeft()
 {
     this->camera_pos -= glm::normalize(glm::cross(this->camera_front, this->camera_up)) * cameraSpeed;
+
+    this->cameraSpotLight->setPosition(this->camera_pos);
+
     Notify("camera", nullptr);
 }
 
 void Camera::MoveRight()
 {
     this->camera_pos += glm::normalize(glm::cross(this->camera_front, this->camera_up)) * cameraSpeed;
+
+    this->cameraSpotLight->setPosition(this->camera_pos);
+
     Notify("camera", nullptr);
 }
 
 void Camera::MoveUp()
 {
     this->camera_pos += cameraSpeed * this->camera_up;
+    
+    this->cameraSpotLight->setPosition(this->camera_pos);
+
     Notify("camera", nullptr);
 }
 
 void Camera::MoveDown()
 {
     this->camera_pos -= cameraSpeed * this->camera_up;
+    
+    this->cameraSpotLight->setPosition(this->camera_pos);
+
     Notify("camera", nullptr);
 }
 
@@ -71,6 +97,25 @@ float Camera::GetPitch()
 float Camera::GetYaw()
 {
     return this->yaw;
+}
+
+void Camera::CameraSpotLightControll()
+{
+    if (cameraSpotLight->isEnabled())
+    {
+		cameraSpotLight->setEnabled(false);
+	}
+    else
+    {
+		cameraSpotLight->setEnabled(true);
+	}
+
+    Notify("camera", nullptr);
+}
+
+CameraSpotLight* Camera::GetCameraSpotLight()
+{
+    return this->cameraSpotLight;
 }
 
 glm::vec2 Camera::ApplyMouseSensitivity(glm::vec2 angles)
@@ -101,6 +146,8 @@ void Camera::UpdateCameraFront()
     target.y = sin(glm::radians(pitch));
     target.z = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     camera_front = glm::normalize(target);
+
+    this->cameraSpotLight->setDirection(this->camera_front);
 
     Notify("camera", nullptr);
 }

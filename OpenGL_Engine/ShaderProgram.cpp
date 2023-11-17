@@ -177,9 +177,29 @@ void ShaderProgram::setUniform(const char* name, SpotLight* spotLight)
 	this->setUniform(uniformName.c_str(), spotLight->getCutOff());
 }
 
+void ShaderProgram::setUniform(const char* name, CameraSpotLight* cameraSpotLight)
+{
+	std::string uniformName;
+
+	uniformName = name + std::string(".position");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getPosition());
+
+	uniformName = name + std::string(".color");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getColor());
+
+	uniformName = name + std::string(".direction");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getDirection());
+
+	uniformName = name + std::string(".cutOff");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getCutOff());
+
+	uniformName = name + std::string(".enabled");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->isEnabled());
+}
+
 void ShaderProgram::setUniform(const char* name, GLuint textureID)
 {
-this->UseProgram();
+	this->UseProgram();
 
 	GLint idModelTransform = glGetUniformLocation(this->programID, name);
 
@@ -225,14 +245,22 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 
 		glm::vec3 cameraPos = camera->GetCameraPos();
 
-		glm::vec3 cameraDir = camera->GetCameraDirection();
+
+		if (this->shaderType != ShaderType::CONSTANT &&
+			this->shaderType != ShaderType::TEXTURE &&
+			this->shaderType != ShaderType::CUBEMAP &&
+			this->shaderType != ShaderType::LAMBERT)
+		{
+			this->setUniform("cameraPos", cameraPos);
+		}
 
 		if (this->shaderType != ShaderType::CONSTANT &&
 			this->shaderType != ShaderType::TEXTURE &&
 			this->shaderType != ShaderType::CUBEMAP)
 		{
-			this->setUniform("cameraPos", cameraPos);
-			this->setUniform("cameraDir", cameraDir);
+
+			// Set camera spot light
+			this->setUniform("camera_spot_light", camera->GetCameraSpotLight());
 		}
 
 		if (this->shaderType == ShaderType::CUBEMAP)
@@ -246,7 +274,6 @@ void ShaderProgram::Update(Subject* subject, const char* type, void* data)
 		{
 			this->setUniform("viewMatrix", viewMatrix);
 		}
-
 	}
 	else if (strcmp(type, "window_resize") == 0)
 	{
