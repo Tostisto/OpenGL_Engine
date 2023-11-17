@@ -368,3 +368,8 @@ Lib
 # Ignore dll
 glew32.dll
 assimp-vc140-mt.dll
+
+# Ignore Models folder
+# Models
+Models/
+!Models/*.h
