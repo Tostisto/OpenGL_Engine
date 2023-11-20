@@ -5,6 +5,45 @@ DrawableModel::DrawableModel(Model* model) : DrawableBase(model)
 	this->transformation_collection = new TransformCollection();
 }
 
+DrawableModel::DrawableModel(const char* model_path, const char* texture_path) : DrawableBase(model)
+{
+	this->transformation_collection = new TransformCollection();
+
+	ModelLoader* model_loader = new ModelLoader(model_path, ModelLoadType::TEXTURES);
+
+	this->model = new Model(model_loader->getVertices(), model_loader->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
+
+	this->texture = new Texture(texture_path);
+
+	this->SetMaterialTexture(texture);
+}
+
+DrawableModel::DrawableModel(const char* model_path, const char* texture_path, Material* material) : DrawableBase(model)
+{
+	this->transformation_collection = new TransformCollection();
+
+	ModelLoader* model_loader = new ModelLoader(model_path, ModelLoadType::TEXTURES);
+
+	this->model = new Model(model_loader->getVertices(), model_loader->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
+
+	this->texture = new Texture(texture_path);
+
+	this->SetMaterial(material);
+	this->SetMaterialTexture(texture);
+}
+
+DrawableModel::DrawableModel(Model* model, Material* material, const char* texture_path) : DrawableBase(model)
+{
+	this->transformation_collection = new TransformCollection();
+
+	this->model = model;
+
+	this->texture = new Texture(texture_path);
+
+	this->SetMaterial(material);
+	this->SetMaterialTexture(texture);
+}
+
 void DrawableModel::AddTransformation(Transformation* transformation)
 {
 	this->transformation_collection->addTransformation(transformation);
@@ -18,6 +57,11 @@ void DrawableModel::AddTranformationCollection(TransformCollection* transformati
 void DrawableModel::SetMaterial(Material* material)
 {
 	this->material = material;
+
+	if (this->texture != nullptr)
+	{
+		this->material->SetTexture(this->texture);
+	}
 }
 
 void DrawableModel::SetMaterialTexture(Texture* texture)
