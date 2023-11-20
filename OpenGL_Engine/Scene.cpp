@@ -95,6 +95,11 @@ void Scene::AddCubeMap(std::vector<const char*> faces)
 	this->AddShaderProgram(shader_program);
 }
 
+int Scene::ModelsCount()
+{
+	return this->drawables.size() + 1;
+}
+
 void Scene::UpdateFrame()
 {
 }
@@ -107,12 +112,17 @@ void Scene::Render()
 
  	if (this->cubeMap != nullptr) {
 
+		glStencilFunc(GL_ALWAYS, 0, 0xFF);
+
 		this->cubeMap->Render();
 
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
  	for (int i = 0; i < this->drawables.size(); i++) {
+
+		glStencilFunc(GL_ALWAYS, this->drawables[i]->GetModelId(), 0xFF);
+
 		this->drawables[i]->Render();
 	}
 }

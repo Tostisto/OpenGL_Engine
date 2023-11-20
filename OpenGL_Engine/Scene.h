@@ -65,6 +65,8 @@ protected:
 	void AddCubeMap();
 	void AddCubeMap(std::vector<const char*> faces);
 
+	int ModelsCount();
+
 	virtual void UpdateFrame();
 
 public:

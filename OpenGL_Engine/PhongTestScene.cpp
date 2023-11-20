@@ -23,28 +23,28 @@ void PhongTestScene::Create(Window* window)
 	Model* model = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
 	
 	// Ball 1
-	DrawableModel* drawable1 = new DrawableModel(model);
+	DrawableModel* drawable1 = new DrawableModel(model, this->ModelsCount());
 	drawable1->AddTransformation(new Translation(glm::vec3(2.0, -2.0, 0.0)));
 	drawable1->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(drawable1);
 
 	// Ball 2
-	DrawableModel* drawable2 = new DrawableModel(model);
+	DrawableModel* drawable2 = new DrawableModel(model, this->ModelsCount());
 	drawable2->AddTransformation(new Translation(glm::vec3(2.0, 2.0, 0.0)));
 	drawable2->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(drawable2);
 
 	// Ball 3
-	DrawableModel* drawable3 = new DrawableModel(model);
+	DrawableModel* drawable3 = new DrawableModel(model, this->ModelsCount());
 	drawable3->AddTransformation(new Translation(glm::vec3(-2.0, 2.0, 0.0)));
 	drawable3->LinkShaderProgram(phongShaderProgram);
 
 	this->AddDrawable(drawable3);
 
 	// Ball 4
-	DrawableModel* drawable4 = new DrawableModel(model);
+	DrawableModel* drawable4 = new DrawableModel(model, this->ModelsCount());
 	drawable4->AddTransformation(new Translation(glm::vec3(-2.0, -2.0, 0.0)));
 	drawable4->LinkShaderProgram(phongShaderProgram);
 

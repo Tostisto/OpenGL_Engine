@@ -68,6 +68,11 @@ void Callback::ButtonCallback(GLFWwindow* window, int button, int action, int mo
 
 		Notify("mouse_button", &left_button_pressed);
 	}
+
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	{
+		Notify("right_mouse_button", nullptr);
+	}
 }
 
 void Callback::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)

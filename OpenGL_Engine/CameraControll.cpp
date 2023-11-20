@@ -81,6 +81,35 @@ void CameraControll::KeyboardMovement()
     }
 }
 
+void CameraControll::ModelPicker()
+{
+    double mouse_x, mouse_y;
+    glfwGetCursorPos(window->window, &mouse_x, &mouse_y);
+
+    int window_width, window_height;
+    glfwGetFramebufferSize(window->window, &window_width, &window_height);
+
+    GLbyte color[4];
+    GLfloat depth;
+    GLuint index;
+
+    glReadPixels(mouse_x, mouse_y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+    glReadPixels(mouse_x, mouse_y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+    glReadPixels(mouse_x, mouse_y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+
+    printf("Depth: %f \n", depth);
+    printf("Index: %d \n", index);
+    printf("Color: %d %d %d %d \n", color[0], color[1], color[2], color[3]);
+
+    glm::vec4 viewport = glm::vec4(0.0f, 0.0f, window_width, window_height);
+    glm::vec3 wincoord = glm::vec3(mouse_x, window_height - mouse_y, depth);
+    glm::vec3 pos = glm::unProject(wincoord, this->camera->GetViewMatrix(), window->GetProjectionMatrix(), viewport);
+
+    printf("Model: %d\n", index);
+    printf("Pos: %f %f %f\n", pos.x, pos.y, pos.z);
+
+}
+
 void CameraControll::Update(Subject* subject, const char* type, void* data)
 {
     if (strcmp(type, "cursor_move") == 0) {
@@ -105,4 +134,8 @@ void CameraControll::Update(Subject* subject, const char* type, void* data)
     else if (strcmp(type, "key_press") == 0) {
         this->camera->CameraSpotLightControll();
 	}
+    else if (strcmp(type, "right_mouse_button") == 0)
+    {
+        ModelPicker();
+    }
 }
