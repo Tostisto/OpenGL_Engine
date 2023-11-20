@@ -19,25 +19,19 @@ const char* ShaderLoader::GetShaderCode()
 	return this->shaderCode;
 }
 
-const char* ShaderLoader::ReadShaderCode(const char* shader_path)
-{
-	FILE* file;
-	fopen_s(&file, shader_path, "r");
-	if (file == NULL)
-	{
-		fprintf(stderr, "Failed to open file '%s'\n", shader_path);
-		return NULL;
-	}
+const char* ShaderLoader::ReadShaderCode(const char* shader_path) {
+    std::ifstream file(shader_path);
+    if (!file.is_open()) {
+        fprintf(stderr, "Failed to open file '%s'\n", shader_path);
+        exit(EXIT_FAILURE);
+    }
 
-	fseek(file, 0, SEEK_END);
-	long size = ftell(file);
-	fseek(file, 0, SEEK_SET);
+    std::string fileString((std::istreambuf_iterator<char>(file)),
+                           std::istreambuf_iterator<char>());
+    file.close();
 
-	char* text = (char*)malloc(size + 1);
-	fread_s(text, size + 1, size, 1, file);
-	fclose(file);
+    char* text = (char*)malloc(fileString.size() + 1);
+    strcpy_s(text, fileString.size() + 1, fileString.c_str());
 
-	text[size] = '\0';
-
-	return text;
+    return text;
 }
