@@ -44,27 +44,20 @@ void MultipleModelsScene::Create(Window* window)
 	AddWindow(window);
 	AddCamera(camera);
 
-	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, 2.0f), glm::vec3(0.8f, 0.8f, 0.8f));
+	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, -2.0f), glm::vec3(0.8f, 0.8f, 0.8f));
 	AddLight(pointLight1);
 
 	// Terrain model
-	ModelLoader* texturedPlainObjModel = new ModelLoader("Models\\plane\\plane.obj", ModelLoadType::TEXTURES);
-
-	Model* texturedPlainModel = new Model(texturedPlainObjModel->getVertices(), texturedPlainObjModel->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
-	DrawableModel* texturedPlainDrawable = new DrawableModel(texturedPlainModel);
+	DrawableModel* texturedPlainDrawable = new DrawableModel("Models\\plane\\plane.obj", "Models\\plane\\grass.png");
 	texturedPlainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
 	texturedPlainDrawable->AddTransformation(new Scale(100));
 	texturedPlainDrawable->LinkShaderProgram(texturedPhongShaderProgram);
-	texturedPlainDrawable->SetMaterialTexture(new Texture("Models\\plane\\grass.png"));
 
 	this->AddDrawable(texturedPlainDrawable);
 
 
 	// House model 1
-	ModelLoader* houseModelLoader = new ModelLoader("Models\\old_house\\old_house.obj", ModelLoadType::TEXTURES);
-
-	Model* houseModel = new Model(houseModelLoader->getVertices(), houseModelLoader->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
-	DrawableModel* houseDrawable = new DrawableModel(houseModel);
+	DrawableModel* houseDrawable = new DrawableModel("Models\\old_house\\old_house.obj", "Models\\old_house\\old_house.png");
 	houseDrawable->AddTransformation(new Translation(glm::vec3(15.0f, -0.95f, -10.0f)));
 	houseDrawable->AddTransformation(new Rotation(glm::radians(120.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
 	houseDrawable->AddTransformation(new Scale(0.5f));
@@ -74,7 +67,6 @@ void MultipleModelsScene::Create(Window* window)
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		32.0f
 	));
-	houseDrawable->SetMaterialTexture(new Texture("Models\\old_house\\old_house.png"));
 	houseDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
 	this->AddDrawable(houseDrawable);
@@ -157,40 +149,20 @@ void MultipleModelsScene::Create(Window* window)
 
 
 	// Mediaval small house model
-	ModelLoader* mediavalSmallHouseModelLoader = new ModelLoader("Models\\mediaval_small_house\\mediaval_small_house.obj", ModelLoadType::TEXTURES);
-
-	Model* testModel = new Model(mediavalSmallHouseModelLoader->getVertices(), mediavalSmallHouseModelLoader->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
-	DrawableModel* mediavalSmallHouseDrawable = new DrawableModel(testModel);
+	DrawableModel* mediavalSmallHouseDrawable = new DrawableModel("Models\\mediaval_small_house\\mediaval_small_house.obj", "Models\\mediaval_small_house\\mediaval_small_house.png");
 	mediavalSmallHouseDrawable->AddTransformation(new Translation(glm::vec3(15.0f, -0.95f, 10.0f)));
 	mediavalSmallHouseDrawable->AddTransformation(new Rotation(glm::radians(120.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
 	mediavalSmallHouseDrawable->AddTransformation(new Scale(0.5f));
-	mediavalSmallHouseDrawable->SetMaterial(new Material(
-		glm::vec3(1.0f, 1.0f, 1.0f),
-		glm::vec3(1.0f, 1.0f, 1.0f),
-		glm::vec3(1.0f, 1.0f, 1.0f),
-		32.0f
-	));
-	mediavalSmallHouseDrawable->SetMaterialTexture(new Texture("Models\\mediaval_small_house\\mediaval_small_house.png"));
 	mediavalSmallHouseDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
 	this->AddDrawable(mediavalSmallHouseDrawable);
 
 
 	// Church model
-	ModelLoader* churchModelLoader = new ModelLoader("Models\\church\\church.obj", ModelLoadType::TEXTURES);
-
-	Model* churchModel = new Model(churchModelLoader->getVertices(), churchModelLoader->getVerticesSize() / 8, ModelType::TEXTURE_MODEL);
-	DrawableModel* churchDrawable = new DrawableModel(churchModel);
+	DrawableModel* churchDrawable = new DrawableModel("Models\\church\\church.obj", "Models\\church\\church.png");
 	churchDrawable->AddTransformation(new Translation(glm::vec3(18.0f, -0.95f, -8.0f)));
 	churchDrawable->AddTransformation(new Rotation(glm::radians(120.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
 	churchDrawable->AddTransformation(new Scale(0.5f));
-	churchDrawable->SetMaterial(new Material(
-		glm::vec3(1.0f, 1.0f, 1.0f),
-		glm::vec3(1.0f, 1.0f, 1.0f),
-		glm::vec3(1.0f, 1.0f, 1.0f),
-		32.0f
-	));
-	churchDrawable->SetMaterialTexture(new Texture("Models\\church\\church.png"));
 	churchDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
 	this->AddDrawable(churchDrawable);
