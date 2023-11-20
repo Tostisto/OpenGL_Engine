@@ -1,19 +1,8 @@
 #include "SolarSystemScene.h"
 
-glm::vec3 SolarSystemScene::MoveOnLine(DrawableModel* object, glm::vec3 position, glm::vec3 toPosition, float speed)
-{
-	glm::vec3 direction = toPosition - position;
+SolarSystemScene::SolarSystemScene(Window* window) : Scene(window) {}
 
-	glm::vec3 newPosition = position + (direction * speed);
-
-	glm::vec3 positionChange = newPosition - position;
-
-	object->AddTransformation(new Translation(positionChange));
-
-	return newPosition;
-}
-
-void SolarSystemScene::Create(Window* window)
+void SolarSystemScene::Create()
 {
 	// Constant Shader
 	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
@@ -39,16 +28,7 @@ void SolarSystemScene::Create(Window* window)
 	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, ShaderType::BLINN_PHONG);
 	AddShaderProgram(blinnShaderProgram);
 
-	Camera* camera = new Camera();
 	PointLight* light = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-	CameraControll* cameraControll = new CameraControll(camera, window);
-
-	AddCameraControll(cameraControll);
-
-	AddCamera(camera);
-	AddWindow(window);
-	
 	AddLight(light);
 
 	Model* sphereModel = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);

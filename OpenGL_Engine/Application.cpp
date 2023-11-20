@@ -58,12 +58,12 @@ void Application::Run()
 	fprintf(stdout, "Maximum number of texture units: %d\n", maxTextureUnits);
 
 
-	//TestScene* scene = new TestScene();
-	//PhongTestScene* scene = new PhongTestScene();
-	//SolarSystemScene* scene = new SolarSystemScene();
-	MultipleModelsScene* scene = new MultipleModelsScene();
+	TestScene* scene = new TestScene(this->window);
+	//PhongTestScene* scene = new PhongTestScene(this->window);
+	//SolarSystemScene* scene = new SolarSystemScene(this->window);
+	//MultipleModelsScene* scene = new MultipleModelsScene(this->window);
 
-	scene->Create(this->window);
+	scene->Create();
 
 	Callback* callback = Callback::GetInstance();
 	callback->RegisterCallbacks();

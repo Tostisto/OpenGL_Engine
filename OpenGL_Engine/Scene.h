@@ -47,11 +47,11 @@ private:
 	std::vector<Light*> lights;
 
 	CameraControll* cameraControll;
+	Camera* camera;
+	Window* window;
 
 protected:
-	void AddCamera(Camera* camera);
 	void AddCameraControll(CameraControll* cameraControll);
-	void AddWindow(Window* window);
 
 	void AddDrawable(DrawableModel* drawable);
 	void RemoveDrawable(DrawableModel* drawable);
@@ -70,7 +70,9 @@ protected:
 	virtual void UpdateFrame();
 
 public:
-	virtual void Create(Window* window) = 0;
+	Scene(Window* window);
+	virtual void Create() = 0;
+
 
 	void Render();
 };

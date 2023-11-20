@@ -1,7 +1,8 @@
 #include "PhongTestScene.h"
 
+PhongTestScene::PhongTestScene(Window* window) : Scene(window) {}
 
-void PhongTestScene::Create(Window* window)
+void PhongTestScene::Create()
 {
 	// Phong Shader 
 	VertexShader* phongVertexShader = new VertexShader("Shaders\\phong.vert");
@@ -9,16 +10,9 @@ void PhongTestScene::Create(Window* window)
 	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, ShaderType::PHONG);
 	AddShaderProgram(phongShaderProgram);
 
-	Camera* camera = new Camera();
 	PointLight* light = new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-	CameraControll* cameraControll = new CameraControll(camera, window);
-
-	AddCameraControll(cameraControll);
-
-	AddCamera(camera);
-	AddWindow(window);
 	AddLight(light);
+
 
 	Model* model = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
 	

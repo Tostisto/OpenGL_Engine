@@ -1,6 +1,8 @@
 #include "TestScene.h"
 
-void TestScene::Create(Window* window)
+TestScene::TestScene(Window* window) : Scene(window) {}
+
+void TestScene::Create()
 {
 	// Constant Shader
 	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
@@ -26,16 +28,9 @@ void TestScene::Create(Window* window)
 	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, ShaderType::BLINN_PHONG);
 	AddShaderProgram(blinnShaderProgram);
 
-	Camera* camera = new Camera();
+	// Add Light
 	PointLight * light = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-	CameraControll* cameraControll = new CameraControll(camera, window);
-
-	AddCameraControll(cameraControll);
-
-	AddCamera(camera);
 	AddLight(light);
-	AddWindow(window);
 
 	Model* model = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
 	DrawableModel* drawable = new DrawableModel(model, this->ModelsCount());

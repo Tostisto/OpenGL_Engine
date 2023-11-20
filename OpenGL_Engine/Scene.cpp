@@ -1,31 +1,21 @@
 #include "Scene.h"
 
+Scene::Scene(Window* window)
+{
+	this->window = window;
+
+	this->camera = new Camera();
+
+	this->cameraControll = new CameraControll(this->camera, this->window);
+
+	AddCameraControll(this->cameraControll);
+
+}
+
 void Scene::AddCameraControll(CameraControll* cameraControll)
 {
 	this->cameraControll = cameraControll;
 	Callback::GetInstance()->Attach(cameraControll);
-}
-
-void Scene::AddCamera(Camera* camera)
-{
-	glm::mat4 viewMatrix = camera->GetViewMatrix();
-
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		camera->Attach(shaderPrograms[i]);
-		this->shaderPrograms[i]->UseProgram();
-		this->shaderPrograms[i]->setUniform("viewMatrix", viewMatrix);
-	}
-}
-
-void Scene::AddWindow(Window* window)
-{
-	glm::mat4 projectionMatrix = window->GetProjectionMatrix();
-
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		window->Attach(shaderPrograms[i]);
-		this->shaderPrograms[i]->UseProgram();
-		this->shaderPrograms[i]->setUniform("projectionMatrix", projectionMatrix);
-	}
 }
 
 void Scene::AddDrawable(DrawableModel* drawable)
@@ -46,6 +36,15 @@ void Scene::RemoveDrawable(DrawableModel* drawable)
 void Scene::AddShaderProgram(ShaderProgram* shaderProgram)
 {
 	this->shaderPrograms.push_back(shaderProgram);
+
+	shaderProgram->UseProgram();
+
+	this->camera->Attach(shaderProgram);
+	this->window->Attach(shaderProgram);
+
+	shaderProgram->setUniform("viewMatrix", this->camera->GetViewMatrix());
+	shaderProgram->setUniform("projectionMatrix", this->window->GetProjectionMatrix());
+
 }
 
 void Scene::RemoveShaderProgram(ShaderProgram* shaderProgram)

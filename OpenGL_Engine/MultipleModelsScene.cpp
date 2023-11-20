@@ -1,7 +1,12 @@
 #include "MultipleModelsScene.h"
 
-void MultipleModelsScene::Create(Window* window)
+MultipleModelsScene::MultipleModelsScene(Window* window) : Scene(window) {}
+
+void MultipleModelsScene::Create()
 {
+	// Cube Map
+	AddCubeMap();
+
 	// Constant Shader
 	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
 	FragmentShader* constantFragmentShader = new FragmentShader("Shaders\\constant.frag");
@@ -33,17 +38,6 @@ void MultipleModelsScene::Create(Window* window)
 	ShaderProgram* texturedPhongShaderProgram = new ShaderProgram(texturedphongVertexShader, texturedPhongFragmentShader, ShaderType::TEXTURED_PHONG);
 	AddShaderProgram(texturedPhongShaderProgram);
 
-	AddCubeMap();
-
-	Camera* camera = new Camera();
-
-	CameraControll* cameraControll = new CameraControll(camera, window);
-
-	AddCameraControll(cameraControll);
-
-	AddWindow(window);
-	AddCamera(camera);
-
 	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, -2.0f), glm::vec3(0.8f, 0.8f, 0.8f));
 	AddLight(pointLight1);
 
@@ -54,7 +48,6 @@ void MultipleModelsScene::Create(Window* window)
 	texturedPlainDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
 	this->AddDrawable(texturedPlainDrawable);
-
 
 	// House model 1
 	DrawableModel* houseDrawable = new DrawableModel("Models\\old_house\\old_house.obj", "Models\\old_house\\old_house.png", this->ModelsCount());
@@ -70,7 +63,6 @@ void MultipleModelsScene::Create(Window* window)
 	houseDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
 	this->AddDrawable(houseDrawable);
-
 
 	// Zombie model
 	ModelLoader* zombieModelLoader = new ModelLoader("Models\\zombie\\zombie.obj", ModelLoadType::TEXTURES);
@@ -90,7 +82,6 @@ void MultipleModelsScene::Create(Window* window)
 	zombieDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
 	this->AddDrawable(zombieDrawable);
-
 
 	// Well model
 	ModelLoader* wellModelLoader = new ModelLoader("Models\\well\\well.obj", ModelLoadType::TEXTURES);

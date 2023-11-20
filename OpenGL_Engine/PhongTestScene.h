@@ -6,7 +6,7 @@
 class PhongTestScene : public Scene
 {
 public:
-	PhongTestScene() = default;
-	void Create(Window* window) override;
+	PhongTestScene(Window* window);
+	void Create() override;
 };
 
