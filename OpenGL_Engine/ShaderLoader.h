@@ -2,6 +2,12 @@
 
 #include <fstream>
 
+#include <string.h> 
+#include <stdio.h>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 class ShaderLoader
 {
 private:
