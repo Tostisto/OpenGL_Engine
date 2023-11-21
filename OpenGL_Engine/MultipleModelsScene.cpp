@@ -38,7 +38,7 @@ void MultipleModelsScene::Create()
 	ShaderProgram* texturedPhongShaderProgram = new ShaderProgram(texturedphongVertexShader, texturedPhongFragmentShader, ShaderType::TEXTURED_PHONG);
 	AddShaderProgram(texturedPhongShaderProgram);
 
-	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, -2.0f), glm::vec3(0.8f, 0.8f, 0.8f));
+	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, -2.0f), glm::vec3(0.8f, 0.8f, 0.8f), new LightAttenuation());
 	AddLight(pointLight1);
 
 	// Terrain model

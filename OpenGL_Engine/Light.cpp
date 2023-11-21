@@ -1,6 +1,9 @@
 #include "Light.h"
 
-Light::Light() {}
+Light::Light() 
+{
+	this->attenuation = new LightAttenuation();
+}
 
 Light::~Light() {}
 
@@ -33,6 +36,16 @@ glm::vec3 Light::getColor(glm::vec3 color)
 int Light::getLightType(LightType type)
 {
 	return type;
+}
+
+LightAttenuation* Light::getAttenuation()
+{
+	return this->attenuation;
+}
+
+void Light::setAttenuation(LightAttenuation* attenuation)
+{
+	this->attenuation = attenuation;
 }
 
 void Light::setLightIndex(int index)

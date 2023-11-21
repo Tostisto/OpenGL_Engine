@@ -29,7 +29,7 @@ void TestScene::Create()
 	AddShaderProgram(blinnShaderProgram);
 
 	// Add Light
-	PointLight * light = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	PointLight * light = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), new LightAttenuation());
 	AddLight(light);
 
 	Model* model = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);

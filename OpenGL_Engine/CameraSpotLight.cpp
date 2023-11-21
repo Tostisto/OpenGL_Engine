@@ -7,6 +7,7 @@ CameraSpotLight::CameraSpotLight(glm::vec3 position, glm::vec3 direction, glm::v
 	this->setDirection(direction);
 	this->setCutOff(cutOff);
 	this->enabled = true;
+	this->setAttenuation(new LightAttenuation(1.0f, 0.1f, 0.01f));
 }
 
 CameraSpotLight::~CameraSpotLight()

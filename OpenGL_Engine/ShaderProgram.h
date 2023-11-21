@@ -52,6 +52,7 @@ public:
 	void setUniform(const char* name, SpotLight* spotLight);
 	void setUniform(const char* name, CameraSpotLight* cameraSpotLight);
 	void setUniform(const char* name, GLuint textureID);
+	void setUniform(const char* name, LightAttenuation* lightAttenuation);
 
 	void setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType);
 

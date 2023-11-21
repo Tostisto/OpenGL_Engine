@@ -6,6 +6,13 @@ in vec3 worldPos;
 in vec3 worldNorm;
 out vec4 fragColor;
 
+struct Attenuation
+{
+	float constant;
+	float linear;
+	float quadratic;
+};
+
 struct Material
 {
 	vec3 ambient;
@@ -19,6 +26,7 @@ struct Light {
     int type;
 	float cutOff;
 	bool enabled;
+	Attenuation attenuation;
 };
 
 uniform Light light;
@@ -28,12 +36,7 @@ uniform Light camera_spot_light;
 
 uniform Material material;
 
-float kc = 1.0;  // Constant attenuation
-float kl = 0.1;  // Linear attenuation
-float kq = 0.01; // Quadratic attenuation
-
-
-float LightAttenuation(float distance)
+float LightAttenuation(float distance, float kc, float kl, float kq)
 {
 	return 1.0 / (kc + (kl * distance) + (kq * (distance * distance)));
 }
@@ -59,7 +62,7 @@ vec4 AddPointLight(Light light, vec3 worldNorm, vec3 worldPos)
 	
 	vec3 lightVector = light.position - worldPos;
 
-	float attenuation = LightAttenuation(length(light.position - worldPos));
+	float attenuation = LightAttenuation(length(light.position - worldPos), light.attenuation.constant, light.attenuation.linear, light.attenuation.quadratic);
 
 	vec3 reflectionDir = reflect(-lightVector, worldNorm);
 
@@ -77,7 +80,7 @@ vec4 AddSpotLight(Light light, vec3 worldNorm, vec3 worldPos)
 	vec4 ambient = lightColor * vec4(material.ambient, 1.0);
 
 	vec3 lightVector = light.position - worldPos;
-	float attenuation = LightAttenuation(length(lightVector));
+	float attenuation = LightAttenuation(length(lightVector), light.attenuation.constant, light.attenuation.linear, light.attenuation.quadratic);
 
     float cosTheta = dot(normalize(lightVector), normalize(-light.direction));
 
