@@ -6,6 +6,7 @@
 
 #include "Subject.h"
 
+#include "LightAttenuation.h"
 #include "LightType.h"
 
 class Light : public Subject
@@ -15,6 +16,8 @@ private:
 	LightType type = LightType::NONE;
 	int LightIndex;
 
+	LightAttenuation* attenuation;
+
 protected:
 	void setLightType(LightType type);
 	void setColor(glm::vec3 color);
@@ -22,8 +25,8 @@ protected:
 	int getLightType(LightType type);
 
 public:
-	Light();
-
+	Light(glm::vec3 color);
+	Light(glm::vec3 color, LightAttenuation* attenuation);
 	virtual ~Light();
 
 	glm::vec3 getColor();
@@ -31,4 +34,7 @@ public:
 
 	void setLightIndex(int index);
 	int getLightIndex();
+	
+	LightAttenuation* getAttenuation();
+	void setAttenuation(LightAttenuation* attenuation);
 };

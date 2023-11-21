@@ -10,7 +10,7 @@ void PhongTestScene::Create()
 	ShaderProgram* phongShaderProgram = new ShaderProgram(phongVertexShader, phongFragmentShader, ShaderType::PHONG);
 	AddShaderProgram(phongShaderProgram);
 
-	PointLight* light = new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	PointLight* light = new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), new LightAttenuation());
 	AddLight(light);
 
 

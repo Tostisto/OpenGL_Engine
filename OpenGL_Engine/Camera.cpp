@@ -6,7 +6,8 @@ Camera::Camera()
         this->camera_pos,
 	    this->camera_front,
         glm::vec3(1.0f, 1.0f, 1.0f),
-        glm::cos(glm::radians(20.0f))
+        glm::cos(glm::radians(20.0f)),
+        new LightAttenuation(1.0f, 0.09f, 0.032f)
     );
 }
 

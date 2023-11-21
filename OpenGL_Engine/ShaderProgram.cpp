@@ -211,6 +211,20 @@ void ShaderProgram::setUniform(const char* name, GLuint textureID)
 	glUniform1i(idModelTransform, textureID);
 }
 
+void ShaderProgram::setUniform(const char* name, LightAttenuation* lightAttenuation)
+{
+	std::string uniformName;
+
+	uniformName = name + std::string(".constant");
+	this->setUniform(uniformName.c_str(), lightAttenuation->getConstant());
+
+	uniformName = name + std::string(".linear");
+	this->setUniform(uniformName.c_str(), lightAttenuation->getLinear());
+
+	uniformName = name + std::string(".quadratic");
+	this->setUniform(uniformName.c_str(), lightAttenuation->getQuadratic());
+}
+
 void ShaderProgram::setShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType)
 {
 	if (this->vertexShader != nullptr)
@@ -249,6 +263,8 @@ void ShaderProgram::UpdateCameraUniforms(Camera* camera) {
 		this->shaderType != ShaderType::TEXTURE &&
 		this->shaderType != ShaderType::CUBEMAP) {
 		this->setUniform("camera_spot_light", camera->GetCameraSpotLight());
+
+		this->setUniform("camera_spot_light.attenuation", camera->GetCameraSpotLight()->getAttenuation());
 	}
 
 	if (this->shaderType == ShaderType::CUBEMAP) {
