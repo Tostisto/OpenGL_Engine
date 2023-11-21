@@ -6,6 +6,6 @@
 class TestScene : public Scene
 {
 public:
-	TestScene() = default;
-	void Create(Window* window) override;
+	TestScene(Window* window);
+	void Create() override;
 };

@@ -146,6 +146,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
+    <ClCompile Include="ModelsManipulation.cpp" />
     <ClCompile Include="MultipleModelsScene.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PhongTestScene.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="ModelLoadType.h" />
+    <ClInclude Include="ModelsManipulation.h" />
     <ClInclude Include="Models\bushes.h" />
     <ClInclude Include="Models\gift.h" />
     <ClInclude Include="Models\plain.h" />

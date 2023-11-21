@@ -1,19 +1,8 @@
 #include "SolarSystemScene.h"
 
-glm::vec3 SolarSystemScene::MoveOnLine(DrawableModel* object, glm::vec3 position, glm::vec3 toPosition, float speed)
-{
-	glm::vec3 direction = toPosition - position;
+SolarSystemScene::SolarSystemScene(Window* window) : Scene(window) {}
 
-	glm::vec3 newPosition = position + (direction * speed);
-
-	glm::vec3 positionChange = newPosition - position;
-
-	object->AddTransformation(new Translation(positionChange));
-
-	return newPosition;
-}
-
-void SolarSystemScene::Create(Window* window)
+void SolarSystemScene::Create()
 {
 	// Constant Shader
 	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
@@ -39,22 +28,13 @@ void SolarSystemScene::Create(Window* window)
 	ShaderProgram* blinnShaderProgram = new ShaderProgram(blinnVertexShader, blinnFragmentShader, ShaderType::BLINN_PHONG);
 	AddShaderProgram(blinnShaderProgram);
 
-	Camera* camera = new Camera();
 	PointLight* light = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-	CameraControll* cameraControll = new CameraControll(camera, window);
-
-	AddCameraControll(cameraControll);
-
-	AddCamera(camera);
-	AddWindow(window);
-	
 	AddLight(light);
 
 	Model* sphereModel = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
 
 	// Sun Drawable
-	sun = new DrawableModel(sphereModel);
+	sun = new DrawableModel(sphereModel, this->ModelsCount());
 	sun->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	sun->LinkShaderProgram(lambertShaderProgram);
 	sun->AddTransformation(new Scale(5.0f));
@@ -63,7 +43,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(sun);
 
 	// Mercury Drawable
-	mercury = new DrawableModel(sphereModel);
+	mercury = new DrawableModel(sphereModel, this->ModelsCount());
 	mercury->LinkShaderProgram(lambertShaderProgram);
 
 	mercury->AddTransformation(new Scale(0.7f));
@@ -75,7 +55,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(mercury);
 
 	// Venus Drawable
-	venus = new DrawableModel(sphereModel);
+	venus = new DrawableModel(sphereModel, this->ModelsCount());
 	venus->LinkShaderProgram(lambertShaderProgram);
 
 	mercury->AddTransformation(new Scale(0.85));
@@ -87,7 +67,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(venus);
 
 	// Earth Drawable
-	earth = new DrawableModel(sphereModel);
+	earth = new DrawableModel(sphereModel, this->ModelsCount());
 	earth->LinkShaderProgram(lambertShaderProgram);
 
 	TransformCollection* planetTransformCollection = new TransformCollection();
@@ -101,7 +81,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(earth);
 
 	// Earth Moon Drawable
-	moon = new DrawableModel(sphereModel);
+	moon = new DrawableModel(sphereModel, this->ModelsCount());
 	moon->LinkShaderProgram(phongShaderProgram);
 	moon->AddTranformationCollection(planetTransformCollection);
 
@@ -117,7 +97,7 @@ void SolarSystemScene::Create(Window* window)
 
 
 	// Mars Drawable
-	mars = new DrawableModel(sphereModel);
+	mars = new DrawableModel(sphereModel, this->ModelsCount());
 	mars->LinkShaderProgram(lambertShaderProgram);
 	
 	mars->AddTransformation(new Scale(0.9f));
@@ -129,7 +109,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(mars);
 
 	// Jupiter Drawable
-	jupiter = new DrawableModel(sphereModel);
+	jupiter = new DrawableModel(sphereModel, this->ModelsCount());
 	jupiter->LinkShaderProgram(lambertShaderProgram);
 
 	jupiter->AddTransformation(new Scale(1.5f));
@@ -142,7 +122,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(jupiter);
 
 	// Saturn Drawable
-	saturn = new DrawableModel(sphereModel);
+	saturn = new DrawableModel(sphereModel, this->ModelsCount());
 	saturn->LinkShaderProgram(lambertShaderProgram);
 
 	saturn->AddTransformation(new Scale(1.2f));
@@ -155,7 +135,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(saturn);
 
 	// Uranus Drawable
-	uranus = new DrawableModel(sphereModel);
+	uranus = new DrawableModel(sphereModel, this->ModelsCount());
 	uranus->LinkShaderProgram(lambertShaderProgram);
 
 	uranus->AddTransformation(new Scale(1.0));
@@ -168,7 +148,7 @@ void SolarSystemScene::Create(Window* window)
 	this->AddDrawable(uranus);
 
 	// Neptune Drawable
-	neptune = new DrawableModel(sphereModel);
+	neptune = new DrawableModel(sphereModel, this->ModelsCount());
 	neptune->LinkShaderProgram(lambertShaderProgram);
 
 	neptune->AddTransformation(new Scale(1.0));
