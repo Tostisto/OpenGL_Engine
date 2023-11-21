@@ -9,8 +9,7 @@ private:
 	float cutOff;
 
 public:
-	SpotLight();
-	SpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff);
+	SpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff, LightAttenuation* attenuation);
 	virtual ~SpotLight();
 
 	glm::vec3 getPosition();

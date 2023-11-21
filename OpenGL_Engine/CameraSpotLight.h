@@ -8,7 +8,7 @@ private:
 	bool enabled;
 
 public:
-	CameraSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff);
+	CameraSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff, LightAttenuation* attenuation);
 	virtual ~CameraSpotLight();
 
 	bool isEnabled();

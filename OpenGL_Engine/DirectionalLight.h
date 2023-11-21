@@ -8,7 +8,6 @@ private:
 	glm::vec3 direction;
 
 public:
-	DirectionalLight();
 	DirectionalLight(glm::vec3 direction, glm::vec3 color);
 	virtual ~DirectionalLight();
 

@@ -1,13 +1,8 @@
 #include "DirectionalLight.h"
 
-DirectionalLight::DirectionalLight() {
-	this->setLightType(LightType::DIRECTIONAL_LIGHT);
-}
-
-DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color)
+DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color) : Light(color)
 {
 	this->setLightType(LightType::DIRECTIONAL_LIGHT);
-	this->setColor(color);
 	this->setDirection(direction);
 }
 

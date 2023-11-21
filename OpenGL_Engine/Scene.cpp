@@ -161,11 +161,18 @@ void Scene::AddLight(Light* light)
 				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
 
 				this->shaderPrograms[i]->setUniform(uniformName.c_str(), (PointLight*)light);
+
+				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "].attenuation";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((PointLight*)light)->getAttenuation());
+
 			}
 			else if (light->getLightType() == LightType::SPOT_LIGHT) {
 				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
 
 				this->shaderPrograms[i]->setUniform(uniformName.c_str(), (SpotLight*)light);
+
+				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "].attenuation";
+				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((PointLight*)light)->getAttenuation());
 			}
 		}
 	}
