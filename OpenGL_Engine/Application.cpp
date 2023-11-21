@@ -6,7 +6,7 @@ Application::Application()
 
 	//this->InitVersions(3, 3);
 
-	this->window = new Window(1080, 720);
+	this->window = new Window(2000, 1200);
 	this->window->BindCallbacks();
 
 	this->InitGLEW();
@@ -58,10 +58,10 @@ void Application::Run()
 	fprintf(stdout, "Maximum number of texture units: %d\n", maxTextureUnits);
 
 
-	TestScene* scene = new TestScene(this->window);
+	//TestScene* scene = new TestScene(this->window);
 	//PhongTestScene* scene = new PhongTestScene(this->window);
 	//SolarSystemScene* scene = new SolarSystemScene(this->window);
-	//MultipleModelsScene* scene = new MultipleModelsScene(this->window);
+	MultipleModelsScene* scene = new MultipleModelsScene(this->window);
 
 	scene->Create();
 

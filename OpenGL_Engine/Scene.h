@@ -36,6 +36,8 @@
 
 #include "CubeMap.h"
 
+#include "ModelsManipulation.h"
+
 class Scene
 {
 protected:
@@ -50,9 +52,11 @@ private:
 	Camera* camera;
 	Window* window;
 
-protected:
+	ModelsManipulation* modelsManipulation;
+
 	void AddCameraControll(CameraControll* cameraControll);
 
+protected:
 	void AddDrawable(DrawableModel* drawable);
 	void RemoveDrawable(DrawableModel* drawable);
 
@@ -67,12 +71,13 @@ protected:
 
 	int ModelsCount();
 
+	void AddModelPickers(Model* model, ShaderProgram* shaderProgram);
+
 	virtual void UpdateFrame();
 
 public:
 	Scene(Window* window);
 	virtual void Create() = 0;
-
 
 	void Render();
 };

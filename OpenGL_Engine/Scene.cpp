@@ -6,7 +6,9 @@ Scene::Scene(Window* window)
 
 	this->camera = new Camera();
 
-	this->cameraControll = new CameraControll(this->camera, this->window);
+	modelsManipulation = new ModelsManipulation(&this->drawables);
+
+	this->cameraControll = new CameraControll(this->camera, this->window, modelsManipulation);
 
 	AddCameraControll(this->cameraControll);
 
@@ -97,6 +99,11 @@ void Scene::AddCubeMap(std::vector<const char*> faces)
 int Scene::ModelsCount()
 {
 	return this->drawables.size() + 1;
+}
+
+void Scene::AddModelPickers(Model* model, ShaderProgram* shaderProgram)
+{
+	this->modelsManipulation->AddDrawableModel(model, shaderProgram);
 }
 
 void Scene::UpdateFrame()

@@ -148,7 +148,6 @@ void MultipleModelsScene::Create()
 
 	this->AddDrawable(mediavalSmallHouseDrawable);
 
-
 	// Church model
 	DrawableModel* churchDrawable = new DrawableModel("Models\\church\\church.obj", "Models\\church\\church.png", this->ModelsCount());
 	churchDrawable->AddTransformation(new Translation(glm::vec3(18.0f, -0.95f, -8.0f)));
@@ -157,4 +156,6 @@ void MultipleModelsScene::Create()
 	churchDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
 	this->AddDrawable(churchDrawable);
+
+	AddModelPickers(zombieModel, texturedPhongShaderProgram);
 }

@@ -25,9 +25,8 @@ void Callback::KeyCallback(GLFWwindow* window, int key, int scancode, int action
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	
-
 	if (key == GLFW_KEY_C && action == GLFW_PRESS)
-		Notify("key_press", nullptr);
+		Notify("c_key_press", nullptr);
 }
 
 void Callback::WindowFocusCallback(GLFWwindow* window, int focused)
