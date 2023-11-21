@@ -1,12 +1,15 @@
 #include "DrawableModel.h"
 
-DrawableModel::DrawableModel(Model* model) : DrawableBase(model)
+DrawableModel::DrawableModel(Model* model, int modelId) : DrawableBase(model)
 {
+	this->modelId = modelId;
 	this->transformation_collection = new TransformCollection();
 }
 
-DrawableModel::DrawableModel(const char* model_path, const char* texture_path) : DrawableBase(model)
+DrawableModel::DrawableModel(const char* model_path, const char* texture_path, int modelId) : DrawableBase(model)
 {
+	this->modelId = modelId;
+
 	this->transformation_collection = new TransformCollection();
 
 	ModelLoader* model_loader = new ModelLoader(model_path, ModelLoadType::TEXTURES);
@@ -18,8 +21,10 @@ DrawableModel::DrawableModel(const char* model_path, const char* texture_path) :
 	this->SetMaterialTexture(texture);
 }
 
-DrawableModel::DrawableModel(const char* model_path, const char* texture_path, Material* material) : DrawableBase(model)
+DrawableModel::DrawableModel(const char* model_path, const char* texture_path, Material* material, int modelId) : DrawableBase(model)
 {
+	this->modelId = modelId;
+
 	this->transformation_collection = new TransformCollection();
 
 	ModelLoader* model_loader = new ModelLoader(model_path, ModelLoadType::TEXTURES);
@@ -32,8 +37,10 @@ DrawableModel::DrawableModel(const char* model_path, const char* texture_path, M
 	this->SetMaterialTexture(texture);
 }
 
-DrawableModel::DrawableModel(Model* model, Material* material, const char* texture_path) : DrawableBase(model)
+DrawableModel::DrawableModel(Model* model, Material* material, const char* texture_path, int modelId) : DrawableBase(model)
 {
+	this->modelId = modelId;
+
 	this->transformation_collection = new TransformCollection();
 
 	this->model = model;
@@ -78,6 +85,11 @@ void DrawableModel::SetMaterialTexture(Texture* texture)
 	}
 
 	this->material->SetTexture(texture);
+}
+
+int DrawableModel::GetModelId()
+{
+	return this->modelId;
 }
 
 void DrawableModel::Render()

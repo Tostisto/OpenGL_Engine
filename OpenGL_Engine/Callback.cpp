@@ -25,9 +25,8 @@ void Callback::KeyCallback(GLFWwindow* window, int key, int scancode, int action
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	
-
 	if (key == GLFW_KEY_C && action == GLFW_PRESS)
-		Notify("key_press", nullptr);
+		Notify("c_key_press", nullptr);
 }
 
 void Callback::WindowFocusCallback(GLFWwindow* window, int focused)
@@ -67,6 +66,11 @@ void Callback::ButtonCallback(GLFWwindow* window, int button, int action, int mo
 		bool left_button_pressed = false;
 
 		Notify("mouse_button", &left_button_pressed);
+	}
+
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	{
+		Notify("right_mouse_button", nullptr);
 	}
 }
 

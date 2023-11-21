@@ -19,12 +19,10 @@ private:
 
 	DrawableModel* moon;
 
-	glm::vec3 MoveOnLine(DrawableModel* object, glm::vec3 position, glm::vec3 toPosition, float speed);
-
 	float angle = 0.0f;
 
 public:
-	SolarSystemScene() = default;
-	void Create(Window* window) override;	
+	SolarSystemScene(Window* window);
+	void Create() override;
 };
 

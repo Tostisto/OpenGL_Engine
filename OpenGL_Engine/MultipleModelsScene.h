@@ -6,7 +6,7 @@
 class MultipleModelsScene : public Scene
 {
 public:
-	MultipleModelsScene() = default;
-	void Create(Window* window) override;
+	MultipleModelsScene(Window* window);
+	void Create() override;
 };
 

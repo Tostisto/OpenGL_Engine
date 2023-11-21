@@ -20,19 +20,22 @@ class DrawableModel : public DrawableBase
 private:
 	TransformCollection* transformation_collection = nullptr;
 
+	int modelId	= -1;
+
 protected:
 	Material* material = nullptr;
 	Texture* texture = nullptr;
 
 public:
-	DrawableModel(Model* model);
-	DrawableModel(const char* model_path, const char* texture_path);
-	DrawableModel(const char* model_path, const char* texture_path, Material* material);
-	DrawableModel(Model* model, Material* material, const char* texture_path);
+	DrawableModel(Model* model, int modelId);
+	DrawableModel(const char* model_path, const char* texture_path, int modelId);
+	DrawableModel(const char* model_path, const char* texture_path, Material* material, int modelId);
+	DrawableModel(Model* model, Material* material, const char* texture_path, int modelId);
 
 	void AddTransformation(Transformation* transformation);
 	void AddTranformationCollection(TransformCollection* transformation_collection);
 	void SetMaterial(Material* material);
 	void SetMaterialTexture(Texture* texture);
+	int GetModelId();
 	void Render() override;
 };

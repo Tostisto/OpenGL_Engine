@@ -1,31 +1,23 @@
 #include "Scene.h"
 
+Scene::Scene(Window* window)
+{
+	this->window = window;
+
+	this->camera = new Camera();
+
+	modelsManipulation = new ModelsManipulation(&this->drawables);
+
+	this->cameraControll = new CameraControll(this->camera, this->window, modelsManipulation);
+
+	AddCameraControll(this->cameraControll);
+
+}
+
 void Scene::AddCameraControll(CameraControll* cameraControll)
 {
 	this->cameraControll = cameraControll;
 	Callback::GetInstance()->Attach(cameraControll);
-}
-
-void Scene::AddCamera(Camera* camera)
-{
-	glm::mat4 viewMatrix = camera->GetViewMatrix();
-
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		camera->Attach(shaderPrograms[i]);
-		this->shaderPrograms[i]->UseProgram();
-		this->shaderPrograms[i]->setUniform("viewMatrix", viewMatrix);
-	}
-}
-
-void Scene::AddWindow(Window* window)
-{
-	glm::mat4 projectionMatrix = window->GetProjectionMatrix();
-
-	for (int i = 0; i < this->shaderPrograms.size(); i++) {
-		window->Attach(shaderPrograms[i]);
-		this->shaderPrograms[i]->UseProgram();
-		this->shaderPrograms[i]->setUniform("projectionMatrix", projectionMatrix);
-	}
 }
 
 void Scene::AddDrawable(DrawableModel* drawable)
@@ -46,6 +38,15 @@ void Scene::RemoveDrawable(DrawableModel* drawable)
 void Scene::AddShaderProgram(ShaderProgram* shaderProgram)
 {
 	this->shaderPrograms.push_back(shaderProgram);
+
+	shaderProgram->UseProgram();
+
+	this->camera->Attach(shaderProgram);
+	this->window->Attach(shaderProgram);
+
+	shaderProgram->setUniform("viewMatrix", this->camera->GetViewMatrix());
+	shaderProgram->setUniform("projectionMatrix", this->window->GetProjectionMatrix());
+
 }
 
 void Scene::RemoveShaderProgram(ShaderProgram* shaderProgram)
@@ -95,6 +96,16 @@ void Scene::AddCubeMap(std::vector<const char*> faces)
 	this->AddShaderProgram(shader_program);
 }
 
+int Scene::ModelsCount()
+{
+	return this->drawables.size() + 1;
+}
+
+void Scene::AddModelPickers(Model* model, ShaderProgram* shaderProgram)
+{
+	this->modelsManipulation->AddDrawableModel(model, shaderProgram);
+}
+
 void Scene::UpdateFrame()
 {
 }
@@ -107,12 +118,17 @@ void Scene::Render()
 
  	if (this->cubeMap != nullptr) {
 
+		glStencilFunc(GL_ALWAYS, 0, 0xFF);
+
 		this->cubeMap->Render();
 
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
  	for (int i = 0; i < this->drawables.size(); i++) {
+
+		glStencilFunc(GL_ALWAYS, this->drawables[i]->GetModelId(), 0xFF);
+
 		this->drawables[i]->Render();
 	}
 }
