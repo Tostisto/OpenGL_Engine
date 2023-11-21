@@ -25,7 +25,8 @@ protected:
 	int getLightType(LightType type);
 
 public:
-	Light();
+	Light(glm::vec3 color);
+	Light(glm::vec3 color, LightAttenuation* attenuation);
 	virtual ~Light();
 
 	glm::vec3 getColor();

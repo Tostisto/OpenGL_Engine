@@ -1,13 +1,8 @@
 #include "CameraSpotLight.h"
 
-CameraSpotLight::CameraSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff)
+CameraSpotLight::CameraSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff, LightAttenuation* attenuation) : SpotLight(position, direction, color, cutOff, attenuation)
 {
-	this->setPosition(position);
-	this->setColor(color);
-	this->setDirection(direction);
-	this->setCutOff(cutOff);
 	this->enabled = true;
-	this->setAttenuation(new LightAttenuation(1.0f, 0.1f, 0.01f));
 }
 
 CameraSpotLight::~CameraSpotLight()

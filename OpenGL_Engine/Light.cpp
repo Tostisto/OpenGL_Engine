@@ -1,8 +1,14 @@
 #include "Light.h"
 
-Light::Light() 
+Light::Light(glm::vec3 color)
 {
-	this->attenuation = new LightAttenuation();
+	this->setColor(color);
+}
+
+Light::Light(glm::vec3 color, LightAttenuation* attenuation)
+{
+	this->setColor(color);
+	this->setAttenuation(attenuation);
 }
 
 Light::~Light() {}
