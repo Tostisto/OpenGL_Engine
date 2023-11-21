@@ -2,7 +2,7 @@
 
 CameraSpotLight::CameraSpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, float cutOff, LightAttenuation* attenuation) : SpotLight(position, direction, color, cutOff, attenuation)
 {
-	this->enabled = true;
+	this->enabled = false;
 }
 
 CameraSpotLight::~CameraSpotLight()
