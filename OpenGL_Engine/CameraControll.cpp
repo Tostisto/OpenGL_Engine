@@ -14,14 +14,12 @@ void CameraControll::MouseBorderSwitch()
     if (this->current_y <= 0) {
 
         if (this->camera->GetPitch() < 90.0f) {
-            this->current_x = this->window->height - 1;
             this->last_y = this->window->height - 1;
  			glfwSetCursorPos(this->window->window, this->current_x, this->window->height - 1);
 		}
 	}
     else if (this->current_y >= this->window->height - 1) {
         if (this->camera->GetPitch() > -90.0f) {
-            this->current_x = 0;
             this->last_y = 0;
             glfwSetCursorPos(this->window->window, this->current_x, 0);
         }
