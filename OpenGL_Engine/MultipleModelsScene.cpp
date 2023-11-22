@@ -38,17 +38,15 @@ void MultipleModelsScene::Create()
 	ShaderProgram* texturedPhongShaderProgram = new ShaderProgram(texturedphongVertexShader, texturedPhongFragmentShader, ShaderType::TEXTURED_PHONG);
 	AddShaderProgram(texturedPhongShaderProgram);
 
-	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, -2.0f), glm::vec3(0.8f, 0.8f, 0.8f), new LightAttenuation());
+	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 5.0f, -2.0f), glm::vec3(0.8f, 0.8f, 0.8f), new LightAttenuation(1.0, 0.1, 0.1));
 	AddLight(pointLight1);
 
 	// Terrain model
 	DrawableModel* texturedTerrainDrawable = new DrawableModel("Models\\terrain\\teren.obj", "Models\\terrain\\grass.png", this->ModelsCount());
 	texturedTerrainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
 	texturedTerrainDrawable->LinkShaderProgram(texturedPhongShaderProgram);
-
+	texturedTerrainDrawable->setRemoveable(false);
 	this->AddDrawable(texturedTerrainDrawable);
-
-
 
 	// House model 1
 	DrawableModel* houseDrawable = new DrawableModel("Models\\old_house\\old_house.obj", "Models\\old_house\\old_house.png", this->ModelsCount());

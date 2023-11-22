@@ -127,7 +127,13 @@ void Scene::Render()
 
  	for (int i = 0; i < this->drawables.size(); i++) {
 
-		glStencilFunc(GL_ALWAYS, this->drawables[i]->GetModelId(), 0xFF);
+		if (this->drawables[i]->IsRemoveable()) {
+			glStencilFunc(GL_ALWAYS, this->drawables[i]->GetModelId(), 0xFF);
+		}
+		else {
+			glStencilFunc(GL_ALWAYS, 0, 0xFF);
+		};
+
 
 		this->drawables[i]->Render();
 	}

@@ -51,6 +51,16 @@ DrawableModel::DrawableModel(Model* model, Material* material, const char* textu
 	this->SetMaterialTexture(texture);
 }
 
+void DrawableModel::setRemoveable(bool removeable)
+{
+	this->removeable = removeable;
+}
+
+bool DrawableModel::IsRemoveable()
+{
+	return this->removeable;
+}
+
 void DrawableModel::AddTransformation(Transformation* transformation)
 {
 	this->transformation_collection->addTransformation(transformation);

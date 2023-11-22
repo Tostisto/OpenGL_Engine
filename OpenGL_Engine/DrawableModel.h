@@ -22,6 +22,8 @@ private:
 
 	int modelId	= -1;
 
+	bool removeable = true;
+
 protected:
 	Material* material = nullptr;
 	Texture* texture = nullptr;
@@ -31,6 +33,9 @@ public:
 	DrawableModel(const char* model_path, const char* texture_path, int modelId);
 	DrawableModel(const char* model_path, const char* texture_path, Material* material, int modelId);
 	DrawableModel(Model* model, Material* material, const char* texture_path, int modelId);
+
+	void setRemoveable(bool removeable);
+	bool IsRemoveable();
 
 	void AddTransformation(Transformation* transformation);
 	void AddTranformationCollection(TransformCollection* transformation_collection);
