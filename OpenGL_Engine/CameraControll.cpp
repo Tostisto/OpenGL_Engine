@@ -94,11 +94,11 @@ glm::vec3 CameraControll::CalculateWorldPosition(glm::vec3 wincoord) {
 
 void CameraControll::GetClickerPixelVariables(GLbyte color[4], GLfloat& depth, GLuint& index)
 {
-    double y = this->window->height - this->current_y;
+    double new_y = this->window->height - this->current_y;
 
-    glReadPixels(current_x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
-    glReadPixels(current_x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-    glReadPixels(current_x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+    glReadPixels(current_x, new_y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+    glReadPixels(current_x, new_y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+    glReadPixels(current_x, new_y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
 }
 
 glm::vec3 CameraControll::GetMouseClickPosition(GLfloat depth)
@@ -107,14 +107,6 @@ glm::vec3 CameraControll::GetMouseClickPosition(GLfloat depth)
     glm::vec3 pos = CalculateWorldPosition(wincoord);
 
     return pos;
-}
-
-GLuint CameraControll::GetSceneModelId(glm::vec3 mouseClickPosition)
-{
-    GLuint index;
-    glReadPixels(current_x, current_y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
-    return index;
-
 }
 
 void CameraControll::ModelPicker()
@@ -133,11 +125,9 @@ void CameraControll::ModelPicker()
     glm::vec3 mouseClickPosition = GetMouseClickPosition(depth);
     
     //// Remove model
-	//GLuint index = GetSceneModelId(mouseClickPosition);
     //this->modelsManipulation->RemoveModel(index);
 
     this->modelsManipulation->AddModel(mouseClickPosition);
-
 }
 
 void CameraControll::Update(Subject* subject, const char* type, void* data)

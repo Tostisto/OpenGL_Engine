@@ -31,7 +31,6 @@ private:
 	glm::vec3 CalculateWorldPosition(glm::vec3 wincoord);
 
 	glm::vec3 GetMouseClickPosition(GLfloat depth);
-	GLuint GetSceneModelId(glm::vec3 mouseClickPosition);
 
 public:
 	CameraControll(Camera* camera, Window* window, ModelsManipulation* modelsManipulation);
