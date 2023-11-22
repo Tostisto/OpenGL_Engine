@@ -18,6 +18,8 @@ class Application
 private:
 	Window* window;
 
+	Scene* scene;
+
 	void InitGLFW();
 	void InitGLEW();
 

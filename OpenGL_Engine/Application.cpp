@@ -4,8 +4,6 @@ Application::Application()
 {
 	this->InitGLFW();
 
-	//this->InitVersions(3, 3);
-
 	this->window = new Window(2000, 1200);
 	this->window->BindCallbacks();
 
@@ -55,13 +53,10 @@ void Application::Run()
 	GLint maxTextureUnits;
 	glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
 
-	fprintf(stdout, "Maximum number of texture units: %d\n", maxTextureUnits);
-
-
-	//TestScene* scene = new TestScene(this->window);
-	//PhongTestScene* scene = new PhongTestScene(this->window);
-	//SolarSystemScene* scene = new SolarSystemScene(this->window);
-	MultipleModelsScene* scene = new MultipleModelsScene(this->window);
+	//this->scene = new TestScene(this->window);
+	//this->scene = new PhongTestScene(this->window);
+	//this->scene = new SolarSystemScene(this->window);
+	this->scene = new MultipleModelsScene(this->window);
 
 	scene->Create();
 
