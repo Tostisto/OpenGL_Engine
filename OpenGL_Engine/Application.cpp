@@ -4,7 +4,7 @@ Application::Application()
 {
 	this->InitGLFW();
 
-	this->window = new Window(2000, 1200);
+	this->window = new Window(2000, 1200, "OpenGL Engine");
 	this->window->BindCallbacks();
 
 	this->InitGLEW();
