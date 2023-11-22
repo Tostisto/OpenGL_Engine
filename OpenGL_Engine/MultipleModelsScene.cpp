@@ -42,12 +42,13 @@ void MultipleModelsScene::Create()
 	AddLight(pointLight1);
 
 	// Terrain model
-	DrawableModel* texturedPlainDrawable = new DrawableModel("Models\\plane\\plane.obj", "Models\\plane\\grass.png", this->ModelsCount());
-	texturedPlainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
-	texturedPlainDrawable->AddTransformation(new Scale(100));
-	texturedPlainDrawable->LinkShaderProgram(texturedPhongShaderProgram);
+	DrawableModel* texturedTerrainDrawable = new DrawableModel("Models\\terrain\\teren.obj", "Models\\terrain\\grass.png", this->ModelsCount());
+	texturedTerrainDrawable->AddTransformation(new Translation(glm::vec3(0.0f, -1.0f, 0.0f)));
+	texturedTerrainDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 
-	this->AddDrawable(texturedPlainDrawable);
+	this->AddDrawable(texturedTerrainDrawable);
+
+
 
 	// House model 1
 	DrawableModel* houseDrawable = new DrawableModel("Models\\old_house\\old_house.obj", "Models\\old_house\\old_house.png", this->ModelsCount());
