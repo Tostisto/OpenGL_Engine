@@ -142,6 +142,9 @@ void ShaderProgram::setUniform(const char* name, PointLight* pointLight)
 
 	uniformName = name + std::string(".type");
 	this->setUniform(uniformName.c_str(), pointLight->getLightType());
+
+	uniformName = name + std::string(".attenuation");
+	this->setUniform(uniformName.c_str(), pointLight->getAttenuation());
 }
 
 void ShaderProgram::setUniform(const char* name, DirectionalLight* directionalLight)
@@ -176,6 +179,9 @@ void ShaderProgram::setUniform(const char* name, SpotLight* spotLight)
 
 	uniformName = name + std::string(".cutOff");
 	this->setUniform(uniformName.c_str(), spotLight->getCutOff());
+
+	uniformName = name + std::string(".attenuation");
+	this->setUniform(uniformName.c_str(), spotLight->getAttenuation());
 }
 
 void ShaderProgram::setUniform(const char* name, CameraSpotLight* cameraSpotLight)
@@ -196,6 +202,9 @@ void ShaderProgram::setUniform(const char* name, CameraSpotLight* cameraSpotLigh
 
 	uniformName = name + std::string(".enabled");
 	this->setUniform(uniformName.c_str(), cameraSpotLight->isEnabled());
+
+	uniformName = name + std::string(".attenuation");
+	this->setUniform(uniformName.c_str(), cameraSpotLight->getAttenuation());
 }
 
 void ShaderProgram::setUniform(const char* name, GLuint textureID)
@@ -263,8 +272,6 @@ void ShaderProgram::UpdateCameraUniforms(Camera* camera) {
 		this->shaderType != ShaderType::TEXTURE &&
 		this->shaderType != ShaderType::CUBEMAP) {
 		this->setUniform("camera_spot_light", camera->GetCameraSpotLight());
-
-		this->setUniform("camera_spot_light.attenuation", camera->GetCameraSpotLight()->getAttenuation());
 	}
 
 	if (this->shaderType == ShaderType::CUBEMAP) {
