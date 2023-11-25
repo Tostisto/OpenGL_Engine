@@ -3,6 +3,7 @@
 #include <vector>
 #include "DrawableModel.h"
 #include "Translation.h"
+#include "Scale.h"
 
 class ModelsManipulation
 {
