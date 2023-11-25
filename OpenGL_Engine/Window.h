@@ -20,7 +20,7 @@ public:
 	int width;
 	int height;
 
-	Window(int width, int height);
+	Window(int width, int height, const char* window_title);
 	~Window();
 
 	void BindCallbacks();

@@ -46,6 +46,7 @@ void ModelsManipulation::AddModel(glm::vec3 position)
 	DrawableModel* drawable = new DrawableModel(this->model, this->drawables->size() + 1);
 
 	drawable->AddTransformation(new Translation(position));
+	drawable->AddTransformation(new Scale(0.5f));
 	drawable->LinkShaderProgram(this->shaderProgram);
 	drawable->SetMaterialTexture(new Texture("Models\\zombie\\zombie.png"));
 

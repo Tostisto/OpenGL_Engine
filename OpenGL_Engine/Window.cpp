@@ -1,11 +1,11 @@
 #include "Window.h"
 
-Window::Window(int width, int height)
+Window::Window(int width, int height, const char* window_title)
 {
 	this->width = width;
 	this->height = height;
 
-	this->window = glfwCreateWindow(this->width, this->height, "OpenGL Engine", NULL, NULL);
+	this->window = glfwCreateWindow(this->width, this->height, window_title, NULL, NULL);
 
 	if (!this->window)
 	{

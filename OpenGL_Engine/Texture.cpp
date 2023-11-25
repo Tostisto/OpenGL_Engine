@@ -3,6 +3,11 @@
 Texture::Texture(const char* texturePath)
 {
  	this->textureID = SOIL_load_OGL_texture(texturePath, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+
+	// Repeat textures
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 	if (this->textureID == 0)
 	{
 		fprintf(stderr, "SOIL loading error: '%s'\n", SOIL_last_result());

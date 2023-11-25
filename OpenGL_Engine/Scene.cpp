@@ -127,7 +127,13 @@ void Scene::Render()
 
  	for (int i = 0; i < this->drawables.size(); i++) {
 
-		glStencilFunc(GL_ALWAYS, this->drawables[i]->GetModelId(), 0xFF);
+		if (this->drawables[i]->IsRemoveable()) {
+			glStencilFunc(GL_ALWAYS, this->drawables[i]->GetModelId(), 0xFF);
+		}
+		else {
+			glStencilFunc(GL_ALWAYS, 0, 0xFF);
+		};
+
 
 		this->drawables[i]->Render();
 	}
@@ -161,18 +167,11 @@ void Scene::AddLight(Light* light)
 				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
 
 				this->shaderPrograms[i]->setUniform(uniformName.c_str(), (PointLight*)light);
-
-				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "].attenuation";
-				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((PointLight*)light)->getAttenuation());
-
 			}
 			else if (light->getLightType() == LightType::SPOT_LIGHT) {
 				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "]";
 
 				this->shaderPrograms[i]->setUniform(uniformName.c_str(), (SpotLight*)light);
-
-				uniformName = "lights[" + std::to_string(light->getLightIndex()) + "].attenuation";
-				this->shaderPrograms[i]->setUniform(uniformName.c_str(), ((PointLight*)light)->getAttenuation());
 			}
 		}
 	}
