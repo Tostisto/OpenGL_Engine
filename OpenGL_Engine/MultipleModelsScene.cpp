@@ -5,7 +5,16 @@ MultipleModelsScene::MultipleModelsScene(Window* window) : Scene(window) {}
 void MultipleModelsScene::Create()
 {
 	// Cube Map
-	AddCubeMap();
+	AddCubeMap(std::vector<const char*> {
+		"Textures\\Skybox\\dark\\right.png",
+		"Textures\\Skybox\\dark\\left.png",
+		"Textures\\Skybox\\dark\\top.png",
+		"Textures\\Skybox\\dark\\bottom.png",
+		"Textures\\Skybox\\dark\\front.png",
+		"Textures\\Skybox\\dark\\back.png"
+	}
+	
+	);
 
 	// Constant Shader
 	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
@@ -38,7 +47,7 @@ void MultipleModelsScene::Create()
 	ShaderProgram* texturedPhongShaderProgram = new ShaderProgram(texturedphongVertexShader, texturedPhongFragmentShader, ShaderType::TEXTURED_PHONG);
 	AddShaderProgram(texturedPhongShaderProgram);
 
-	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 20.0f, -25.0f), glm::vec3(0.8f, 0.8f, 0.8f), new LightAttenuation(1.0, 0.01, 0.001));
+	PointLight* pointLight1 = new PointLight(glm::vec3(12.0f, 20.0f, -25.0f), glm::vec3(0.8f, 0.8f, 0.8f), new LightAttenuation(1.0, 0.01, 0.0035));
 	AddLight(pointLight1);
 
 	// Terrain model
