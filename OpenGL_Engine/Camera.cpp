@@ -32,7 +32,7 @@ void Camera::MoveForward()
 
     this->cameraSpotLight->setPosition(this->camera_pos);
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
 }
 
 void Camera::MoveBackward()
@@ -41,7 +41,8 @@ void Camera::MoveBackward()
 
     this->cameraSpotLight->setPosition(this->camera_pos);
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
+
 }
 
 void Camera::MoveLeft()
@@ -50,7 +51,7 @@ void Camera::MoveLeft()
 
     this->cameraSpotLight->setPosition(this->camera_pos);
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
 }
 
 void Camera::MoveRight()
@@ -59,7 +60,7 @@ void Camera::MoveRight()
 
     this->cameraSpotLight->setPosition(this->camera_pos);
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
 }
 
 void Camera::MoveUp()
@@ -68,7 +69,7 @@ void Camera::MoveUp()
     
     this->cameraSpotLight->setPosition(this->camera_pos);
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
 }
 
 void Camera::MoveDown()
@@ -77,7 +78,7 @@ void Camera::MoveDown()
     
     this->cameraSpotLight->setPosition(this->camera_pos);
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
 }
 
 void Camera::SetCameraSpeed(float speed)
@@ -111,7 +112,7 @@ void Camera::CameraSpotLightControll()
 		cameraSpotLight->setEnabled(true);
 	}
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
 }
 
 CameraSpotLight* Camera::GetCameraSpotLight()
@@ -150,5 +151,5 @@ void Camera::UpdateCameraFront()
 
     this->cameraSpotLight->setDirection(this->camera_front);
 
-    Notify("camera", nullptr);
+    Notify(CAMERA_UPDATE, nullptr);
 }

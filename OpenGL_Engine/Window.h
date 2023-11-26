@@ -30,5 +30,5 @@ public:
 	void UpdateFov(glm::vec2 offset);
 	glm::mat4 GetProjectionMatrix();
 
-	void Update(Subject* subject, const char* type, void* data);
+	void Update(Subject* subject, Event type, void* data);
 };

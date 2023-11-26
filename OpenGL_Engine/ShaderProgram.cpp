@@ -319,17 +319,17 @@ void ShaderProgram::UpdateLightUniforms(Light* light) {
 	}
 }
 
-void ShaderProgram::Update(Subject* subject, const char* type, void* data) {
-	if (strcmp(type, "camera") == 0) {
+void ShaderProgram::Update(Subject* subject, Event type, void* data) {
+	if (type == CAMERA_UPDATE) {
 		UpdateCameraUniforms((Camera*)subject);
 	}
-	else if (strcmp(type, "window_resize") == 0) {
+	else if (type == WINDOW_RESIZED) {
 		UpdateProjectionMatrix((glm::vec2*)data);
 	}
-	else if (strcmp(type, "fov_change") == 0) {
+	else if (type == FOV_CHANGED) {
 		UpdateFOV((glm::vec3*)data);
 	}
-	else if (strcmp(type, "light") == 0) {
+	else if (type == LIGHT_UPDATE) {
 		UpdateLightUniforms((Light*)subject);
 	}
 }

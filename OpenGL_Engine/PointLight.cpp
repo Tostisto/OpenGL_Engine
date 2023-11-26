@@ -16,5 +16,5 @@ glm::vec3 PointLight::getPosition()
 void PointLight::setPosition(glm::vec3 position)
 {
 	this->position = position;
-	Notify("light", nullptr);
+	Notify(LIGHT_UPDATE, nullptr);
 }
