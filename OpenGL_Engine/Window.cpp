@@ -29,7 +29,7 @@ void Window::UpdateViewportSize()
 	{
 		glViewport(0, 0, width, height);
 
-		Notify("window_resize", new glm::vec2(width, height));
+		Notify(WINDOW_RESIZED, new glm::vec2(width, height));
 	}
 }
 
@@ -44,7 +44,7 @@ void Window::UpdateFov(glm::vec2 offset)
 
 	glm::vec3 perspective_data = glm::vec3(fov, this->width, (float)this->height);
 
-	Notify("fov_change", &perspective_data);
+	Notify(FOV_CHANGED, &perspective_data);
 }
 
 void Window::BindCallbacks()
@@ -82,9 +82,9 @@ bool Window::GetKey(int key)
 	return glfwGetKey(this->window, key);
 }
 
-void Window::Update(Subject* subject, const char* type, void* data)
+void Window::Update(Subject* subject, Event type, void* data)
 {
-	if (strcmp(type, "window_resize") == 0) {
+	if (type == WINDOW_RESIZED) {
 		glm::vec2 window_size = *static_cast<glm::vec2*>(data);
 
 		this->width = window_size.x;
@@ -92,7 +92,7 @@ void Window::Update(Subject* subject, const char* type, void* data)
 
 		this->UpdateViewportSize();
 	}
-	else if (strcmp(type, "scroll") == 0) {
+	else if (type == MOUSE_SCROLL) {
 
 		glm::vec2 scroll_offset = *static_cast<glm::vec2*>(data);
 

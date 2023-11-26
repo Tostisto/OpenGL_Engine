@@ -159,6 +159,9 @@
     <ClCompile Include="ModelsManipulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LightAttenuation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -303,6 +306,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModelsManipulation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightAttenuation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

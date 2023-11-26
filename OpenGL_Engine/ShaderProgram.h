@@ -64,5 +64,5 @@ public:
 	void UpdateLightUniforms(Light* light);
 	void UpdateLightUniforms(PointLight* pointLight);
 
-	void Update(Subject* subject, const char* type, void* data);
+	void Update(Subject* subject, Event type, void* data);
 };

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Observer.h"
+#include "Event.h"
 
 class Observer;
 
@@ -13,5 +14,5 @@ private:
 public:
 	void Attach(Observer* observer);
 	void Detach(Observer* observer);
-	void Notify(const char* type, void* data);
+	void Notify(Event event, void* data);
 };

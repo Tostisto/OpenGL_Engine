@@ -130,9 +130,9 @@ void CameraControll::ModelPicker()
     this->modelsManipulation->AddModel(mouseClickPosition);
 }
 
-void CameraControll::Update(Subject* subject, const char* type, void* data)
+void CameraControll::Update(Subject* subject, Event type, void* data)
 {
-    if (strcmp(type, "cursor_move") == 0) {
+    if (type == CURSOR_MOVED) {
         glm::vec2 mouse_pos = *static_cast<glm::vec2*>(data);
 
         this->current_x = mouse_pos.x;
@@ -142,7 +142,7 @@ void CameraControll::Update(Subject* subject, const char* type, void* data)
 
         MouseBorderSwitch();
     }
-    else if (strcmp(type, "mouse_button") == 0) {
+    else if (type == LEFT_MOUSE_BUTTON_PRESSED) {
 	    
         bool left_button_pressed = *static_cast<bool*>(data);
 
@@ -151,10 +151,10 @@ void CameraControll::Update(Subject* subject, const char* type, void* data)
         this->last_x = this->current_x;
         this->last_y = this->current_y;
     }
-    else if (strcmp(type, "c_key_press") == 0) {
+    else if (type == C_KEY_PRESSED) {
         this->camera->CameraSpotLightControll();
 	}
-    else if (strcmp(type, "right_mouse_button") == 0)
+    else if (type == RIGHT_MOUSE_BUTTON_PRESSED)
     {
         ModelPicker();
     }
