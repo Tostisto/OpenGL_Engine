@@ -25,12 +25,12 @@ Window::~Window()
 
 void Window::UpdateViewportSize()
 {
-	int width, height;
-	glfwGetFramebufferSize(this->window, &width, &height);
-	float ratio = width / (float)height;
-	glViewport(0, 0, width, height);
+	if (this->height != 0 || this->width != 0)
+	{
+		glViewport(0, 0, width, height);
 
-	Notify("window_resize", new glm::vec2(width, height));
+		Notify("window_resize", new glm::vec2(width, height));
+	}
 }
 
 void Window::UpdateFov(glm::vec2 offset)
