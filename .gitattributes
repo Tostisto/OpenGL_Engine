@@ -46,8 +46,7 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-Models/**/*.obj filter=lfs diff=lfs merge=lfs -text
-Models/**/*.png filter=lfs diff=lfs merge=lfs -text
+
 OpenGL_Engine/Textures/*/* filter=lfs diff=lfs merge=lfs -text
 OpenGL_Engine/Models/*/*.obj filter=lfs diff=lfs merge=lfs -text
 OpenGL_Engine/Models/*/*.png filter=lfs diff=lfs merge=lfs -text

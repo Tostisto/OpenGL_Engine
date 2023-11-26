@@ -370,6 +370,4 @@ glew32.dll
 assimp-vc140-mt.dll
 
 # Ignore Models folder
-# Models
-Models/
-!Models/*.h
+!OpenGL_Engine/Models/*/*.obj
