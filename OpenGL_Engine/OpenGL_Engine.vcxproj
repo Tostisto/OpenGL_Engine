@@ -163,6 +163,7 @@
     <ClCompile Include="models.cpp" />
     <ClCompile Include="SolarSystemScene.cpp" />
     <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="StraightLineMove.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="SolarSystemScene.h" />
     <ClInclude Include="models.h" />
     <ClInclude Include="SpotLight.h" />
+    <ClInclude Include="StraightLineMove.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
