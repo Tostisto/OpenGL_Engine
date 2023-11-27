@@ -10,6 +10,7 @@
 #include "PhongTestScene.h"
 #include "MultipleModelsScene.h"
 #include "SolarSystemScene.h"
+#include "BezierMoveScene.h"
 
 #include "Callback.h"
 

@@ -21,6 +21,8 @@
 #include "Rotation.h"
 #include "Translation.h"
 #include "Scale.h"
+#include "BezierMove.h"
+#include "StraightLineMove.h"
 
 #include "Window.h"
 

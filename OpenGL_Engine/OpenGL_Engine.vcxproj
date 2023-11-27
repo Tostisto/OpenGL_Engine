@@ -132,6 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BezierMove.cpp" />
+    <ClCompile Include="BezierMoveScene.cpp" />
     <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraControll.cpp" />
@@ -161,6 +163,7 @@
     <ClCompile Include="models.cpp" />
     <ClCompile Include="SolarSystemScene.cpp" />
     <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="StraightLineMove.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -172,6 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BezierMove.h" />
+    <ClInclude Include="BezierMoveScene.h" />
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraControll.h" />
@@ -213,6 +218,7 @@
     <ClInclude Include="SolarSystemScene.h" />
     <ClInclude Include="models.h" />
     <ClInclude Include="SpotLight.h" />
+    <ClInclude Include="StraightLineMove.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
