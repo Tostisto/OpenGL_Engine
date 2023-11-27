@@ -10,6 +10,7 @@ private:
     glm::vec3 start;
     glm::vec3 direction;
     float t;
+    float delta;
 
 public:
     StraightLineMove(const glm::vec3& start, const glm::vec3& end);
