@@ -5,16 +5,19 @@
 
 #include <vector>
 
+#include "BezierCurve.h"
+#include "BezierCubic.h"
+
+
 class BezierMove : public Transformation
 {
 private:
-    glm::mat4 M;
-    float t;
-    float delta;
-    glm::mat4x3 control_points;
+    BezierCurve* curve;
+    float t = 0.0f;
+    float speed = 0.001f;
 
 public:
-    BezierMove(float t, const glm::mat4x3& control_points);
+    BezierMove(BezierCurve* curve);
     void transform(glm::mat4* matrix) override;
 };
 

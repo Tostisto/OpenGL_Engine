@@ -4,23 +4,32 @@ BezierMoveScene::BezierMoveScene(Window* window) : Scene(window) {}
 
 void BezierMoveScene::Create()
 {
-	// Constant Shader
-	VertexShader* constantVertexShader = new VertexShader("Shaders\\constant.vert");
-	FragmentShader* constantFragmentShader = new FragmentShader("Shaders\\constant.frag");
-	ShaderProgram* constantShaderProgram = new ShaderProgram(constantVertexShader, constantFragmentShader, ShaderType::CONSTANT);
-	AddShaderProgram(constantShaderProgram);
+	// Lambert Shader 
+	VertexShader* lamberVertexShader = new VertexShader("Shaders\\lambert.vert");
+	FragmentShader* lamberFragmentShader = new FragmentShader("Shaders\\lambert.frag");
+	ShaderProgram* lambertShaderProgram = new ShaderProgram(lamberVertexShader, lamberFragmentShader, ShaderType::LAMBERT);
+	AddShaderProgram(lambertShaderProgram);
+
+	PointLight* pointLight1 = new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f), new LightAttenuation(1.0, 0.01, 0.0035));
+	AddLight(pointLight1);
 
 	// Sphere model
-	Model* model = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
+	Model* model = new Model(suziFlat, 2904, ModelType::NO_TEXTURE_MODEL);
 	DrawableModel* sphere = new DrawableModel(model, this->ModelsCount());
-	sphere->AddTransformation(new BezierMove(0.5f, glm::mat4x3(
+
+	sphere->AddTransformation(new BezierMove(new BezierCurve(std::vector<glm::vec3>{
 		glm::vec3(0, 0, 0),
 		glm::vec3(2, 2, 0),
-		glm::vec3(4, 4, 0),
-		glm::vec3(6, 0, 0)
-	)));
+		glm::vec3(4, 2, 0),
+		glm::vec3(6, 0, 0),
+		glm::vec3(8, -2, 0),
+		glm::vec3(10, 0, 0),
+		glm::vec3(12, 4, 0),
+	})));
+
 	sphere->AddTransformation(new Scale(0.5f));
 
-	sphere->LinkShaderProgram(constantShaderProgram);
+	sphere->LinkShaderProgram(lambertShaderProgram);
+
 	this->AddDrawable(sphere);
 }

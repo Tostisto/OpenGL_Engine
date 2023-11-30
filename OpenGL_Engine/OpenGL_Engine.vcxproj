@@ -132,6 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BezierCubic.cpp" />
+    <ClCompile Include="BezierCurve.cpp" />
     <ClCompile Include="BezierMove.cpp" />
     <ClCompile Include="BezierMoveScene.cpp" />
     <ClCompile Include="Callback.cpp" />
@@ -175,6 +177,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BezierCubic.h" />
+    <ClInclude Include="BezierCurve.h" />
     <ClInclude Include="BezierMove.h" />
     <ClInclude Include="BezierMoveScene.h" />
     <ClInclude Include="Callback.h" />
