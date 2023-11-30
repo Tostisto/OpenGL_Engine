@@ -23,10 +23,27 @@ void Callback::ErrorCallback(int error, const char* description)
 void Callback::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	{
 		glfwSetWindowShouldClose(window, true);
-	
+	}
+
 	if (key == GLFW_KEY_C && action == GLFW_PRESS)
+	{
 		Notify(C_KEY_PRESSED, nullptr);
+	}
+
+	if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS)
+	{
+		bool left_ctrl_pressed = true;
+
+		Notify(LEFT_CTRL_PRESSED, &left_ctrl_pressed);
+	}
+	else if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_RELEASE)
+	{
+		bool left_ctrl_pressed = false;
+
+		Notify(LEFT_CTRL_PRESSED, &left_ctrl_pressed);
+	}
 }
 
 void Callback::WindowFocusCallback(GLFWwindow* window, int focused)

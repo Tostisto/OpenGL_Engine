@@ -22,6 +22,7 @@ private:
 	float current_y = 0;
 
 	bool lock_camera = false;
+	bool left_ctrl_pressed = false;
 
 	void MouseBorderSwitch();
 
@@ -39,6 +40,7 @@ public:
 	void KeyboardMovement();
 
 	void ModelPicker();
+	void ModelRemover();
 
 	void Update(Subject* subject, Event type, void* data);
 };

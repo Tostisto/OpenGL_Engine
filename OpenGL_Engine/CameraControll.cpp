@@ -124,10 +124,25 @@ void CameraControll::ModelPicker()
 
     glm::vec3 mouseClickPosition = GetMouseClickPosition(depth);
     
-    //// Remove model
-    //this->modelsManipulation->RemoveModel(index);
-
     this->modelsManipulation->AddModel(mouseClickPosition);
+}
+
+void CameraControll::ModelRemover()
+{
+    GLbyte color[4];
+    GLfloat depth;
+    GLuint index;
+
+    GetClickerPixelVariables(color, depth, index);
+
+    if (depth == 1.0f) {
+        printf("No model picked\n");
+        return;
+    }
+
+    glm::vec3 mouseClickPosition = GetMouseClickPosition(depth);
+
+    this->modelsManipulation->RemoveModel(index);
 }
 
 void CameraControll::Update(Subject* subject, Event type, void* data)
@@ -156,6 +171,19 @@ void CameraControll::Update(Subject* subject, Event type, void* data)
 	}
     else if (type == RIGHT_MOUSE_BUTTON_PRESSED)
     {
-        ModelPicker();
+        if (this->left_ctrl_pressed)
+        {
+            ModelRemover();
+        }
+        else
+        {
+            ModelPicker();
+        }
     }
+    else if (type == LEFT_CTRL_PRESSED)
+    {
+		bool left_ctrl_pressed = *static_cast<bool*>(data);
+
+		this->left_ctrl_pressed = left_ctrl_pressed;
+	}
 }
