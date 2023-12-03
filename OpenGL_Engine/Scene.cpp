@@ -11,7 +11,6 @@ Scene::Scene(Window* window)
 	this->cameraControll = new CameraControll(this->camera, this->window, modelsManipulation);
 
 	AddCameraControll(this->cameraControll);
-
 }
 
 void Scene::AddCameraControll(CameraControll* cameraControll)
@@ -59,29 +58,6 @@ void Scene::RemoveShaderProgram(ShaderProgram* shaderProgram)
 	}
 }
 
-void Scene::AddCubeMap()
-{
-	VertexShader* vertex_shader = new VertexShader("Shaders\\cubemap.vert");
-	FragmentShader* fragment_shader = new FragmentShader("Shaders\\cubemap.frag");
-
-	ShaderProgram* shader_program = new ShaderProgram(vertex_shader, fragment_shader, ShaderType::CUBEMAP);
-
-	std::vector<const char*> faces = {
-		"Textures\\Skybox\\posx.jpg",
-		"Textures\\Skybox\\negx.jpg",
-		"Textures\\Skybox\\posy.jpg",
-		"Textures\\Skybox\\negy.jpg",
-		"Textures\\Skybox\\posz.jpg",
-		"Textures\\Skybox\\negz.jpg"
-	};
-
-	this->cubeMap = new CubeMap(faces);
-
-	this->cubeMap->LinkShaderProgram(shader_program);
-
-	this->AddShaderProgram(shader_program);
-}
-
 void Scene::AddCubeMap(std::vector<const char*> faces)
 {
 	VertexShader* vertex_shader = new VertexShader("Shaders\\cubemap.vert");
@@ -116,7 +92,7 @@ void Scene::Render()
 
 	UpdateFrame();
 
- 	if (this->cubeMap != nullptr) {
+	if (this->cubeMap != nullptr) {
 
 		glStencilFunc(GL_ALWAYS, 0, 0xFF);
 
@@ -125,7 +101,7 @@ void Scene::Render()
 		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
- 	for (int i = 0; i < this->drawables.size(); i++) {
+	for (int i = 0; i < this->drawables.size(); i++) {
 
 		if (this->drawables[i]->IsRemoveable()) {
 			glStencilFunc(GL_ALWAYS, this->drawables[i]->GetModelId(), 0xFF);

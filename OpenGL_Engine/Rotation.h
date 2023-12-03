@@ -6,12 +6,12 @@
 class Rotation : public Transformation
 {
 protected:
-    float angle;
-    glm::vec3 axis;
-    float speed;
+	float angle;
+	glm::vec3 axis;
+	float speed;
 
 public:
-    Rotation(float angle, glm::vec3 axis);
-    Rotation(float angle, glm::vec3 axis, float speed);
-    void transform(glm::mat4* matrix) override;
+	Rotation(float angle, glm::vec3 axis);
+	Rotation(float angle, glm::vec3 axis, float speed);
+	void transform(glm::mat4* matrix) override;
 };

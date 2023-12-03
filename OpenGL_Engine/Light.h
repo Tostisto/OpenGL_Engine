@@ -34,7 +34,7 @@ public:
 
 	void setLightIndex(int index);
 	int getLightIndex();
-	
+
 	LightAttenuation* getAttenuation();
 	void setAttenuation(LightAttenuation* attenuation);
 };

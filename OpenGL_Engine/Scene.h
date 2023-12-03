@@ -1,28 +1,28 @@
 #pragma once
 
-#include <vector>
 #include "DrawableModel.h"
+#include <vector>
 
+#include "FragmentShader.h"
 #include "Model.h"
 #include "ShaderProgram.h"
 #include "VertexShader.h"
-#include "FragmentShader.h"
 
 //Include GLM  
 #include <glm/glm.hpp>
-#include <glm/vec3.hpp> // glm::vec3
-#include <glm/vec4.hpp> // glm::vec4
-#include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
+#include <glm/mat4x4.hpp> // glm::mat4
+#include <glm/vec3.hpp> // glm::vec3
+#include <glm/vec4.hpp> // glm::vec4
 
 // Transformations
-#include "TransformCollection.h"
-#include "Rotation.h"
-#include "Translation.h"
-#include "Scale.h"
 #include "BezierMove.h"
+#include "Rotation.h"
+#include "Scale.h"
 #include "StraightLineMove.h"
+#include "TransformCollection.h"
+#include "Translation.h"
 
 #include "Window.h"
 
@@ -31,8 +31,8 @@
 
 #include "ModelLoader.h"
 
-#include "Light.h"
 #include "DirectionalLight.h"
+#include "Light.h"
 #include "PointLight.h"
 #include "SpotLight.h"
 
@@ -70,7 +70,6 @@ protected:
 	void AddLight(Light* light);
 	void RemoveLight(Light* light);
 
-	void AddCubeMap();
 	void AddCubeMap(std::vector<const char*> faces);
 
 	int ModelsCount();

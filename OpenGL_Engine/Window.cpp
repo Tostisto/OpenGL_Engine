@@ -62,7 +62,7 @@ void Window::BindCallbacks()
 	glfwSetWindowSizeCallback(window, [](GLFWwindow* w, int width, int height) {Callback::GetInstance()->WindowSizeCallback(w, width, height); });
 
 	// Cursor callback
-	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double x, double y) {Callback::GetInstance()->CursorCallback(w, x, y);});
+	glfwSetCursorPosCallback(window, [](GLFWwindow* w, double x, double y) {Callback::GetInstance()->CursorCallback(w, x, y); });
 
 	// Button callback
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int mods) {Callback::GetInstance()->ButtonCallback(w, button, action, mods); });

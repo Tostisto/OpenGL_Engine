@@ -5,9 +5,7 @@ CameraSpotLight::CameraSpotLight(glm::vec3 position, glm::vec3 direction, glm::v
 	this->enabled = false;
 }
 
-CameraSpotLight::~CameraSpotLight()
-{
-}
+CameraSpotLight::~CameraSpotLight() {}
 
 bool CameraSpotLight::isEnabled()
 {

@@ -8,9 +8,7 @@ SpotLight::SpotLight(glm::vec3 position, glm::vec3 direction, glm::vec3 color, f
 	this->setCutOff(cutOff);
 }
 
-SpotLight::~SpotLight()
-{
-}
+SpotLight::~SpotLight() {}
 
 glm::vec3 SpotLight::getPosition()
 {

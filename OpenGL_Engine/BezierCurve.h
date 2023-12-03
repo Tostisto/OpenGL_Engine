@@ -6,7 +6,7 @@
 
 class BezierCurve
 {
-private: 
+private:
 	std::vector<glm::vec3> controlPoints;
 	std::vector<BezierCubic> bezierCubics;
 

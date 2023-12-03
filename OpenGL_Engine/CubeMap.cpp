@@ -25,13 +25,13 @@ CubeMap::CubeMap() : DrawableBase(new Model(skycube, 36, ModelType::SKYBOX_MODEL
 
 void CubeMap::Render()
 {
- 	if (this->shader_program == nullptr) {
+	if (this->shader_program == nullptr) {
 		fprintf(stderr, "ERROR: Drawable::Render() called before shader program was linked. Shader program is required for rendering\n");
 		exit(EXIT_FAILURE);
 	}
 
 	this->shader_program->UseProgram();
-	
+
 	if (this->shader_program->shaderType == ShaderType::CUBEMAP)
 	{
 		this->shader_program->setUniform("textureUnitID", 0);

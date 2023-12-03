@@ -4,7 +4,7 @@ PointLight::PointLight(glm::vec3 position, glm::vec3 color, LightAttenuation* at
 {
 	this->setLightType(LightType::POINT_LIGHT);
 	this->setPosition(position);
-}	
+}
 
 PointLight::~PointLight() {}
 

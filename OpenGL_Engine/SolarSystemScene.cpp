@@ -31,6 +31,16 @@ void SolarSystemScene::Create()
 	PointLight* light = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), new LightAttenuation());
 	AddLight(light);
 
+	// Cube Map
+	AddCubeMap(std::vector<const char*> {
+		"Textures\\Skybox\\dark\\right.png",
+			"Textures\\Skybox\\dark\\left.png",
+			"Textures\\Skybox\\dark\\top.png",
+			"Textures\\Skybox\\dark\\bottom.png",
+			"Textures\\Skybox\\dark\\front.png",
+			"Textures\\Skybox\\dark\\back.png"
+	});
+
 	Model* sphereModel = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
 
 	// Sun Drawable
@@ -90,7 +100,7 @@ void SolarSystemScene::Create()
 	moonTransformCollection->addTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	moonTransformCollection->addTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.10f));
 	moonTransformCollection->addTransformation(new Translation(glm::vec3(8.0, 0.0, 0.0)));
-		
+
 	moon->AddTranformationCollection(moonTransformCollection);
 
 	this->AddDrawable(moon);
@@ -99,7 +109,7 @@ void SolarSystemScene::Create()
 	// Mars Drawable
 	mars = new DrawableModel(sphereModel, this->ModelsCount());
 	mars->LinkShaderProgram(lambertShaderProgram);
-	
+
 	mars->AddTransformation(new Scale(0.9f));
 	mars->AddTransformation(new Translation(glm::vec3(0.0, 0.0, 0.0)));
 	mars->AddTransformation(new Rotation(0.1f, glm::vec3(0.0f, 1.0f, 0.0f), 0.014f));
@@ -158,5 +168,5 @@ void SolarSystemScene::Create()
 
 	neptune->SetMaterial(new Material(glm::vec3(0.3, 1.0, 3.0), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), 32.0));
 
-	this->AddDrawable(neptune);	
-}	
+	this->AddDrawable(neptune);
+}

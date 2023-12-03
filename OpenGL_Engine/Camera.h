@@ -15,45 +15,45 @@
 class Camera : public Subject
 {
 private:
-    float last_x = 540;
-    float last_y = 360;
+	float last_x = 540;
+	float last_y = 360;
 
-    float yaw = 0.0f;
-    float pitch = 0.0f;
+	float yaw = 0.0f;
+	float pitch = 0.0f;
 
-    glm::vec3 camera_pos = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 camera_pos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 camera_up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    float cameraSpeed = 0.1f;
-    float mouseSensitivity = 0.5f;
+	float cameraSpeed = 0.1f;
+	float mouseSensitivity = 0.5f;
 
-    CameraSpotLight* cameraSpotLight;
+	CameraSpotLight* cameraSpotLight;
 
 public:
-    Camera();
+	Camera();
 
-    glm::mat4 GetViewMatrix();
-    glm::vec3 GetCameraPos();
-    glm::vec3 GetCameraDirection();
+	glm::mat4 GetViewMatrix();
+	glm::vec3 GetCameraPos();
+	glm::vec3 GetCameraDirection();
 
-    void MoveForward();
-    void MoveBackward();
-    void MoveLeft();
-    void MoveRight();
-    void MoveUp();
-    void MoveDown();
+	void MoveForward();
+	void MoveBackward();
+	void MoveLeft();
+	void MoveRight();
+	void MoveUp();
+	void MoveDown();
 
-    void SetCameraSpeed(float speed);
-    void SetMouseSensitivity(float sensitivity);
+	void SetCameraSpeed(float speed);
+	void SetMouseSensitivity(float sensitivity);
 
-    float GetPitch();
-    float GetYaw();
+	float GetPitch();
+	float GetYaw();
 
-    CameraSpotLight* GetCameraSpotLight();
-    void CameraSpotLightControll();
+	CameraSpotLight* GetCameraSpotLight();
+	void CameraSpotLightControll();
 
-    glm::vec2 ApplyMouseSensitivity(glm::vec2 offset);
-    void UpdateCameraOrientation(glm::vec2 offset);
-    void UpdateCameraFront();  
+	glm::vec2 ApplyMouseSensitivity(glm::vec2 offset);
+	void UpdateCameraOrientation(glm::vec2 offset);
+	void UpdateCameraFront();
 };

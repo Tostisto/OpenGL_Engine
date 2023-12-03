@@ -153,7 +153,6 @@
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="ModelsManipulation.cpp" />
     <ClCompile Include="MultipleModelsScene.cpp" />
-    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PhongTestScene.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Rotation.cpp" />
@@ -169,7 +168,6 @@
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="TransformCollection.cpp" />
     <ClCompile Include="Translation.cpp" />
     <ClCompile Include="VertexShader.cpp" />

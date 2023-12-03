@@ -4,7 +4,7 @@
 
 class BezierCubic
 {
-private: 
+private:
 	glm::mat4 M;
 	float t;
 	float delta;

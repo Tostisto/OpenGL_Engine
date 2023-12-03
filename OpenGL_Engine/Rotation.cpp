@@ -9,7 +9,7 @@ Rotation::Rotation(float angle, glm::vec3 axis)
 
 Rotation::Rotation(float angle, glm::vec3 axis, float speed)
 {
-   	this->angle = angle;
+	this->angle = angle;
 	this->axis = axis;
 	this->speed = speed;
 }

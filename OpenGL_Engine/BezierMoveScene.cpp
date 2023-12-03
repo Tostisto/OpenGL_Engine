@@ -19,12 +19,12 @@ void BezierMoveScene::Create()
 
 	sphere->AddTransformation(new BezierMove(new BezierCurve(std::vector<glm::vec3>{
 		glm::vec3(0, 0, 0),
-		glm::vec3(2, 2, 0),
-		glm::vec3(4, 2, 0),
-		glm::vec3(6, 0, 0),
-		glm::vec3(8, -2, 0),
-		glm::vec3(10, 0, 0),
-		glm::vec3(12, 4, 0),
+			glm::vec3(2, 2, 0),
+			glm::vec3(4, 2, 0),
+			glm::vec3(6, 0, 0),
+			glm::vec3(8, -2, 0),
+			glm::vec3(10, 0, 0),
+			glm::vec3(12, 4, 0),
 	})));
 
 	sphere->AddTransformation(new Scale(0.5f));

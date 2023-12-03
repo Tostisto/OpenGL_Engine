@@ -7,11 +7,11 @@ void MultipleModelsScene::Create()
 	// Cube Map
 	AddCubeMap(std::vector<const char*> {
 		"Textures\\Skybox\\dark\\right.png",
-		"Textures\\Skybox\\dark\\left.png",
-		"Textures\\Skybox\\dark\\top.png",
-		"Textures\\Skybox\\dark\\bottom.png",
-		"Textures\\Skybox\\dark\\front.png",
-		"Textures\\Skybox\\dark\\back.png"
+			"Textures\\Skybox\\dark\\left.png",
+			"Textures\\Skybox\\dark\\top.png",
+			"Textures\\Skybox\\dark\\bottom.png",
+			"Textures\\Skybox\\dark\\front.png",
+			"Textures\\Skybox\\dark\\back.png"
 	});
 
 	// Constant Shader
@@ -148,25 +148,25 @@ void MultipleModelsScene::Create()
 	balloonDrawable->LinkShaderProgram(texturedPhongShaderProgram);
 	balloonDrawable->AddTransformation(new BezierMove(new BezierCurve(std::vector<glm::vec3>{
 		glm::vec3(-16.377647, 12.720327, -1.732411),
-		glm::vec3(-11.267562, 10.232153, 0.807765),
-		glm::vec3(-3.089642, 7.052194, 1.363671),
-		glm::vec3(4.042195, 6.434549, 1.488161),
+			glm::vec3(-11.267562, 10.232153, 0.807765),
+			glm::vec3(-3.089642, 7.052194, 1.363671),
+			glm::vec3(4.042195, 6.434549, 1.488161),
 
-		glm::vec3(16.144655, 5.920825, -1.967085),
-		glm::vec3(16.713919, 4.941939, 0.852805),
-		glm::vec3(6.959396, 10.148960, 12.064244),
+			glm::vec3(16.144655, 5.920825, -1.967085),
+			glm::vec3(16.713919, 4.941939, 0.852805),
+			glm::vec3(6.959396, 10.148960, 12.064244),
 
-		glm::vec3(15.441535, 11.425210, 24.246193),
-		glm::vec3(22.248676, 12.598897, 24.126078),
-		glm::vec3(28.778481, 10.499387, 9.287327),
+			glm::vec3(15.441535, 11.425210, 24.246193),
+			glm::vec3(22.248676, 12.598897, 24.126078),
+			glm::vec3(28.778481, 10.499387, 9.287327),
 
-		glm::vec3(32.861008, 5.679283, 6.358057),
-		glm::vec3(33.171082, 2.176871, -12.400961),
-		glm::vec3(23.368048, 9.869701, -26.660786),
+			glm::vec3(32.861008, 5.679283, 6.358057),
+			glm::vec3(33.171082, 2.176871, -12.400961),
+			glm::vec3(23.368048, 9.869701, -26.660786),
 
-		glm::vec3(8.170578, 6.606007, -26.394661),
-		glm::vec3(-10.015809, 9.811376, -16.222879),
-		glm::vec3(-16.377647, 12.720327, -1.732411),
+			glm::vec3(8.170578, 6.606007, -26.394661),
+			glm::vec3(-10.015809, 9.811376, -16.222879),
+			glm::vec3(-16.377647, 12.720327, -1.732411),
 	})));
 
 	balloonDrawable->AddTransformation(new Scale(0.5f));

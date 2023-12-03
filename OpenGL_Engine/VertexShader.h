@@ -5,5 +5,5 @@
 class VertexShader : public Shader {
 
 public:
-    VertexShader(const char* shaderPath);
+	VertexShader(const char* shaderPath);
 };

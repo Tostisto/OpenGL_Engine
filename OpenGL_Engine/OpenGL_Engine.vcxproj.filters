@@ -75,9 +75,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -115,9 +112,6 @@
       <Filter>Source Files\Transformation</Filter>
     </ClCompile>
     <ClCompile Include="TransformCollection.cpp">
-      <Filter>Source Files\Transformation</Filter>
-    </ClCompile>
-    <ClCompile Include="Transformation.cpp">
       <Filter>Source Files\Transformation</Filter>
     </ClCompile>
     <ClCompile Include="Scale.cpp">

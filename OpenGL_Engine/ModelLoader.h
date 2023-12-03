@@ -13,7 +13,7 @@ class ModelLoader
 
 private:
 	ModelLoadType type;
-	
+
 	std::vector<float> modelVertices;
 
 public:

@@ -29,6 +29,6 @@ private:
 
 public:
 	Application();
-	
+
 	void Run();
 };

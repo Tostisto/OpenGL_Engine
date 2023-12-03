@@ -12,12 +12,12 @@
 class BezierMove : public Transformation
 {
 private:
-    BezierCurve* curve;
-    float t = 0.0f;
-    float speed = 0.001f;
+	BezierCurve* curve;
+	float t = 0.0f;
+	float speed = 0.001f;
 
 public:
-    BezierMove(BezierCurve* curve);
-    void transform(glm::mat4* matrix) override;
+	BezierMove(BezierCurve* curve);
+	void transform(glm::mat4* matrix) override;
 };
 

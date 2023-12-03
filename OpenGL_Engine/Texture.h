@@ -15,7 +15,7 @@ private:
 public:
 	Texture(const char* texturePath);				// 2D Texture	
 	Texture(std::vector<const char*> faces);		// CubeMap Texture
-	
+
 	GLuint GetTextureID();
 
 	void BindTexture();

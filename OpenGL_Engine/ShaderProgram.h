@@ -39,7 +39,7 @@ public:
 
 	ShaderProgram(VertexShader* vertexShader, FragmentShader* fragmentShader, ShaderType shaderType);
 	~ShaderProgram();
-	
+
 	void UseProgram();
 
 	bool checkUniform(GLint location, const char* name);

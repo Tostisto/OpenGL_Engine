@@ -55,8 +55,8 @@ void Application::Run()
 
 	//this->scene = new TestScene(this->window);
 	//this->scene = new PhongTestScene(this->window);
-	//this->scene = new SolarSystemScene(this->window);
-	this->scene = new MultipleModelsScene(this->window);
+	this->scene = new SolarSystemScene(this->window);
+	//this->scene = new MultipleModelsScene(this->window);
 	//this->scene = new BezierMoveScene(this->window);
 
 	scene->Create();

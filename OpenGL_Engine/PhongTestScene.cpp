@@ -13,9 +13,8 @@ void PhongTestScene::Create()
 	PointLight* light = new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), new LightAttenuation());
 	AddLight(light);
 
-
 	Model* model = new Model(sphere, 2880, ModelType::NO_TEXTURE_MODEL);
-	
+
 	// Ball 1
 	DrawableModel* drawable1 = new DrawableModel(model, this->ModelsCount());
 	drawable1->AddTransformation(new Translation(glm::vec3(2.0, -2.0, 0.0)));

@@ -20,7 +20,7 @@ class DrawableModel : public DrawableBase
 private:
 	TransformCollection* transformation_collection = nullptr;
 
-	int modelId	= -1;
+	int modelId = -1;
 
 	bool removeable = true;
 

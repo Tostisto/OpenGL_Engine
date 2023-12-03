@@ -6,12 +6,12 @@
 class Scale : public Transformation
 {
 private:
-    glm::vec3 scale;
+	glm::vec3 scale;
 
 public:
-    Scale(glm::vec3 scale);
-    Scale(float scale);
+	Scale(glm::vec3 scale);
+	Scale(float scale);
 
 
-    void transform(glm::mat4* matrix) override;
+	void transform(glm::mat4* matrix) override;
 };

@@ -120,7 +120,7 @@ void DrawableModel::Render()
 		fprintf(stderr, "WARNING: Drawable::Render() called before material was set. Using default material\n");
 	}
 	else {
- 		this->shader_program->UseProgram();
+		this->shader_program->UseProgram();
 		this->shader_program->setUniform("modelMatrix", this->transformation_collection->getModelMatrix());
 
 

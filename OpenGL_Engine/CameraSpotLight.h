@@ -12,6 +12,6 @@ public:
 	virtual ~CameraSpotLight();
 
 	bool isEnabled();
-	void setEnabled(bool enabled);	
+	void setEnabled(bool enabled);
 };
 
