@@ -40,6 +40,8 @@
 
 #include "ModelsManipulation.h"
 
+#include "vector"
+
 class Scene
 {
 protected:
