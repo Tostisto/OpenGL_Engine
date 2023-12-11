@@ -30,5 +30,16 @@ This project utilizes OpenGL and various libraries for rendering, handling model
   - Cubemaps
 
 
+## Sample Scenes
+
+Main scene
+
+https://github.com/Tostisto/OpenGL_Engine/assets/47717516/78aaa532-c47e-400e-82af-f7d2778853f6
+
+Solar system scene
+
+https://github.com/Tostisto/OpenGL_Engine/assets/47717516/d4960a6f-6560-4738-936e-ad509173fb30
+
+
 ## License
 Project is licensed under the [MIT License](LICENSE).
